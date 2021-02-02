@@ -1,2 +1,2 @@
 ExUnit.start()
-Ecto.Adapters.SQL.Sandbox.mode(PhoenixReactPlayground.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(ElCloud.Repo, :manual)

@@ -6,7 +6,7 @@ use Mix.Config
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :phoenix_react_playground, PhoenixReactPlaygroundWeb.Endpoint,
+config :elCloud, ElCloudWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -45,13 +45,13 @@ config :phoenix_react_playground, PhoenixReactPlaygroundWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :phoenix_react_playground, PhoenixReactPlaygroundWeb.Endpoint,
+config :elCloud, ElCloudWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
-      ~r{lib/phoenix_react_playground_web/views/.*(ex)$},
-      ~r{lib/phoenix_react_playground_web/templates/.*(eex)$}
+      ~r{lib/elCloud_web/views/.*(ex)$},
+      ~r{lib/elCloud_web/templates/.*(eex)$}
     ]
   ]
 
@@ -66,9 +66,9 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 # Configure your database
-config :phoenix_react_playground, PhoenixReactPlayground.Repo,
+config :elCloud, ElCloud.Repo,
   username: "postgres",
   password: "f6445828e4ed4b36bc4b42f658b803aa",
-  database: "phoenix_react_playground_dev",
+  database: "elCloud_dev",
   hostname: "localhost",
   pool_size: 10

@@ -9,6 +9,8 @@ import FetchDataPage from './pages/fetch-data';
 const Root: React.FC = () => (
   <>
     <Header />
+
+
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={HomePage} />

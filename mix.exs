@@ -1,9 +1,9 @@
-defmodule PhoenixReactPlayground.MixProject do
+defmodule ElCloud.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :phoenix_react_playground,
+      app: :elCloud,
       version: "0.1.0",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -19,7 +19,7 @@ defmodule PhoenixReactPlayground.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {PhoenixReactPlayground.Application, []},
+      mod: {ElCloud.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
