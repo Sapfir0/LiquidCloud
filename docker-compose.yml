@@ -1,0 +1,23 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:11.5
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: f6445828e4ed4b36bc4b42f658b803aa
+      POSTGRES_DB: elcloud_dev
+  
+  web:
+    build:
+      context: ./ElCloud.API
+    command: mix phx.server  
+    volumes:
+      - ./ElCloud.API/data:/home/app/data
+    ports:
+      - "4000:4000"
+    links:
+      - postgres
+    depends_on:
+      - postgres
