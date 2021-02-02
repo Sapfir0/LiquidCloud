@@ -14,7 +14,7 @@ config :elCloud,
 config :elCloud, ElCloudWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "PoAiSAG5h0q1zXtQy36M7UB/ntFhp/UwFO1rvim3dMp5ZphiCrzaTBhG5JWZ9L4X",
-  render_errors: [view: ElCloudWeb.ErrorView, accepts: ~w(json), layout: false],
+  render_errors: [view: ElCloudWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: ElCloud.PubSub,
   live_view: [signing_salt: "xTQzz1VH"],
   data_directory: ['./data/']
