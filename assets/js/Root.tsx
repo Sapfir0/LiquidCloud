@@ -14,14 +14,7 @@ const Root: React.FC = () => (
   <>
     <Header />
 
-
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/counter" component={CounterPage} />
-        <Route path="/fetch-data" component={FetchDataPage} />
-      </Switch>
-    </BrowserRouter>
+    
   </>
 );
 

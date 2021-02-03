@@ -11,15 +11,17 @@ defmodule ElCloud.Application do
       # Start the Ecto repository
       ElCloud.Repo,
       # Start the endpoint when the application starts
-      ElCloudWeb.Endpoint
+      ElCloudWeb.Endpoint,
       # Starts a worker by calling: ElCloud.Worker.start_link(arg)
-      # {ElCloud.Worker, arg},
+      # ElCloud.Watcher
+      {ElCloud.Watcher, ["./data"]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: ElCloud.Supervisor]
     Supervisor.start_link(children, opts)
+
   end
 
   # Tell Phoenix to update the endpoint configuration
