@@ -37,6 +37,7 @@ defmodule ElCloud.MixProject do
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
       {:ecto_sql, "~> 3.0"},
+      { :file_system, "~> 0.2"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
       { :file_system, "~> 0.2" },

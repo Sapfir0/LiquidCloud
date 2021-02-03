@@ -3,6 +3,7 @@ defmodule ElCloudWeb.UserSocket do
 
   ## Channels
   # channel "room:*", ElCloudWeb.RoomChannel
+  channel "example", ElCloudWeb.FileChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
