@@ -5,7 +5,7 @@ _build/
 cover/
 
 .vscode
-
+data
 .elixir_ls
 
 # The directory Mix downloads your dependencies sources to.
