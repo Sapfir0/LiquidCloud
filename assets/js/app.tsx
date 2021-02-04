@@ -4,7 +4,7 @@ import 'phoenix_html';
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import Root from './Root';
+import Root from '../pages/Root/Root';
 import {FileSystemChecker} from "./socket"
 const fs = new FileSystemChecker()
 
