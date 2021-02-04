@@ -16,7 +16,7 @@ defmodule ElCloudWeb.Router do
   scope "/api", ElCloudWeb do
     pipe_through :api
 
-    resources "/languages", LanguageController, except: [:new, :edit]
+    resources "/files", FileStorageController, except: [:new, :edit]
   end
 
   scope "/", ElCloudWeb do
