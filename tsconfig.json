@@ -20,7 +20,7 @@
     "noEmit": false,
     "removeComments": true,
     "sourceMap": true,
-    "baseUrl": "src",
+    "baseUrl": "./assets/src",
     "types": [
       "node",
       "reflect-metadata",
@@ -37,7 +37,7 @@
     "noImplicitThis": true
   },
   "include": [
-    "src"
+    "./assets/src"
   ],
   "exclude": [
     "node_modules",

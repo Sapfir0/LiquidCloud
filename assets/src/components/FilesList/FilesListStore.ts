@@ -14,8 +14,8 @@ export class FilesListStore {
       makeObservable(this, { files: observable})
   }
 
-  public getFiles = () => {
-    this.files = this._apiService.get(ApiRoutes.FILE.GET_ALL_FILES)
+  public getFiles = async () => {
+    this.files = await this._apiService.get(ApiRoutes.FILE.GET_ALL_FILES)
     console.log(this.files);
 
   }

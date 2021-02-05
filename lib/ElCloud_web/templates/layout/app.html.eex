@@ -10,5 +10,7 @@
   <body>
     <%= render @view_module, @view_template, assigns %>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+
   </body>
 </html>

@@ -11,8 +11,6 @@ defmodule ElCloudWeb.FileStorageView do
   end
 
   def render("file_storage.json", %{file_storage: file_storage}) do
-    %{id: file_storage.id,
-      path: file_storage.path,
-      type: file_storage.type}
+    file_storage
   end
 end
