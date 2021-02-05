@@ -25,7 +25,7 @@ module.exports = (env, options) => ({
         test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
+          loader: 'awesome-typescript-loader',
         }
       },
       {
