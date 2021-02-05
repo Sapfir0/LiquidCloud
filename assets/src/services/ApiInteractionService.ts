@@ -1,56 +1,85 @@
-import { AxiosRequestConfig } from 'axios';
-import { Either } from 'fp-ts/Either';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { bimap, Either } from 'fp-ts/Either';
 import { inject, injectable } from 'inversify';
-import { API_URL } from '../config/apiRoutes';
+import * as qs from 'querystring';
 import { SERVICE_IDENTIFIER } from '../inversify/inversifyTypes';
+import { API_URL } from '../services/serverRouteContants';
+import { IApiInteractionService } from '../shared/types/ApiTypes';
+import BaseApiInteractionService from './BaseApiInteractionService';
 import { BaseInteractionError } from './Errors/BaseInteractionError';
-import { IApiInteractionService, IBaseInteractionService } from './typings/ApiTypes';
+import { NetworkError } from './Errors/NetworkError';
 
 @injectable()
-class ApiInteractionService {
-    fetcher: IBaseInteractionService;
+class ApiInteractionService implements IApiInteractionService {
+    fetcher: BaseApiInteractionService;
 
-    constructor(@inject(SERVICE_IDENTIFIER.BaseInteractionService) baseInteractionService: IBaseInteractionService) {
+    constructor(@inject(SERVICE_IDENTIFIER.BaseApiInteractionService) baseInteractionService: BaseApiInteractionService) {
         this.fetcher = baseInteractionService;
     }
 
-    public async get<T = any>(
+    public get<T = any>(
         url: string,
         data?: any,
         host: string = API_URL,
         config?: AxiosRequestConfig,
     ): Promise<Either<BaseInteractionError, T>> {
-        return this.fetcher.get<T>(url, data, host, config);
+        return this.query<T>({ method: 'get', url: url, data: data, baseURL: host, ...config });
     }
 
-    public async post<T = any>(
+    public post<T = any>(
         url: string,
         data?: any,
         host: string = API_URL,
         settings?: any,
         config?: AxiosRequestConfig,
     ): Promise<Either<BaseInteractionError, T>> {
-        return this.fetcher.post<T>(url, data, host, settings, config);
-    }
+        const parsedData = settings?.stringify ? qs.stringify(data) : data;
+        const parsedConfig = settings?.multipartData ? this.setMultipartDataHeader(config) : config;
 
-    public async put<T = any>(
+        return this.query<T>({ method: 'post', url: url, baseURL: host, data: parsedData, ...parsedConfig });    }
+
+    public put<T = any>(
         url: string,
         data?: any,
         host: string = API_URL,
         settings?: any,
         config?: AxiosRequestConfig,
     ): Promise<Either<BaseInteractionError, T>> {
-        return this.fetcher.put<T>(url, data, host, settings, config);
+        return this.query<T>({ method: 'put', url: url, baseURL: host, data: data, ...config });
     }
 
-    public async delete<T = any>(
+    public delete<T = any>(
         url: string,
         data?: any,
         host: string = API_URL,
         config?: AxiosRequestConfig,
     ): Promise<Either<BaseInteractionError, T>> {
-        return this.fetcher.delete<T>(url, data, host, config);
+        return this.query<T>({ method: 'delete', url: url, data: data, baseURL: host, ...config });
     }
+
+    private query = async <T>(config: AxiosRequestConfig) => {
+        const newConfig: AxiosRequestConfig = {
+            ...config,
+        };
+        const req = axios.request<T>({ ...newConfig });
+        const response = await this.fetcher.request<T>(req);
+
+        return bimap(
+            (e: NetworkError) => new BaseInteractionError(e.message),
+            (res: AxiosResponse<T>) => res.data,
+        )(response);
+    };
+
+    private setMultipartDataHeader = (config?: AxiosRequestConfig) => {
+        const newConfig: AxiosRequestConfig = {
+            ...config,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                ...config?.headers,
+            },
+        };
+        return newConfig;
+    };
 }
 
 export default ApiInteractionService;

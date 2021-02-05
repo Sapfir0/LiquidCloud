@@ -5,7 +5,7 @@ import { NetworkError } from './Errors/NetworkError';
 
 @injectable()
 class BaseApiInteractionService {
-    protected request = async <T>(promise: Promise<AxiosResponse<T>>): Promise<Either<NetworkError, any>> => {
+    public request = async <T>(promise: Promise<AxiosResponse<T>>): Promise<Either<NetworkError, any>> => {
         try {
             const data = await promise;
             return right<NetworkError, AxiosResponse<T>>(data);

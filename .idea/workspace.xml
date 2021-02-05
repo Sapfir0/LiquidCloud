@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b9c7d28-a7b9-4d79-a8ae-f0c272856aab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.babelrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/components/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/components/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/src/inversify/inversifyContainer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/inversify/inversifyContainer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/src/pages/Index/Index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/pages/Index/Index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/src/pages/Index/IndexStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/pages/Index/IndexStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/src/services/ApiInteractionService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/services/ApiInteractionService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
