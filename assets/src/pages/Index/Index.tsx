@@ -1,11 +1,19 @@
-import React, { FC } from "react"
-import { FilesList } from "../../components/FilesList/FilesList"
-import container from "../../inversify/inversifyContainer"
-import { SERVICE_IDENTIFIER } from "../../inversify/inversifyTypes"
-import { useInject } from "../../shared/hooks/injectHook"
-import { FilesListStore } from "../../components/FilesList/FilesListStore"
+import { Card } from '@material-ui/core';
+import React, { FC } from 'react';
+import { Link, Route } from 'react-router-dom';
+import { FilesList } from '../../components/FilesList/FilesList';
+import './Index.css';
+import Breadcrumbs from "../../components/Breadcrumbs"
+
 
 export const Index: FC = (props) => {
+    return (
+        <>
+            <Breadcrumbs/>
 
-  return (<> <FilesList/></>)
-}
+            <Card className="main">
+                <FilesList />
+            </Card>
+        </>
+    );
+};
