@@ -1,10 +1,8 @@
 import { inject, injectable } from "inversify";
 import { makeObservable, observable } from "mobx";
-import { FileSystemChecker } from "../../services/socket";
 import { SERVICE_IDENTIFIER } from "../../inversify/inversifyTypes";
 import { FileInteractionService } from "../../services/apiServices/FileInteractionService";
-import { ApiRoutes } from "../../services/serverRouteContants";
-import { IApiInteractionService } from "../../shared/types/ApiTypes";
+import { FileSystemChecker } from "../../services/socket";
 import { FileViewDTO } from "../../shared/types/DTO";
 
 @injectable()
