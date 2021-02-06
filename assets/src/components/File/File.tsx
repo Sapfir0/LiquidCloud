@@ -20,7 +20,7 @@ export const FileView: FC<FileViewProps> = (props) => {
 
   useEffect(() => {
     return history.listen((location: {pathname: string}) => {
-      filesListStore.setCurrentDirectory(location.pathname.replace(ClientRoutes.Index, ""))  // подразумевается, что  мы находимся на этой странице
+      filesListStore.setCurrentDirectory(ClientRoutes.Index)(location.pathname)  // подразумевается, что  мы находимся на этой странице
     })
   },[history])
 

@@ -38,7 +38,6 @@ export default function RouterBreadcrumbs() {
             <Route>
                 {({ location }) => {
                     const pathnames = location.pathname.split('/').filter((x) => x);
-                    console.log(pathnames);
 
                     return (
                         <Breadcrumbs aria-label="breadcrumb">

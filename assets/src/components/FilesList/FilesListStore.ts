@@ -2,9 +2,9 @@ import { inject, injectable } from "inversify";
 import { action, makeObservable, observable } from "mobx";
 import { SERVICE_IDENTIFIER } from "../../inversify/inversifyTypes";
 import { FileInteractionService } from "../../services/apiServices/FileInteractionService";
+import { ClientRouteType } from "../../services/clientRouteContants";
 import { FileSystemChecker } from "../../services/socket";
 import { FileViewDTO } from "../../shared/types/DTO";
-import { Link, useHistory, useLocation } from "react-router-dom";
 
 @injectable()
 export class FilesListStore {
@@ -18,11 +18,10 @@ export class FilesListStore {
       fileChecker.createChannel(() => this.getFiles())
       makeObservable(this, { files: observable, currentDirectory: observable,
         setCurrentDirectory: action, getFiles: action})
-      // this.getFiles()
   }
 
-  public setCurrentDirectory(locationPathname: string) {
-    this.currentDirectory = curDir
+  public setCurrentDirectory = (currentRoute: ClientRouteType) => (locationPathname: string) {
+    this.currentDirectory = locationPathname.replace(currentRoute, "")
     this.getFiles()
   }
 

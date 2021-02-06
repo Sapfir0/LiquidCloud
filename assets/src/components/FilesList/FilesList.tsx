@@ -13,11 +13,6 @@ import { useInject } from "../../shared/hooks/injectHook"
 export const FilesList = observer((props) => {
   const filesListStore = useInject<FilesListStore>(SERVICE_IDENTIFIER.FilesListStore)
 
-  // useEffect(() => {
-  //   const location = useLocation()
-  //   filesListStore.setCurrentDirectory(location.pathname)
-  // }, [])
-
     return <>
       <List dense role="list">
       {filesListStore.files.map(el => <FileView file={el} />)}
