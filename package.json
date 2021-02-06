@@ -6,6 +6,7 @@
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
     "axios": "^0.21.1",
     "fp-ts": "^2.9.5",
     "immutable": "^4.0.0-rc.12",
