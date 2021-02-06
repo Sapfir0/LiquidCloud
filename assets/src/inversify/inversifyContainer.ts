@@ -8,7 +8,7 @@ import BaseApiInteractionService from '../services/BaseApiInteractionService';
 import { SERVICE_IDENTIFIER } from './inversifyTypes';
 
 const container = new Container();
-container.bind<FilesListStore>(SERVICE_IDENTIFIER.FilesListStore).to(FilesListStore)
+container.bind<FilesListStore>(SERVICE_IDENTIFIER.FilesListStore).to(FilesListStore).inSingletonScope()
 container.bind(SERVICE_IDENTIFIER.BaseApiInteractionService).to(BaseApiInteractionService)
 container.bind(SERVICE_IDENTIFIER.ApiInteractionService).to(ApiInteractionService)
 container.bind(SERVICE_IDENTIFIER.FileInteractionService).to(FileInteractionService)

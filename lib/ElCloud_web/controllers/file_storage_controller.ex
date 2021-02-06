@@ -3,9 +3,17 @@ defmodule ElCloudWeb.FileStorageController do
 
   action_fallback ElCloudWeb.FallbackController
 
-  def index(conn, _params) do
-    files = DirectoryTreeHelper.list_all("./data")
-    render(conn, "index.json", tb_files: files)
+  def index(conn, params) do
+    directory = "./data/" <> Map.get(params, "directory", "")
+    IO.puts directory
+    if !File.exists?(directory) do
+      {:error, :folderNotFound}
+    else
+      files = DirectoryTreeHelper.list_all(directory)
+      render(conn, "index.json", tb_files: files)
+    end
+
   end
+
 
 end

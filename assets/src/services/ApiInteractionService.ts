@@ -23,7 +23,7 @@ class ApiInteractionService implements IApiInteractionService {
         host: string = API_URL,
         config?: AxiosRequestConfig,
     ): Promise<Either<BaseInteractionError, T>> {
-        return this.query<T>({ method: 'get', url: url, data: data, baseURL: host, ...config });
+        return this.query<T>({ method: 'get', url: url, params: data, baseURL: host, ...config });
     }
 
     public post<T = any>(
@@ -61,6 +61,7 @@ class ApiInteractionService implements IApiInteractionService {
         const newConfig: AxiosRequestConfig = {
             ...config,
         };
+
         const req = axios.request<T>({ ...newConfig });
         const response = await this.fetcher.request<T>(req);
 

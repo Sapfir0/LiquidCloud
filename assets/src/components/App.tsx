@@ -10,7 +10,7 @@ const App: React.FC = () => (
         <Router>
             <Switch>
                 <Route component={Index} path={ClientRoutes.Index} />
-                <Redirect to={ClientRoutes.Index} />
+                {/* <Redirect to={ClientRoutes.Index} /> */}
             </Switch>
         </Router>
     </>

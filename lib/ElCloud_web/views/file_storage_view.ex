@@ -13,4 +13,8 @@ defmodule ElCloudWeb.FileStorageView do
   def render("file_storage.json", %{file_storage: file_storage}) do
     file_storage
   end
+
+  def render("folderNotFound.json", _assigns) do
+    %{error: "Folder not found"}
+  end
 end

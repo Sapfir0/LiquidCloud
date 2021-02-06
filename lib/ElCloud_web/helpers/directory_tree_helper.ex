@@ -8,7 +8,7 @@ defmodule DirectoryTreeHelper do
     fullPath = "#{filepath}/#{filename}"
     isFolder = File.dir?(fullPath)
     children = if isFolder == true, do: list_all(fullPath), else: nil
-    %{:isFolder => isFolder, :path => filename, :children => children}
+    %{:isFolder => isFolder, :filename => filename, :children => children}
   end
 
 end
