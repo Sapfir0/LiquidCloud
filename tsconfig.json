@@ -1,18 +1,46 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "isolatedModules": true,
-    "lib": ["dom", "esnext"],
-    "jsx": "preserve",
-    "target": "es2016",
+    "target": "es2017",
     "module": "esnext",
+    "outDir": "build",
+    "rootDir": ".",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": false,
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "es6"
+    ],
+    "skipLibCheck": false,
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
-    "preserveConstEnums": true,
-    "removeComments": false,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "removeComments": true,
     "sourceMap": true,
-    "strict": true
+    "baseUrl": "./assets/src",
+    "types": [
+      "node",
+      "reflect-metadata",
+      "jest"
+    ],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strictNullChecks": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true
   },
-  "include": ["./**/*.ts", "./**/*.tsx"]
+  "include": [
+    "./assets/src"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

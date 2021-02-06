@@ -8,12 +8,12 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = (env, options) => ({
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({ cache: true, parallel: true, sourceMap: false }),
+      new UglifyJsPlugin({ cache: true, parallel: true, sourceMap: true }),
       new OptimizeCSSAssetsPlugin({})
     ]
   },
   entry: {
-    app: './assets/js/app.tsx'
+    app: './assets/src/index.tsx'
   },
   output: {
     filename: 'app.js',
@@ -25,7 +25,7 @@ module.exports = (env, options) => ({
         test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
+          loader: 'awesome-typescript-loader',
         }
       },
       {
