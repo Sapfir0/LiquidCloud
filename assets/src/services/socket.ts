@@ -1,16 +1,16 @@
+import { injectable } from "inversify"
 import {Socket} from "phoenix"
 
-
+@injectable()
 export class FileSystemChecker {
   private _socket: Socket
 
   constructor() {
     this._socket = new Socket('/socket')
     this._socket.connect()
-    this.createChannel()
   }
 
-  public createChannel = () => {
+  public createChannel = (onMessage: () => void) => {
     const channel = this._socket.channel("example", {})
     channel.join()
       .receive("ok", resp => { console.log("Joined successfully", resp) })
@@ -18,6 +18,7 @@ export class FileSystemChecker {
 
     channel.onMessage = (ev, payload) => {
       console.log(ev, payload);
+      onMessage()
       return payload
     }
 

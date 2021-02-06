@@ -1,5 +1,6 @@
 import { inject, injectable } from "inversify";
 import { makeObservable, observable } from "mobx";
+import { FileSystemChecker } from "../../services/socket";
 import { SERVICE_IDENTIFIER } from "../../inversify/inversifyTypes";
 import { FileInteractionService } from "../../services/apiServices/FileInteractionService";
 import { ApiRoutes } from "../../services/serverRouteContants";
@@ -11,8 +12,10 @@ export class FilesListStore {
   public files: FileViewDTO[] = []
   private _apiService: FileInteractionService
 
-  constructor(@inject(SERVICE_IDENTIFIER.FileInteractionService) apiService: FileInteractionService) {
+  constructor(@inject(SERVICE_IDENTIFIER.FileInteractionService) apiService: FileInteractionService,
+  @inject(SERVICE_IDENTIFIER.FileSystemChecker) fileChecker: FileSystemChecker) {
       this._apiService = apiService
+      fileChecker.createChannel(() => this.getFiles())
       makeObservable(this, { files: observable})
   }
 
