@@ -1,0 +1,16 @@
+name: Main
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build docker-compose
+      run: |
+        docker-compose up --build -d

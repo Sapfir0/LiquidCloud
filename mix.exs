@@ -43,7 +43,10 @@ defmodule ElCloud.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:phoenix_swagger, "~> 0.8"},
+      {:ex_json_schema, "~> 0.5"}, # for phoenix swagger
+      {:poison, "~> 3.1"} # for phoenix swagger
     ]
   end
 
@@ -57,7 +60,8 @@ defmodule ElCloud.MixProject do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"],
+      start: ["phx.swagger.generate -e ElCloud.UserManager", "phx.server"]
     ]
   end
 end

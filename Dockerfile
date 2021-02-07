@@ -1,14 +1,21 @@
 FROM elixir:latest
 
-RUN apt-get update -qq && apt-get install -y libpq-dev && apt-get install -y build-essential inotify-tools erlang-dev erlang-parsetools apt-transport-https ca-certificates && apt-get update
+RUN apt-get update && \
+  apt-get install -y postgresql-client inotify-tools nodejs npm
+
+# Install hex package manager
 RUN mix local.hex --force && mix local.rebar --force
-RUN mix archive.install hex phx_new 1.4.0 --force
-WORKDIR /home/app
 
-COPY mix.exs mix.exs
+WORKDIR /app
+COPY ./package.json ./package.json
+COPY ./mix.exs ./mix.exs
+COPY ./mix.lock ./mix.lock
 RUN mix deps.get
+RUN npm install
 
-COPY . /home/app
-RUN mix ecto.setup
+COPY . .
 
-CMD [ "mix", 'phx.server' ]
+RUN mix do compile
+RUN mix ecto.create
+
+CMD ["/app/entrypoint.sh"]

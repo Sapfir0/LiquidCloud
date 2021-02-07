@@ -22,6 +22,14 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+
+config :elCloud, :phoenix_swagger,
+swagger_files: %{
+  "priv/static/swagger.json" => [
+    router: ElCloudWeb.Router,
+    endpoint: ElCloudWeb.Endpoint
+  ]
+}
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
