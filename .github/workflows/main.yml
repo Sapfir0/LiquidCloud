@@ -14,7 +14,5 @@ jobs:
       run: docker-compose up --build -d
     - name: Check running containers
       run: docker ps -a
-    - name: Check logs
-      run: docker logs backend
 
 

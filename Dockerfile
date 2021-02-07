@@ -12,7 +12,7 @@ COPY ./mix.lock ./mix.lock
 RUN mix deps.get
 WORKDIR /app/assets
 COPY ./assets/package.json ./package.json
-RUN npm install
+RUN npm install --only=prod
 
 WORKDIR /app
 
