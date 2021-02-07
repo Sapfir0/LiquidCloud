@@ -33,8 +33,8 @@ defmodule ElCloud.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4.0"},
-      {:phoenix_pubsub, "~> 1.1"},
+      {:phoenix, "~> 1.5.1"},
+      {:phoenix_pubsub, "~> 2.0"},
       {:phoenix_ecto, "~> 4.0"},
       {:ecto_sql, "~> 3.0"},
       {:file_system, "~> 0.2"},
@@ -45,7 +45,7 @@ defmodule ElCloud.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:phoenix_swagger, "~> 0.8"},
-      {:ex_json_schema, "~> 0.5"}, # for phoenix swagger
+      {:ex_json_schema, "~> 0.7.3"}, # for phoenix swagger
       {:poison, "~> 3.1"} # for phoenix swagger
     ]
   end

@@ -14,13 +14,11 @@ defmodule ElCloud.Application do
       ElCloudWeb.Endpoint,
       # Starts a worker by calling: ElCloud.Worker.start_link(arg)
       # ElCloud.Watcher
-      {ElCloud.Watcher, ["./data"]}
+      {ElCloud.Watcher, ["./data"]},
+      {Phoenix.PubSub, [name: ElCloud.PubSub, adapter: Phoenix.PubSub.PG2]}
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: ElCloud.Supervisor]
-    Supervisor.start_link(children, opts)
+    {:ok, pid} = Supervisor.start_link(children, strategy: :one_for_one)
 
   end
 
