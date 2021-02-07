@@ -12,7 +12,7 @@ config :logger, level: :warn
 # Configure your database
 config :elCloud, ElCloud.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "f6445828e4ed4b36bc4b42f658b803aa",
   database: "elCloud_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
