@@ -1,0 +1,35 @@
+.header {
+  display: flex;
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+  margin-bottom: 1rem;
+}
+
+
+hr {
+  margin: 0.5rem 0px;
+  border: 0;
+  height: 1px;
+  background: $main-back-color;
+}
+
+.logo {
+  margin-left: 2rem;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.header_inner {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+
+.logo__title {
+  font-family: 'Lato', sans-serif;
+  color: #393939;
+  float: right;
+  margin-left: 0.5rem;
+  font-size: 1.5rem;
+}
+

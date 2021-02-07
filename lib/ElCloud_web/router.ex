@@ -25,8 +25,5 @@ defmodule ElCloudWeb.Router do
     get "/*path", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", ElCloudWeb do
-  #   pipe_through :api
-  # end
+
 end

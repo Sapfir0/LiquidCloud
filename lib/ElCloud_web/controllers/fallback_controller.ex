@@ -19,4 +19,12 @@ defmodule ElCloudWeb.FallbackController do
     |> put_view(ElCloudWeb.ErrorView)
     |> render(:"404")
   end
+
+  def call(conn, {:error, :folderNotFound}) do
+    conn
+    |> put_status(:bad_request)
+    |> put_view(ElCloudWeb.FileStorageView)
+    |> render("folderNotFound.json")
+  end
+
 end

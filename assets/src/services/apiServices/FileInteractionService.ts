@@ -14,8 +14,9 @@ export class FileInteractionService {
 
   }
 
-  public getFiles = async () => {
-    const res = await this._apiService.get<{data: FileViewDTO[]}>(ApiRoutes.FILE.GET_ALL_FILES)
+  public getFiles = async (directory=".") => {
+    
+    const res = await this._apiService.get<{data: FileViewDTO[]}>(ApiRoutes.FILE.GET_ALL_FILES, {directory})
     if (isRight(res)) {
       return res.right.data
     } else {
