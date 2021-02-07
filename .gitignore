@@ -3,7 +3,7 @@ _build/
 .idea
 # If you run "mix test --cover", coverage assets end up here.
 cover/
-
+dist
 .vscode
 data
 .elixir_ls

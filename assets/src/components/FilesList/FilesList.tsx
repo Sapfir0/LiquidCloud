@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from "react"
-import { observer } from "mobx-react"
-import container from "../../inversify/inversifyContainer"
-import { SERVICE_IDENTIFIER } from "../../inversify/inversifyTypes"
-import { FilesListStore } from "./FilesListStore"
-import { FileView } from "../../components/File/File"
-import { Breadcrumbs, Grid, List } from "@material-ui/core"
-import {useParams, useLocation} from "react-router-dom";
-import { useInject } from "../../shared/hooks/injectHook"
+import { List } from '@material-ui/core';
+import { observer } from 'mobx-react';
+import React, { FC } from 'react';
+import { FileView } from '../../components/File/File';
+import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
+import { useInject } from '../../shared/hooks/injectHook';
+import { FilesListStore } from './FilesListStore';
 
+export const FilesList: FC = observer((props) => {
+    const filesListStore = useInject<FilesListStore>(SERVICE_IDENTIFIER.FilesListStore);
 
-
-export const FilesList = observer((props) => {
-  const filesListStore = useInject<FilesListStore>(SERVICE_IDENTIFIER.FilesListStore)
-
-    return <>
-      <List dense role="list">
-      {filesListStore.files.map(el => <FileView file={el} />)}
-    </List>
-
-    </>
-}  )
-
-
+    return (
+        <>
+            <List dense role="list">
+                {filesListStore.files.map((el) => (
+                    <FileView key={el.filename} file={el} />
+                ))}
+            </List>
+        </>
+    );
+});
