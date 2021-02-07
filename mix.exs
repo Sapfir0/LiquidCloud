@@ -5,7 +5,7 @@ defmodule ElCloud.MixProject do
     [
       app: :elCloud,
       version: "0.1.0",
-      elixir: "~> 1.11.2",
+      elixir: ">= 1.10.0",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -33,8 +33,8 @@ defmodule ElCloud.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4.0"},
-      {:phoenix_pubsub, "~> 1.1"},
+      {:phoenix, "~> 1.5.1"},
+      {:phoenix_pubsub, "~> 2.0"},
       {:phoenix_ecto, "~> 4.0"},
       {:ecto_sql, "~> 3.0"},
       {:file_system, "~> 0.2"},
@@ -43,7 +43,10 @@ defmodule ElCloud.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:phoenix_swagger, "~> 0.8"},
+      {:ex_json_schema, "~> 0.7.3"}, # for phoenix swagger
+      {:poison, "~> 3.1"} # for phoenix swagger
     ]
   end
 
@@ -57,7 +60,8 @@ defmodule ElCloud.MixProject do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"],
+      start: ["phx.swagger.generate -e ElCloud.UserManager", "phx.server"]
     ]
   end
 end

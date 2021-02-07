@@ -1,11 +1,11 @@
 import { Card } from '@material-ui/core';
-import { FilesListStore } from 'components/FilesList/FilesListStore';
+import { FilesListStore } from '../../components/FilesList/FilesListStore';
 import React, { FC } from 'react';
 import { useLocation } from 'react-router-dom';
-import { ClientRoutes } from '../../services/clientRouteContants';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import { FilesList } from '../../components/FilesList/FilesList';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
+import { ClientRoutes } from '../../services/clientRouteContants';
 import { useInject } from '../../shared/hooks/injectHook';
 import './Index.css';
 
@@ -16,10 +16,9 @@ export const Index: FC = (props) => {
 
     return (
         <>
-
             <Card className="main">
-            <Breadcrumbs />
-            Обзор
+                <Breadcrumbs />
+                Обзор
                 <FilesList />
             </Card>
         </>

@@ -15,13 +15,21 @@ config :elCloud, ElCloudWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "FdoYieVIOFzJ2N5jcqVxZkhuw3Hs2lCV6HinhRJL+rUX2vEQ1NViSOEZ+sNKLsrX",
   render_errors: [view: ElCloudWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: ElCloud.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub_server: ElCloud.PubSub
 
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+
+config :elCloud, :phoenix_swagger,
+swagger_files: %{
+  "priv/static/swagger.json" => [
+    router: ElCloudWeb.Router,
+    endpoint: ElCloudWeb.Endpoint
+  ]
+}
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 

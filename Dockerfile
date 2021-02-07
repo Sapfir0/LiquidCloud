@@ -1,14 +1,25 @@
-FROM elixir:latest
+FROM bitwalker/alpine-elixir-phoenix:latest
 
-RUN apt-get update -qq && apt-get install -y libpq-dev && apt-get install -y build-essential inotify-tools erlang-dev erlang-parsetools apt-transport-https ca-certificates && apt-get update
+EXPOSE 4000
+ENV PORT=4000 MIX_ENV=prod
+
+# Install hex package manager
 RUN mix local.hex --force && mix local.rebar --force
-RUN mix archive.install hex phx_new 1.4.0 --force
-WORKDIR /home/app
 
-COPY mix.exs mix.exs
+WORKDIR /app
+COPY ./mix.exs ./mix.exs
+COPY ./mix.lock ./mix.lock
 RUN mix deps.get
+WORKDIR /app/assets
+COPY ./assets/package.json ./package.json
+RUN npm install --only=prod
 
-COPY . /home/app
-RUN mix ecto.setup
+WORKDIR /app
 
-CMD [ "mix", 'phx.server' ]
+COPY . .
+RUN MIX_ENV=prod mix compile
+RUN MIX_ENV=prod mix phx.digest
+
+RUN npm run deploy --prefix ./assets
+
+ENTRYPOINT ["sh", "/app/entrypoint.sh"]
