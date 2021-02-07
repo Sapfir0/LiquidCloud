@@ -7,11 +7,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    # env:
-    #   PG_PASS: ${{ secrets.PG_PASS }}
-    #   DATABASE_URL: postgresql://postgres:${{ secrets.SECRET_PASSWORD }}@postgres/postgres
-    #   SECRET_KEY: ${{ secrets.SECRET_KEY }}
-    #   PORT: 8000
 
     steps:
     - uses: actions/checkout@v1
@@ -21,4 +16,5 @@ jobs:
       run: docker ps -a
     - name: Check logs
       run: docker logs backend
+
 
