@@ -30,7 +30,7 @@ defmodule ElCloudWeb do
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/elCloud_web/templates",
+        root: "lib/ElCloud_web/templates",
         namespace: ElCloudWeb
 
       # Import convenience functions from controllers

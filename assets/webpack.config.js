@@ -140,11 +140,6 @@ module.exports = (env) => {
             hot: true,
             historyApiFallback: true,
         },
-        plugins: [
-            new webpack.ProgressPlugin(),
-            new CleanWebpackPlugin(),
-            new webpack.DefinePlugin(envKeys),
-            new CheckerPlugin(),
-        ],
+        plugins: [new CleanWebpackPlugin(), new webpack.DefinePlugin(envKeys), new CheckerPlugin()],
     };
 };

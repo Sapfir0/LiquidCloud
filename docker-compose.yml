@@ -12,7 +12,6 @@ services:
   web:
     build:
       context: .
-    command: mix start
     volumes:
       - ./data:/home/app/data
     ports:
