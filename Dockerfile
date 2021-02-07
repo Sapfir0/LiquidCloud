@@ -10,17 +10,20 @@ ENV PORT=4000 MIX_ENV=prod
 RUN mix local.hex --force && mix local.rebar --force
 
 WORKDIR /app
-COPY ./package.json ./package.json
 COPY ./mix.exs ./mix.exs
 COPY ./mix.lock ./mix.lock
 RUN mix deps.get
+WORKDIR /app/assets
+COPY ./assets/package.json ./package.json
 RUN npm install
+
+WORKDIR /app
 
 COPY . .
 RUN MIX_ENV=prod mix compile
 RUN MIX_ENV=prod mix phx.digest
 
-# RUN npm run deploy --prefix ./assets
+RUN npm run deploy --prefix ./assets
 
 
 CMD ["/app/entrypoint.sh"]
