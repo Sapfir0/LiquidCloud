@@ -1,7 +1,7 @@
 defmodule ElCloud.UserManager.User do
   use Ecto.Schema
   import Ecto.Changeset
-  alias ElCloud.UserManager.User
+  alias ElCloud.UserManager.{User, Encryption}
 
 
   schema "users" do
@@ -32,8 +32,8 @@ defmodule ElCloud.UserManager.User do
   defp encrypt_password(changeset) do
     password = get_change(changeset, :password)
     if password do
-      encrypted_password = Encryption.hash_password(password)
-      put_change(changeset, :encrypted_password, encrypted_password)
+      hash = Encryption.hash_password(password).password_hash
+      put_change(changeset, :password, hash)
     else
       changeset
     end
