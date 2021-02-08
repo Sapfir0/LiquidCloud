@@ -1,4 +1,9 @@
 .main {
   margin-left: 10%;
   margin-right: 10%;
+
+}
+
+.main__container {
+  margin: 10px;
 }

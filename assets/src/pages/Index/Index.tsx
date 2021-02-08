@@ -17,9 +17,10 @@ export const Index: FC = (props) => {
     return (
         <>
             <Card className="main">
-                <Breadcrumbs />
-                Обзор
-                <FilesList />
+                <div className="main__container">
+                    <Breadcrumbs />
+                    <FilesList />
+                </div>
             </Card>
         </>
     );

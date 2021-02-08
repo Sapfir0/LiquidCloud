@@ -14,8 +14,9 @@ hr {
 
 .logo {
   margin-left: 2rem;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .header_inner {
@@ -27,7 +28,6 @@ hr {
 .logo__title {
   font-family: 'Lato', sans-serif;
   color: #393939;
-  float: right;
   margin-left: 0.5rem;
   font-size: 1.5rem;
 }
