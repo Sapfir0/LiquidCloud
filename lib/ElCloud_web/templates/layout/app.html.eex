@@ -6,11 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>ElCloud · Phoenix Framework</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+
   </head>
   <body>
-    <%= render @view_module, @view_template, assigns %>
-    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+      <header class="header">
+        <div class="header_inner flex alignCenter space_between_inner">
+            <div class="logo">
+            <img src="<%= Routes.static_path(@conn, "/images/clouds.svg") %>" class="logo__image" />
+                <div class="logo__title">Liquid Cloud</div>
+            </div>
+        </div>
+        <hr />
+    </header>
+    <%= @inner_content %>
     <noscript>You need to enable JavaScript to run this app.</noscript>
 
   </body>
+  <footer> 2021 Yurev Alexander</footer>
 </html>

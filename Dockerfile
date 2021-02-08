@@ -17,9 +17,6 @@ RUN npm install --only=prod
 WORKDIR /app
 
 COPY . .
-RUN MIX_ENV=prod mix compile
-RUN MIX_ENV=prod mix phx.digest
-
-RUN npm run deploy --prefix ./assets
+RUN npm run deploy --prefix ./assets && source .env.prod && MIX_ENV=prod mix phx.digest && MIX_ENV=prod mix compile
 
 ENTRYPOINT ["sh", "/app/entrypoint.sh"]
