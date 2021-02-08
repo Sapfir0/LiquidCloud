@@ -9,7 +9,7 @@ import { ClientRoutes } from '../../services/clientRouteContants';
 import { useInject } from '../../shared/hooks/injectHook';
 import './Index.css';
 
-export const Index: FC = (props) => {
+const Index: FC = (props) => {
     const filesListStore = useInject<FilesListStore>(SERVICE_IDENTIFIER.FilesListStore);
     const loc = useLocation();
     filesListStore.setCurrentDirectory(ClientRoutes.Index)(loc.pathname);
@@ -25,3 +25,5 @@ export const Index: FC = (props) => {
         </>
     );
 };
+
+export default Index;
