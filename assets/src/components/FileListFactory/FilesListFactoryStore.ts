@@ -22,6 +22,7 @@ export class FilesListFactoryStore {
             files: observable,
             getFiles: action,
         });
+        this.getFiles()
     }
 
     public setCurrentDirectory = (currentRoute: ClientRouteType) => (locationPathname: string) => {

@@ -410,7 +410,14 @@
     "@types/history" "*"
     "@types/react" "*"
 
-"@types/react-sortable-tree@^0.3.12":
+"@types/react-sortable-tree-theme-file-explorer@^0.0.0":
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-sortable-tree-theme-file-explorer/-/react-sortable-tree-theme-file-explorer-0.0.0.tgz#c6214c1266294ba4f1132fe03ec6430c10f92488"
+  integrity sha512-I3FI7jVMaxCuqKHXON/9svfYYim5kRcOkxLQzkSJjX5QytdMcaSajnLmiaJj6XM2ahbGKTp/ppJbb5zX6B5Mbg==
+  dependencies:
+    "@types/react-sortable-tree" "*"
+
+"@types/react-sortable-tree@*", "@types/react-sortable-tree@^0.3.12":
   version "0.3.12"
   resolved "https://registry.yarnpkg.com/@types/react-sortable-tree/-/react-sortable-tree-0.3.12.tgz#d358d9f5f3d1ac5c2a1ac621b0fb8ce0dfb07df1"
   integrity sha512-8IfQe3VcoK5ph3fPU5vfQ6eHCYioCxkqPlVF5en+lF+jNJNwgPoXhmMU2pEquDQwGflCqA8IqxUVqod+v+2nzg==
