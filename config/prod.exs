@@ -22,5 +22,5 @@ config :elCloud, ElCloud.Repo,
   username: "postgres",
   password: "f6445828e4ed4b36bc4b42f658b803aa",
   database: "elCloud_prod",
-  hostname:  "localhost",
+  hostname: "postgres",
   pool_size: 10
