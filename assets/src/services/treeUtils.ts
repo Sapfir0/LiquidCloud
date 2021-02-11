@@ -1,6 +1,7 @@
-import { FlatDataItem, map } from 'react-sortable-tree';
+import { FlatDataItem, map, TreeItem } from 'react-sortable-tree';
+import { FileViewDTO } from '../shared/types/DTO';
 
-export const getTree = (treeData) =>
+export const getTree = (treeData: FileViewDTO[]): TreeItem[] & FileViewDTO[] =>
     map({
         treeData: treeData,
         ignoreCollapsed: false,
@@ -10,4 +11,4 @@ export const getTree = (treeData) =>
         callback: (data: FlatDataItem) => {
             return { ...data.node, title: data.node.filename };
         },
-    });
+    }) as TreeItem[] & FileViewDTO[];
