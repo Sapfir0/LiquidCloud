@@ -10,6 +10,7 @@ import { FileViewDTO } from '../../shared/types/DTO';
 export class FilesListFactoryStore {
     public files: FileViewDTO[] = [];
     private _apiService: FileInteractionService;
+    public currentDirectory = '';
 
     constructor(
         @inject(SERVICE_IDENTIFIER.FileInteractionService) apiService: FileInteractionService,
@@ -23,9 +24,16 @@ export class FilesListFactoryStore {
         });
     }
 
+    public setCurrentDirectory = (currentRoute: ClientRouteType) => (locationPathname: string) => {
+        this.currentDirectory = locationPathname.replace(currentRoute, '');
+        console.log(this.currentDirectory);
+
+        this.getFiles();
+    };
+
     public getFiles = async (): Promise<void> => {
         // TODO решить где нужно избавляться от either
-        this.files = (await this._apiService.getFiles()) as any;
+        this.files = (await this._apiService.getFiles(this.currentDirectory)) as any;
         // if (this._apiService.isLastRequestErrored) {
         //   this.setError()
         // }

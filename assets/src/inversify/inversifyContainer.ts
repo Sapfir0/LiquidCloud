@@ -2,6 +2,7 @@ import { Container } from 'inversify';
 import 'reflect-metadata';
 import { FileListDropdownStore } from '../components/FileListFactory/FileListFactoryDropdownStore';
 import { FilesListStore } from '../components/FilesList/FileListStore';
+import { SortableTreeStore } from '../components/SortableTree/SortableTreeStore';
 import ApiInteractionService from '../services/ApiInteractionService';
 import { FileInteractionService } from '../services/apiServices/FileInteractionService';
 import BaseApiInteractionService from '../services/BaseApiInteractionService';
@@ -14,6 +15,7 @@ container.bind(SERVICE_IDENTIFIER.BaseApiInteractionService).to(BaseApiInteracti
 container.bind(SERVICE_IDENTIFIER.ApiInteractionService).to(ApiInteractionService);
 container.bind(SERVICE_IDENTIFIER.FileInteractionService).to(FileInteractionService);
 container.bind(SERVICE_IDENTIFIER.FileSystemChecker).to(FileSystemChecker).inSingletonScope();
-container.bind(SERVICE_IDENTIFIER.FileListDropdownStore).to(FileListDropdownStore);
+container.bind(SERVICE_IDENTIFIER.FileListDropdownStore).to(FileListDropdownStore).inSingletonScope();
+container.bind(SERVICE_IDENTIFIER.SortableTreeStore).to(SortableTreeStore);
 
 export default container;

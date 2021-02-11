@@ -9,12 +9,7 @@ export const FileListViewDropdown = observer(() => {
     const store = useInject<FileListDropdownStore>(SERVICE_IDENTIFIER.FileListDropdownStore);
 
     return (
-        <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={store.currentItem}
-            onChange={store.setCurrentItem}
-        >
+        <Select value={store.currentItem} onChange={store.setCurrentItem}>
             <MenuItem value={FileListViewDropdownEnum.Tree}>SortableTree</MenuItem>
             <MenuItem value={FileListViewDropdownEnum.List}>List</MenuItem>
         </Select>

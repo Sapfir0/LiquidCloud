@@ -14,7 +14,7 @@ export class FileListDropdownStore {
         makeObservable(this, { currentItem: observable, setCurrentItem: action });
     }
 
-    setCurrentItem = (event: React.ChangeEvent<{ value: string }>): void => {
-        this.currentItem = (event.target.value as unknown) as FileListViewDropdownEnum;
+    setCurrentItem = (event: React.ChangeEvent<{ value: unknown }>): void => {
+        this.currentItem = event.target.value as FileListViewDropdownEnum;
     };
 }

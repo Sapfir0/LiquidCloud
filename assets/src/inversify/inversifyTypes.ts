@@ -5,4 +5,5 @@ export const SERVICE_IDENTIFIER = {
     FileSystemChecker: Symbol.for('FileSystemChecker'),
     FilesListStore: Symbol.for('FilesListStore'),
     FileListDropdownStore: Symbol.for('FileListDropdownStore'),
+    SortableTreeStore: Symbol.for('SortableTreeStore'),
 };
