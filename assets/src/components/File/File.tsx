@@ -3,11 +3,11 @@ import FolderIcon from '@material-ui/icons/Folder';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import React, { FC, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { FilesListStore } from '../../components/FilesList/FilesListStore';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { ClientRoutes } from '../../services/clientRouteContants';
 import { useInject } from '../../shared/hooks/injectHook';
 import { FileViewDTO } from '../../shared/types/DTO';
+import { FilesListStore } from '../FilesList/FileListStore';
 import './FileView.css';
 
 export type FileViewProps = {

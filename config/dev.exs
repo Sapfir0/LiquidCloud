@@ -17,8 +17,11 @@ config :elCloud, ElCloudWeb.Endpoint,
       "--mode",
       "development",
       "--watch-stdin",
+      "--env.NODE_ENV=dev",
+      cd: Path.expand("../assets", __DIR__)
     ]
   ]
+
 
 
 # Watch static and templates for browser reloading.

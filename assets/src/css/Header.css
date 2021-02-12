@@ -5,7 +5,6 @@
   margin-bottom: 1rem;
 }
 
-
 hr {
   margin: 0.5rem 0px;
   border: 0;
@@ -15,8 +14,9 @@ hr {
 
 .logo {
   margin-left: 2rem;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .header_inner {
@@ -28,8 +28,13 @@ hr {
 .logo__title {
   font-family: 'Lato', sans-serif;
   color: #393939;
-  float: right;
   margin-left: 0.5rem;
   font-size: 1.5rem;
 }
 
+
+.logo__image {
+  height: 3rem;
+  width: 3rem;
+  object-fit: cover;
+}

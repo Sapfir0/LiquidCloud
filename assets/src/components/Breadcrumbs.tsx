@@ -1,27 +1,10 @@
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link, { LinkProps } from '@material-ui/core/Link';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import { Route } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            display: 'flex',
-            flexDirection: 'column',
-            width: 360,
-        },
-        lists: {
-            backgroundColor: theme.palette.background.paper,
-            marginTop: theme.spacing(1),
-        },
-        nested: {
-            paddingLeft: theme.spacing(4),
-        },
-    }),
-);
+import './Breadcrumbs.css';
 
 interface LinkRouterProps extends LinkProps {
     to: string;
@@ -31,10 +14,8 @@ interface LinkRouterProps extends LinkProps {
 const LinkRouter = (props: LinkRouterProps) => <Link {...props} component={RouterLink as any} />;
 
 export default function RouterBreadcrumbs() {
-    const classes = useStyles();
-
     return (
-        <div className={classes.root}>
+        <div className="breadcrumb">
             <Route>
                 {({ location }) => {
                     const pathnames = location.pathname.split('/').filter((x) => x);

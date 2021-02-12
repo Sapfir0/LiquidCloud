@@ -46,7 +46,8 @@ defmodule ElCloud.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:phoenix_swagger, "~> 0.8"},
       {:ex_json_schema, "~> 0.7.3"}, # for phoenix swagger
-      {:poison, "~> 3.1"} # for phoenix swagger
+      {:poison, "~> 3.1"}, # for phoenix swagger
+      {:pbkdf2_elixir, "~> 1.3"} # если юзаешь линю, то лучше использовать argon2 или bcrypt
     ]
   end
 

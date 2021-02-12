@@ -7,7 +7,7 @@ import { FileSystemChecker } from '../../services/socket';
 import { FileViewDTO } from '../../shared/types/DTO';
 
 @injectable()
-export class FilesListStore {
+export class FilesListFactoryStore {
     public files: FileViewDTO[] = [];
     private _apiService: FileInteractionService;
     public currentDirectory = '';
@@ -20,14 +20,15 @@ export class FilesListStore {
         fileChecker.createChannel(() => this.getFiles());
         makeObservable(this, {
             files: observable,
-            currentDirectory: observable,
-            setCurrentDirectory: action,
             getFiles: action,
         });
+        this.getFiles()
     }
 
     public setCurrentDirectory = (currentRoute: ClientRouteType) => (locationPathname: string) => {
         this.currentDirectory = locationPathname.replace(currentRoute, '');
+        console.log(this.currentDirectory);
+
         this.getFiles();
     };
 

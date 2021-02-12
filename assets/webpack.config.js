@@ -1,5 +1,4 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
@@ -7,6 +6,7 @@ const { CheckerPlugin } = require('awesome-typescript-loader');
 const fs = require('fs');
 const dotenv = require('dotenv');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const root = path.resolve('.');
 
@@ -35,10 +35,11 @@ module.exports = (env) => {
     return {
         entry: './src/index.tsx',
         output: {
-            path: path.resolve(__dirname, 'dist'),
+            path: path.resolve(__dirname, '..', 'priv', 'static', 'js'),
             publicPath: '/', // этот путь будет добавляться в пути до каждого бандла внутри хтмл и других бандлов
-            filename: 'js/[name].[hash].bundle.js',
-            chunkFilename: 'js/[name].[hash].bundle.js',
+            // filename: '[name].[hash].bundle.js',
+            filename: 'app.js',
+            chunkFilename: '[name].[hash].bundle.js',
         },
         node: {
             fs: 'empty',
@@ -47,28 +48,28 @@ module.exports = (env) => {
         resolve: {
             extensions: ['.tsx', '.ts', '.js'],
         },
-        optimization: {
-            runtimeChunk: 'single',
-            splitChunks: {
-                chunks: 'all',
-                maxInitialRequests: Infinity,
-                minSize: 0,
-                cacheGroups: {
-                    vendor: {
-                        test: /[\\/]node_modules[\\/]/,
-                        name(module) {
-                            // получает имя, то есть node_modules/packageName/not/this/part.js
-                            // или node_modules/packageName
-                            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+        // optimization: {
+        //     runtimeChunk: 'single',
+        //     splitChunks: {
+        //         chunks: 'all',
+        //         maxInitialRequests: Infinity,
+        //         minSize: 0,
+        //         cacheGroups: {
+        //             vendor: {
+        //                 test: /[\\/]node_modules[\\/]/,
+        //                 name(module) {
+        //                     // получает имя, то есть node_modules/packageName/not/this/part.js
+        //                     // или node_modules/packageName
+        //                     const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
 
-                            // имена npm-пакетов можно, не опасаясь проблем, использовать
-                            // в URL, но некоторые серверы не любят символы наподобие @
-                            return `npm.${packageName.replace('@', '')}`;
-                        },
-                    },
-                },
-            },
-        },
+        //                     // имена npm-пакетов можно, не опасаясь проблем, использовать
+        //                     // в URL, но некоторые серверы не любят символы наподобие @
+        //                     return `npm.${packageName.replace('@', '')}`;
+        //                 },
+        //             },
+        //         },
+        //     },
+        // },
         module: {
             rules: [
                 {
@@ -84,7 +85,7 @@ module.exports = (env) => {
                 {
                     test: /\.css$/,
                     use: [
-                        'style-loader',
+                        MiniCssExtractPlugin.loader,
                         {
                             loader: 'css-loader',
                             options: {
@@ -108,20 +109,6 @@ module.exports = (env) => {
                     ],
                 },
                 {
-                    test: /\.(pcss)$/,
-                    exclude: /node_modules/,
-                    loader: [
-                        'style-loader',
-                        'css-loader',
-                        {
-                            loader: 'postcss-loader',
-                            options: {
-                                sourceMap: !isProduction,
-                            },
-                        },
-                    ],
-                },
-                {
                     test: /\.(jpg|jpeg|gif|png|svg)$/,
                     loader: ['file-loader?context=src/images&name=images/[path][name].[ext]'],
                 },
@@ -131,15 +118,14 @@ module.exports = (env) => {
                 },
             ],
         },
-        devServer: {
-            contentBase: path.join(__dirname, 'public'),
-            port: 3000,
-            watchContentBase: true,
-            progress: true,
-            compress: true,
-            hot: true,
-            historyApiFallback: true,
-        },
-        plugins: [new CleanWebpackPlugin(), new webpack.DefinePlugin(envKeys), new CheckerPlugin()],
+        plugins: [
+            new CleanWebpackPlugin(),
+            new webpack.DefinePlugin(envKeys),
+            new MiniCssExtractPlugin({ filename: '../css/app.css' }),
+            new CopyWebpackPlugin({
+                patterns: [{ from: 'static/', to: '../' }],
+            }),
+            new CheckerPlugin(),
+        ],
     };
 };

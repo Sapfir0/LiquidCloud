@@ -12,6 +12,8 @@ services:
   web:
     build:
       context: .
+    environment:
+      DATABASE_HOST: postgres
     volumes:
       - ./data:/home/app/data
     ports:
