@@ -18,16 +18,20 @@ defmodule ElCloud.Watcher do
     current_event = List.last(events)
     # Logger.info path, current_event
     ElCloudWeb.FileChannel.send_message("File #{:path} was #{:current_event}")
+
     case List.last(events) do
       :removed ->
-        IO.puts "REMOVED"
+        IO.puts("REMOVED")
+
       :created ->
-        IO.puts "CREATED"
-        IO.puts path
+        IO.puts("CREATED")
+        IO.puts(path)
+
       :modified ->
-        IO.puts "MODIFIED"
+        IO.puts("MODIFIED")
+
       _ ->
-        IO.puts "NONE"
+        IO.puts("NONE")
     end
 
     {:noreply, state}

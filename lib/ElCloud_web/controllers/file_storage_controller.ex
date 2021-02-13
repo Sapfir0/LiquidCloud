@@ -18,11 +18,11 @@ defmodule ElCloudWeb.FileStorageController do
           end
         end,
       FileResponse:
-      swagger_schema do
-        title("File Response")
-        description("Response schema for single file")
-        property(:data, Schema.ref(:File), "The file details")
-      end,
+        swagger_schema do
+          title("File Response")
+          description("Response schema for single file")
+          property(:data, Schema.ref(:File), "The file details")
+        end
     }
   end
 
@@ -33,20 +33,18 @@ defmodule ElCloudWeb.FileStorageController do
     produces("application/json")
     deprecated(false)
 
-    response(200, "OK", Schema.ref(:FileResponse) )
+    response(200, "OK", Schema.ref(:FileResponse))
   end
 
   def index(conn, params) do
     directory = "./data/" <> Map.get(params, "directory", "")
-    IO.puts directory
+    IO.puts(directory)
+
     if !File.exists?(directory) do
       {:error, :folderNotFound}
     else
       files = DirectoryTreeHelper.list_all(directory)
       render(conn, "index.json", tb_files: files)
     end
-
   end
-
-
 end

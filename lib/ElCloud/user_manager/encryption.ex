@@ -1,4 +1,3 @@
-
 defmodule ElCloud.UserManager.Encryption do
   alias Pbkdf2
   alias ElCloud.UserManager.User

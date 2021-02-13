@@ -22,8 +22,6 @@ config :elCloud, ElCloudWeb.Endpoint,
     ]
   ]
 
-
-
 # Watch static and templates for browser reloading.
 config :elCloud, ElCloudWeb.Endpoint,
   live_reload: [

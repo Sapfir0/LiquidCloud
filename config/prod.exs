@@ -17,7 +17,6 @@ config :elCloud, ElCloudWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
-
 config :elCloud, ElCloud.Repo,
   username: "postgres",
   password: "f6445828e4ed4b36bc4b42f658b803aa",

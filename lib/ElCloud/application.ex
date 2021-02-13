@@ -19,7 +19,6 @@ defmodule ElCloud.Application do
     ]
 
     {:ok, pid} = Supervisor.start_link(children, strategy: :one_for_one)
-
   end
 
   # Tell Phoenix to update the endpoint configuration
