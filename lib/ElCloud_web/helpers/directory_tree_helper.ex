@@ -30,4 +30,9 @@ defmodule DirectoryTreeHelper do
       :children => children
     }
   end
+
+  @spec move_file(String.t(), String.t()) :: :ok | {:error, any()}
+  def move_file(oldpath, newpath) do
+    File.rename(oldpath, newpath)
+  end
 end

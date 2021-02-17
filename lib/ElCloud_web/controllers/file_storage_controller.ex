@@ -30,12 +30,8 @@ defmodule ElCloudWeb.FileStorageController do
     get("/api/files")
     summary("List files")
     description("List all files in directory")
-    produces("application/json")
-    deprecated(false)
-
     response(200, "OK", Schema.ref(:FileResponse))
   end
-
   def index(conn, params) do
     directory = "./data/" <> Map.get(params, "directory", "")
     IO.puts(directory)
@@ -47,4 +43,24 @@ defmodule ElCloudWeb.FileStorageController do
       render(conn, "index.json", tb_files: files)
     end
   end
+
+
+  swagger_path(:update) do
+    put("/api/files/move")
+    summary("Move files")
+    description("List all files in directory")
+    response(200, "OK", Schema.ref(:FileResponse))
+  end
+  def update(conn, params) do
+      IO.inspect "Updating"
+      oldPath = "./data/" <> Map.get(params, "oldPath", "")
+      newPath ="./data/" <> Map.get(params, "newPath", "")
+      res = DirectoryTreeHelper.move_file(oldPath, newPath)
+      if (res == :ok) do
+        render(conn, "show.json", file_storage: %{ "operation" => res })
+      else
+        {:error, :folderNotFound}
+      end
+  end
+
 end
