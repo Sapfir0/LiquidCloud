@@ -47,15 +47,30 @@ defmodule ElCloudWeb.FileStorageController do
 
   swagger_path(:update) do
     put("/api/files/move")
-    summary("Move files")
+    summary("Move file")
     description("List all files in directory")
-    response(200, "OK", Schema.ref(:FileResponse))
   end
   def update(conn, params) do
       IO.inspect "Updating"
       oldPath = "./data/" <> Map.get(params, "oldPath", "")
       newPath ="./data/" <> Map.get(params, "newPath", "")
       res = DirectoryTreeHelper.move_file(oldPath, newPath)
+      if (res == :ok) do
+        render(conn, "show.json", file_storage: %{ "operation" => res })
+      else
+        {:error, :folderNotFound}
+      end
+  end
+
+  swagger_path(:delete) do
+    delete("/api/files/delete")
+    summary("Delete file")
+    description("List all files in directory")
+  end
+  def delete(conn, params) do
+      IO.inspect "Deleting"
+      path = "./data/" <> Map.get(params, "path", "")
+      res = DirectoryTreeHelper.remove_file(path)
       if (res == :ok) do
         render(conn, "show.json", file_storage: %{ "operation" => res })
       else

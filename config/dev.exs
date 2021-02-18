@@ -43,8 +43,8 @@ config :phoenix, :stacktrace_depth, 20
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
-# config :elCloud, ElCloud.Watcher,
-#   data_directory: ["./data"]
+config :elCloud, ElCloudWeb.FileStorageController,
+  data_dir: ["./data"]
 
 # Configure your database
 config :elCloud, ElCloud.Repo,

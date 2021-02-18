@@ -35,4 +35,10 @@ defmodule DirectoryTreeHelper do
   def move_file(oldpath, newpath) do
     File.rename(oldpath, newpath)
   end
+
+  @spec remove_file(String.t()) :: :ok | {:error, any()}
+  def remove_file(path) do
+    File.rm(path)
+  end
+
 end
