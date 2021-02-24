@@ -20,4 +20,16 @@ export class FileInteractionService {
             this.isLastRequestErrored = res.left;
         }
     };
+
+    public updateFile = async (oldDirectory, newDirectory) => {
+        const res = await this._apiService.put<{ data: FileViewDTO[] }>(ApiRoutes.FILE.GET_ALL_FILES, {
+            oldPath: oldDirectory,
+            newPath: newDirectory,
+        });
+        if (isRight(res)) {
+            return res.right.data;
+        } else {
+            this.isLastRequestErrored = res.left;
+        }
+    };
 }

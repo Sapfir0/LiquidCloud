@@ -1,6 +1,7 @@
 import { inject } from 'inversify';
 import { action, computed, makeObservable } from 'mobx';
-import { map, TreeItem } from 'react-sortable-tree';
+import { join, sep } from 'path';
+import { FullTree, NodeData, OnMovePreviousAndNextLocation, TreeItem } from 'react-sortable-tree';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { FileInteractionService } from '../../services/apiServices/FileInteractionService';
 import { FileSystemChecker } from '../../services/socket';
@@ -27,5 +28,21 @@ export class SortableTreeStore extends FilesListFactoryStore {
 
     public changeState = (state: TreeItem[]): void => {
         this.files = getTree(state as FilesTree[]);
+    };
+
+    // public onDragStateChanged = (data: NodeData & FullTree & OnMovePreviousAndNextLocation): void => {};
+
+    public moveFile = (data: NodeData & FullTree & OnMovePreviousAndNextLocation): void => {
+        console.log(data);
+        const rootDir = data.path[0].split(sep)[1];
+        // this.files = getTree(state as FilesTree[]);
+        const outputDir = data.nextParentNode?.path ?? rootDir;
+        const moveDto = {
+            idEntityToMove: data.node.path,
+            idOfTheMoveLocation: join(outputDir, data.node.filename),
+        };
+        console.log(moveDto);
+        this._apiService.updateFile()
+        // this.updateFile
     };
 }

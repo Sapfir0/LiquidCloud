@@ -4,6 +4,7 @@ defmodule DirectoryTreeHelper do
   @type file :: %{
           :isFolder => boolean(),
           :filename => String.t(),
+          :path => String.t(),
           :children => nil | [file()],
           :info => %{:size => non_neg_integer()}
         }
@@ -23,6 +24,7 @@ defmodule DirectoryTreeHelper do
     %{
       :isFolder => isFolder,
       :filename => filename,
+      :path => fullPath,
       :info => %{
         :size => fileStat.size
         # :updated => DateTime.to_string(fileStat.mtime)

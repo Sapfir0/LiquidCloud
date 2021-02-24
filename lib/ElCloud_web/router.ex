@@ -17,6 +17,7 @@ defmodule ElCloudWeb.Router do
     pipe_through :api
 
     resources "/files", FileStorageController, except: [:new, :edit]
+    put "/files", FileStorageController, :move_file
     resources "/users", UserController, except: [:new, :edit]
   end
 

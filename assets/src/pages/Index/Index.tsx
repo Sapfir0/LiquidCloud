@@ -12,7 +12,6 @@ import { FilesListStore } from '../../components/FilesList/FileListStore';
 import { FilesList } from '../../components/FilesList/FilesList';
 import { SortableFileTree } from '../../components/SortableTree/SortableTree';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
-import { ClientRoutes } from '../../services/clientRouteContants';
 import { useInject } from '../../shared/hooks/injectHook';
 import './Index.css';
 
@@ -24,10 +23,7 @@ const Index: FC = observer((props) => {
     const store = useInject<FileListDropdownStore>(SERVICE_IDENTIFIER.FileListDropdownStore);
     const filesListStore = useInject<FilesListStore>(SERVICE_IDENTIFIER.FilesListStore);
     const loc = useLocation();
-    // filesListStore.setCurrentDirectory(ClientRoutes.Index)(loc.pathname);
     console.log(filesListStore.currentDirectory);
-    // console.log(filesListStore.files);
-
 
     return (
         <>

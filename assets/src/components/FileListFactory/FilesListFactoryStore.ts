@@ -9,7 +9,7 @@ import { FileViewDTO } from '../../shared/types/DTO';
 @injectable()
 export class FilesListFactoryStore {
     public files: FileViewDTO[] = [];
-    private _apiService: FileInteractionService;
+    protected _apiService: FileInteractionService;
     public currentDirectory = '';
 
     constructor(
