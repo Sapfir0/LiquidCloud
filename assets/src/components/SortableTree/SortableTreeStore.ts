@@ -11,6 +11,9 @@ import { FilesTree } from '../../shared/types/Files';
 import { FilesListFactoryStore } from '../FileListFactory/FilesListFactoryStore';
 
 export class SortableTreeStore extends FilesListFactoryStore {
+    public previousTree: FilesTree[];
+    public files: FilesTree[] | undefined = undefined;
+
     constructor(
         @inject(SERVICE_IDENTIFIER.FileInteractionService) apiService: FileInteractionService,
         @inject(SERVICE_IDENTIFIER.FileSystemChecker) fileChecker: FileSystemChecker,
@@ -27,22 +30,17 @@ export class SortableTreeStore extends FilesListFactoryStore {
     }
 
     public changeState = (state: TreeItem[]): void => {
-        this.files = getTree(state as FilesTree[]);
+        this.files = getTree(state as FilesTree[], this.previousTree);
+        console.log('Changing');
     };
 
-    // public onDragStateChanged = (data: NodeData & FullTree & OnMovePreviousAndNextLocation): void => {};
-
     public moveFile = (data: NodeData & FullTree & OnMovePreviousAndNextLocation): void => {
-        console.log(data);
+        this.previousTree = this.files;
         const rootDir = data.path[0].split(sep)[1];
-        // this.files = getTree(state as FilesTree[]);
+
         const outputDir = data.nextParentNode?.path ?? rootDir;
-        const moveDto = {
-            idEntityToMove: data.node.path,
-            idOfTheMoveLocation: join(outputDir, data.node.filename),
-        };
-        console.log(moveDto);
-        this._apiService.updateFile()
-        // this.updateFile
+
+        this._apiService.updateFile(data.node.path, join(outputDir, data.node.filename));
+        console.log('Moving');
     };
 }

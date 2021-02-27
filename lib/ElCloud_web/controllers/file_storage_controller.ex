@@ -52,8 +52,8 @@ defmodule ElCloudWeb.FileStorageController do
   end
   def move_file(conn, %{"oldPath" => oldPath, "newPath" => newPath}) do
       IO.inspect "Updating"
-      oldPath = "./data/" <> oldPath
-      newPath = "./data/" <> newPath
+      # oldPath = "./data/" <> oldPath
+      # newPath = "./data/" <> newPath
       res = DirectoryTreeHelper.move_file(oldPath, newPath)
       if (res == :ok) do
         render(conn, "show.json", file_storage: %{ "operation" => res })
