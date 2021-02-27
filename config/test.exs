@@ -9,6 +9,10 @@ config :elCloud, ElCloudWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+
+config :elCloud, ElCloudWeb.FileStorageController,
+  data_dir: ["./data"]
+
 # Configure your database
 config :elCloud, ElCloud.Repo,
   username: "postgres",

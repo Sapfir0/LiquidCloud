@@ -4,5 +4,5 @@ defmodule ElCloud.UserManager.Encryption do
 
   def hash_password(password), do: Pbkdf2.add_hash(password)
 
-  def validate_password(%User{} = user, password), do: Pbkdf2.check_pass(user, password)
+  def validate_password(%User{} = username, password), do: Pbkdf2.check_pass(username, password)
 end

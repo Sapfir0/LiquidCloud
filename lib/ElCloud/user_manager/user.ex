@@ -19,7 +19,6 @@ defmodule ElCloud.UserManager.User do
     |> validate_format(:username, ~r/^[a-z0-9][a-z0-9]+[a-z0-9]$/i)
     |> validate_length(:username, min: 3)
     |> unique_constraint(:username)
-    |> downcase_username
     |> encrypt_password
   end
 
