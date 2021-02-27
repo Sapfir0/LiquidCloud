@@ -2,6 +2,7 @@ defmodule ElCloudWeb.FileStorageController do
   use ElCloudWeb, :controller
   use PhoenixSwagger
 
+  alias ElCloud.FileStorage
   action_fallback ElCloudWeb.FallbackController
 
   def swagger_definitions do
@@ -34,14 +35,8 @@ defmodule ElCloudWeb.FileStorageController do
   end
   def index(conn, params) do
     directory = "./data/" <> Map.get(params, "directory", "")
-    IO.puts(directory)
-
-    if !File.exists?(directory) do
-      {:error, :folderNotFound}
-    else
-      files = DirectoryTreeHelper.list_all(directory)
-      render(conn, "index.json", tb_files: files)
-    end
+    files = FileStorage.list_files(directory)
+    render(conn, "index.json", tb_files: files)
   end
 
 
@@ -51,9 +46,6 @@ defmodule ElCloudWeb.FileStorageController do
     description("List all files in directory")
   end
   def move_file(conn, %{"oldPath" => oldPath, "newPath" => newPath}) do
-      IO.inspect "Updating"
-      # oldPath = "./data/" <> oldPath
-      # newPath = "./data/" <> newPath
       res = DirectoryTreeHelper.move_file(oldPath, newPath)
       if (res == :ok) do
         render(conn, "show.json", file_storage: %{ "operation" => res })
