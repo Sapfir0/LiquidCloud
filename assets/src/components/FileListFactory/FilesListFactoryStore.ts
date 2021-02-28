@@ -9,7 +9,7 @@ import { FileViewDTO } from '../../shared/types/DTO';
 @injectable()
 export class FilesListFactoryStore {
     public files: FileViewDTO[] = [];
-    private _apiService: FileInteractionService;
+    protected _apiService: FileInteractionService;
     public currentDirectory = '';
 
     constructor(
@@ -21,8 +21,9 @@ export class FilesListFactoryStore {
         makeObservable(this, {
             files: observable,
             getFiles: action,
+            currentDirectory: observable,
+            setCurrentDirectory: action,
         });
-        this.getFiles()
     }
 
     public setCurrentDirectory = (currentRoute: ClientRouteType) => (locationPathname: string) => {

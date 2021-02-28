@@ -3,7 +3,7 @@ defmodule ElCloudWeb.UserView do
   alias ElCloudWeb.UserView
 
   def render("index.json", %{users: users}) do
-    IO.inspect users
+    IO.inspect(users)
     %{data: render_many(users, UserView, "user.json")}
   end
 
@@ -17,5 +17,4 @@ defmodule ElCloudWeb.UserView do
       username: user.username
     }
   end
-  
 end

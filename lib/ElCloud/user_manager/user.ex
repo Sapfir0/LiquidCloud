@@ -3,7 +3,6 @@ defmodule ElCloud.UserManager.User do
   import Ecto.Changeset
   alias ElCloud.UserManager.{User, Encryption}
 
-
   schema "users" do
     field :password, :string
     field :username, :string
@@ -20,9 +19,7 @@ defmodule ElCloud.UserManager.User do
     |> validate_format(:username, ~r/^[a-z0-9][a-z0-9]+[a-z0-9]$/i)
     |> validate_length(:username, min: 3)
     |> unique_constraint(:username)
-    |> downcase_username
     |> encrypt_password
-
   end
 
   defp downcase_username(changeset) do
@@ -31,6 +28,7 @@ defmodule ElCloud.UserManager.User do
 
   defp encrypt_password(changeset) do
     password = get_change(changeset, :password)
+
     if password do
       hash = Encryption.hash_password(password).password_hash
       put_change(changeset, :password, hash)
@@ -38,6 +36,4 @@ defmodule ElCloud.UserManager.User do
       changeset
     end
   end
-
-
 end

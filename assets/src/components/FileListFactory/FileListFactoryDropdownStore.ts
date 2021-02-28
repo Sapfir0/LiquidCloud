@@ -8,7 +8,7 @@ export enum FileListViewDropdownEnum {
 
 @injectable()
 export class FileListDropdownStore {
-    public currentItem: FileListViewDropdownEnum = FileListViewDropdownEnum.Tree;
+    public currentItem: FileListViewDropdownEnum = FileListViewDropdownEnum.List;
 
     constructor() {
         makeObservable(this, { currentItem: observable, setCurrentItem: action });

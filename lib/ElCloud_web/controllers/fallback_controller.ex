@@ -26,5 +26,4 @@ defmodule ElCloudWeb.FallbackController do
     |> put_view(ElCloudWeb.FileStorageView)
     |> render("folderNotFound.json")
   end
-
 end

@@ -14,9 +14,12 @@ config :elCloud, ElCloudWeb.Endpoint,
   url: [host: "localhost", port: 4000],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
+
+config :elCloud, ElCloudWeb.FileStorageController,
+  data_dir: "./data"
+  
 # Do not print debug messages in production
 config :logger, level: :info
-
 
 config :elCloud, ElCloud.Repo,
   username: "postgres",

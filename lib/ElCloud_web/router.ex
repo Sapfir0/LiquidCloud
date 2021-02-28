@@ -17,6 +17,7 @@ defmodule ElCloudWeb.Router do
     pipe_through :api
 
     resources "/files", FileStorageController, except: [:new, :edit]
+    put "/files", FileStorageController, :move_file
     resources "/users", UserController, except: [:new, :edit]
   end
 
@@ -29,7 +30,6 @@ defmodule ElCloudWeb.Router do
 
     get "/*path", PageController, :index
   end
-
 
   def swagger_info do
     %{
@@ -48,14 +48,12 @@ defmodule ElCloudWeb.Router do
         Bearer: %{
           type: "apiKey",
           name: "Authorization",
-          description:
-          "API Token must be provided via `Authorization: Bearer ` header",
-      in: "header"
+          description: "API Token must be provided via `Authorization: Bearer ` header",
+          in: "header"
         }
       },
       consumes: ["application/json"],
       produces: ["application/json"]
     }
   end
-
 end

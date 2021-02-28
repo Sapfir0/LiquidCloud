@@ -1,7 +1,8 @@
 import { Card } from '@material-ui/core';
 import { observer } from 'mobx-react';
-import React, { FC } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { FC, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { throttle } from 'throttle-debounce';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import { FileListViewDropdown } from '../../components/FileListFactory/FileListFactory';
 import {
@@ -23,11 +24,17 @@ comp.set(FileListViewDropdownEnum.List, <FilesList />);
 const Index: FC = observer((props) => {
     const store = useInject<FileListDropdownStore>(SERVICE_IDENTIFIER.FileListDropdownStore);
     const filesListStore = useInject<FilesListStore>(SERVICE_IDENTIFIER.FilesListStore);
-    const loc = useLocation();
-    // filesListStore.setCurrentDirectory(ClientRoutes.Index)(loc.pathname);
-    console.log(filesListStore.currentDirectory);
-    // console.log(filesListStore.files);
 
+    const history = useHistory();
+
+    useEffect(() => {
+        return history.listen((location: { pathname: string }) => {
+            const debouncedMoving = throttle(1000, () => {
+                filesListStore.setCurrentDirectory(ClientRoutes.Index)(location.pathname); // подразумевается, что  мы находимся на этой странице
+            });
+            debouncedMoving();
+        });
+    });
 
     return (
         <>

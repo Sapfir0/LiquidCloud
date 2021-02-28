@@ -5,9 +5,9 @@ defmodule ElCloud.UserManagerTest do
 
   describe "users" do
     alias ElCloud.UserManager.User
-
-    @valid_attrs %{password: "some password", username: "some username"}
-    @update_attrs %{password: "some updated password", username: "some updated username"}
+    alias ElCloud.UserManager.Encryption
+    @valid_attrs %{password: "some password", username: "someUsername"}
+    @update_attrs %{password: "some updated password", username: "someUsername2"}
     @invalid_attrs %{password: nil, username: nil}
 
     def user_fixture(attrs \\ %{}) do
@@ -31,8 +31,8 @@ defmodule ElCloud.UserManagerTest do
 
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = UserManager.create_user(@valid_attrs)
-      assert user.password == "some password"
-      assert user.username == "some username"
+      assert Encryption.validate_password(user, @valid_attrs.password)
+      assert user.username == @valid_attrs.username
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -42,8 +42,8 @@ defmodule ElCloud.UserManagerTest do
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
       assert {:ok, %User{} = user} = UserManager.update_user(user, @update_attrs)
-      assert user.password == "some updated password"
-      assert user.username == "some updated username"
+      assert Encryption.validate_password(user, @update_attrs.password)
+      assert user.username == @update_attrs.username
     end
 
     test "update_user/2 with invalid data returns error changeset" do

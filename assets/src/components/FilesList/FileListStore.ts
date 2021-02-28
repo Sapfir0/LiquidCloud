@@ -13,9 +13,5 @@ export class FilesListStore extends FilesListFactoryStore {
         @inject(SERVICE_IDENTIFIER.FileSystemChecker) fileChecker: FileSystemChecker,
     ) {
         super(apiService, fileChecker);
-        makeObservable(this, {
-            currentDirectory: observable,
-            setCurrentDirectory: action,
-        });
     }
 }

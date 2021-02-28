@@ -16,14 +16,6 @@ export type FileViewProps = {
 
 export const FileView: FC<FileViewProps> = (props: FileViewProps) => {
     const filesListStore = useInject<FilesListStore>(SERVICE_IDENTIFIER.FilesListStore);
-    const history = useHistory();
-
-    useEffect(() => {
-        return history.listen((location: { pathname: string }) => {
-            filesListStore.setCurrentDirectory(ClientRoutes.Index)(location.pathname); // подразумевается, что  мы находимся на этой странице
-        });
-    }, [history]);
-
     const { file } = props;
     const newDir = `${filesListStore.currentDirectory}/${file.filename}`;
     return (

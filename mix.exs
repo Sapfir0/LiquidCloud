@@ -10,7 +10,12 @@ defmodule ElCloud.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      dialyzer: [plt_add_deps: :transitive],
+      preferred_cli_env: [
+        quality: :test,
+        "quality.ci": :test
+      ]
     ]
   end
 
@@ -41,13 +46,19 @@ defmodule ElCloud.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:dialyxir, "~> 0.4", only: [:dev], runtime: false},
+      {:credo, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:sobelow, "~> 0.7", only: [:dev, :test], runtime: false},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:phoenix_swagger, "~> 0.8"},
-      {:ex_json_schema, "~> 0.7.3"}, # for phoenix swagger
-      {:poison, "~> 3.1"}, # for phoenix swagger
-      {:pbkdf2_elixir, "~> 1.3"} # если юзаешь линю, то лучше использовать argon2 или bcrypt
+      # for phoenix swagger
+      {:ex_json_schema, "~> 0.7.3"},
+      # for phoenix swagger
+      {:poison, "~> 3.1"},
+      # если юзаешь линю, то лучше использовать argon2 или bcrypt
+      {:pbkdf2_elixir, "~> 1.3"}
     ]
   end
 
@@ -62,7 +73,23 @@ defmodule ElCloud.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"],
-      start: ["phx.swagger.generate -e ElCloud.UserManager", "phx.server"]
+      start: ["phx.swagger.generate -e ElCloud.UserManager", "phx.server"],
+      quality: [
+        "compile --all-warnings",
+        "test",
+        "format",
+        "credo --strict",
+        "sobelow --verbose",
+        "dialyzer --ignore-exit-status"
+      ],
+      "quality.ci": [
+        "compile --all-warnings ",
+        "test --slowest 10",
+        "format --check-formatted",
+        "credo --strict",
+        "sobelow --exit",
+        "dialyzer"
+      ]
     ]
   end
 end
