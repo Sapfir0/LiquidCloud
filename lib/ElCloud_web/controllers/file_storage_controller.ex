@@ -34,7 +34,7 @@ defmodule ElCloudWeb.FileStorageController do
     response(200, "OK", Schema.ref(:FileResponse))
   end
   def index(conn, params) do
-    directory = "./data/" <> Map.get(params, "directory", "")
+    directory = "./data" <> Map.get(params, "directory", "")
     files = FileStorage.list_files(directory)
     render(conn, "index.json", tb_files: files)
   end

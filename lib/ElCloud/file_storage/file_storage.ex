@@ -4,9 +4,9 @@ defmodule ElCloud.FileStorage do
   """
   import Ecto.Query, warn: false
 
-  alias ElCloud.FileStorage
-
+  @spec list_files(String.t()) :: list()
   def list_files(directory) do
+    # directory = Path.expand(directory)
     if !File.exists?(directory) do
       {:error, :folderNotFound}
     else
