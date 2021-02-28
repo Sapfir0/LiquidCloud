@@ -24,6 +24,7 @@ defmodule ElCloud.Application do
   data_dir = Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:data_dir]
   if !File.exists?(data_dir) do
     File.mkdir!(data_dir)
+  end
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
