@@ -5,6 +5,8 @@ defmodule ElCloudWeb.FileStorageController do
   alias ElCloud.FileStorage
   action_fallback ElCloudWeb.FallbackController
 
+  @data_dir Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:data_dir]
+
   def swagger_definitions do
     %{
       File:
@@ -34,7 +36,7 @@ defmodule ElCloudWeb.FileStorageController do
     response(200, "OK", Schema.ref(:FileResponse))
   end
   def index(conn, params) do
-    directory = "./data" <> Map.get(params, "directory", "")
+    directory = @data_dir <> Map.get(params, "directory", "")
     files = FileStorage.list_files(directory)
     render(conn, "index.json", tb_files: files)
   end

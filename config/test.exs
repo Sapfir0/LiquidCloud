@@ -11,7 +11,7 @@ config :logger, level: :warn
 
 
 config :elCloud, ElCloudWeb.FileStorageController,
-  data_dir: ["./data"]
+  data_dir: "./data"
 
 # Configure your database
 config :elCloud, ElCloud.Repo,

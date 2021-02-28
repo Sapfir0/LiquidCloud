@@ -44,7 +44,7 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 config :elCloud, ElCloudWeb.FileStorageController,
-  data_dir: ["./data"]
+  data_dir: "./data"
 
 # Configure your database
 config :elCloud, ElCloud.Repo,
