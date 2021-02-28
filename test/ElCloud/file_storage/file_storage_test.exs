@@ -51,7 +51,7 @@ defmodule ElCloud.FileStorageTest do
 
       parent_files = FileStorage.list_files(@inner_file_attrs.folder)
       file = find_by_path(parent_files, @inner_file_attrs.filepath)
-      assert list_files_by_path(files, @file_attrs.filepath) != nil
+      assert list_files_by_path(files, @inner_file_attrs.filepath) != nil
 
       File.rm!(@inner_file_attrs.filepath)
       File.rmdir!(@inner_file_attrs.folder)
