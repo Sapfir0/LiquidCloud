@@ -2,14 +2,22 @@ defmodule ElCloud.FileStorageTest do
   use ElCloud.DataCase
   alias ElCloud.ListHelper
 
+  def list_files_by_path(list, path) do
+    ListHelper.recursive_find(list, :path, path)
+  end
+
+  def find_by_path(list, path) do
+    ListHelper.find_by(list, :path, path)
+  end
+
   describe "fileStorage" do
     alias ElCloud.FileStorage
-    @valid_attrs %{folder: "./data", filepath: Path.join("./data", "/test.txt")}
+    @file_attrs %{folder: "./data", filepath: Path.join("./data", "/test.txt")}
 
     test "list_files/1 returns created file" do
-      File.write(@valid_attrs.filepath, "empty file", [:append])
-      files = FileStorage.list_files(@valid_attrs.folder)
-      assert ListHelper.recursive_find_by_path(files, @valid_attrs.filepath) != nil
+      File.write(@file_attrs.filepath, "empty file", [:append])
+      files = FileStorage.list_files(@file_attrs.folder)
+      assert list_files_by_path(files, @file_attrs.filepath) != nil
     end
 
 
@@ -17,11 +25,11 @@ defmodule ElCloud.FileStorageTest do
       File.mkdir("./data/test_folder")
       File.write("./data/test_folder/test.txt", "Som File info", [:append])
 
-      files = FileStorage.list_files(@valid_attrs.folder)
-      assert ListHelper.recursive_find_by_path(files, "./data/test_folder/test.txt") != nil
+      files = FileStorage.list_files(@file_attrs.folder)
+      assert list_files_by_path(files, "./data/test_folder/test.txt") != nil
 
       parent_files = FileStorage.list_files("./data/test_folder")
-      file = ListHelper.find_by_path(parent_files, "./data/test_folder/test.txt")
+      file = find_by_path(parent_files, "./data/test_folder/test.txt")
 
       assert file !== nil
       assert file.info.size != 0
