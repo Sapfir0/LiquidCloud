@@ -43,11 +43,15 @@ jobs:
     - name: Output PostgreSQL version
       run: psql --version
 
-    - name: Setup db
-      run: mix ecto.setup
-
     - name: Install dependencies
       run: mix deps.get
 
+    - name: Setup db
+      run: mix ecto.setup
+
     - name: Run tests
-      run: mix test
+      run: |
+        mix ecto.create
+        mix ecto.migrate
+        mix test
+
