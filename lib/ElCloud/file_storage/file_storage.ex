@@ -12,6 +12,4 @@ defmodule ElCloud.FileStorage do
       DirectoryTreeHelper.list_all(directory)
     end
   end
-
-
 end

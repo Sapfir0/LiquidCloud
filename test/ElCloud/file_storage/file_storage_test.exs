@@ -17,13 +17,16 @@ defmodule ElCloud.FileStorageTest do
     alias ElCloud.FileStorage
 
     @file_attrs %{folder: @data_dir, filepath: Path.join(@data_dir, "test.txt")}
-    @inner_file_attrs %{folder: Path.join(@data_dir, "test_folder"), filepath: PathHelper.join([@data_dir, "test_folder", "test.txt"])}
+    @inner_file_attrs %{
+      folder: Path.join(@data_dir, "test_folder"),
+      filepath: PathHelper.join([@data_dir, "test_folder", "test.txt"])
+    }
 
     test "list_files/1 returns created file" do
       File.write(@file_attrs.filepath, "empty file", [:append])
-      IO.inspect @file_attrs.folder
-      IO.inspect File.ls("./")
-      IO.inspect File.ls("./data")
+      IO.inspect(@file_attrs.folder)
+      IO.inspect(File.ls("./"))
+      IO.inspect(File.ls("./data"))
       files = FileStorage.list_files(@file_attrs.folder)
 
       assert list_files_by_path(files, @file_attrs.filepath) != nil
@@ -40,7 +43,6 @@ defmodule ElCloud.FileStorageTest do
       assert file.isFolder == false
       assert file.children == nil
     end
-
 
     test "list_files/1 returns created file in properly parent" do
       File.mkdir(@inner_file_attrs.folder)
@@ -59,7 +61,5 @@ defmodule ElCloud.FileStorageTest do
 
     test "move_file/2 update file path properly" do
     end
-
-
   end
 end

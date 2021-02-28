@@ -35,27 +35,26 @@ defmodule ElCloudWeb.FileStorageController do
     description("List all files in directory")
     response(200, "OK", Schema.ref(:FileResponse))
   end
+
   def index(conn, params) do
     directory = @data_dir <> Map.get(params, "directory", "")
     files = FileStorage.list_files(directory)
     render(conn, "index.json", tb_files: files)
   end
 
-
   swagger_path(:update) do
     put("/api/files")
     summary("Move file")
     description("List all files in directory")
   end
+
   def move_file(conn, %{"oldPath" => oldPath, "newPath" => newPath}) do
-      res = DirectoryTreeHelper.move_file(oldPath, newPath)
-      if (res == :ok) do
-        render(conn, "show.json", file_storage: %{ "operation" => res })
-      else
-        {:error, :folderNotFound}
-      end
+    res = DirectoryTreeHelper.move_file(oldPath, newPath)
+
+    if res == :ok do
+      render(conn, "show.json", file_storage: %{"operation" => res})
+    else
+      {:error, :folderNotFound}
+    end
   end
-
-
-
 end

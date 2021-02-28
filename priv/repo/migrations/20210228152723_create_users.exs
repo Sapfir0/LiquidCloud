@@ -8,7 +8,6 @@ defmodule ElCloud.Repo.Migrations.CreateUsers do
 
       timestamps()
     end
-
   end
 
   def down do

@@ -14,7 +14,8 @@ defmodule ElCloud.Application do
       ElCloudWeb.Endpoint,
       # Starts a worker by calling: ElCloud.Worker.start_link(arg)
       # ElCloud.Watcher
-      {ElCloud.Watcher, [Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:data_dir]]},
+      {ElCloud.Watcher,
+       [Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:data_dir]]},
       {Phoenix.PubSub, [name: ElCloud.PubSub, adapter: Phoenix.PubSub.PG2]}
     ]
 
@@ -23,6 +24,7 @@ defmodule ElCloud.Application do
 
   # creating cloud directory
   data_dir = Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:data_dir]
+
   if !File.exists?(data_dir) do
     File.mkdir!(data_dir)
   end

@@ -42,5 +42,4 @@ defmodule DirectoryTreeHelper do
   def remove_file(path) do
     File.rm(path)
   end
-
 end
