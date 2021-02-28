@@ -21,6 +21,10 @@ defmodule ElCloud.Application do
     {:ok, pid} = Supervisor.start_link(children, strategy: :one_for_one)
   end
 
+  data_dir = Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:data_dir]
+  if !File.exists?(data_dir) do
+    File.mkdir!(data_dir)
+
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
