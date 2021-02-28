@@ -21,6 +21,7 @@ defmodule ElCloud.Application do
     {:ok, pid} = Supervisor.start_link(children, strategy: :one_for_one)
   end
 
+  # creating cloud directory
   data_dir = Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:data_dir]
   if !File.exists?(data_dir) do
     File.mkdir!(data_dir)
