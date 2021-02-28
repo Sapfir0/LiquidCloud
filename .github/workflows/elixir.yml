@@ -28,7 +28,7 @@ jobs:
         otp-version: '23.0.3' # Define the OTP version [required]
 
     - name: Install dependencies
-      run: apt-get install inotify-tools
+      run: sudo apt-get install inotify-tools
 
     - name: Restore dependencies cache
       uses: actions/cache@v2
