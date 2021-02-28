@@ -1,6 +1,6 @@
 defmodule ElCloud.FileStorageTest do
   use ElCloud.DataCase
-
+  alias ElCloud.ListHelper
 
   describe "fileStorage" do
     alias ElCloud.FileStorage
@@ -9,7 +9,7 @@ defmodule ElCloud.FileStorageTest do
     test "list_files/1 returns created file" do
       File.write(@valid_attrs.filepath, "empty file", [:append])
       files = FileStorage.list_files(@valid_attrs.folder)
-      assert recursive_find_by_path(files, @valid_attrs.filepath) != nil
+      assert ListHelper.recursive_find_by_path(files, @valid_attrs.filepath) != nil
     end
 
 
@@ -18,10 +18,10 @@ defmodule ElCloud.FileStorageTest do
       File.write("./data/test_folder/test.txt", "Som File info", [:append])
 
       files = FileStorage.list_files(@valid_attrs.folder)
-      assert recursive_find_by_path(files, "./data/test_folder/test.txt") != nil
+      assert ListHelper.recursive_find_by_path(files, "./data/test_folder/test.txt") != nil
 
       parent_files = FileStorage.list_files("./data/test_folder")
-      file = find_by_path(parent_files, "./data/test_folder/test.txt")
+      file = ListHelper.find_by_path(parent_files, "./data/test_folder/test.txt")
 
       assert file !== nil
       assert file.info.size != 0
