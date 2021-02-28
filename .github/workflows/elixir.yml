@@ -43,6 +43,9 @@ jobs:
     - name: Output PostgreSQL version
       run: psql --version
 
+    - name: Setup db
+      run: ecto.setup
+
     - name: Install dependencies
       run: mix deps.get
 
