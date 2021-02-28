@@ -44,7 +44,7 @@ jobs:
       run: psql --version
 
     - name: Setup db
-      run: ecto.setup
+      run: mix ecto.setup
 
     - name: Install dependencies
       run: mix deps.get
