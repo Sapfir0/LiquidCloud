@@ -27,6 +27,9 @@ jobs:
         elixir-version: '1.10.4' # Define the elixir version [required]
         otp-version: '23.0.3' # Define the OTP version [required]
 
+    - name: Install dependencies
+      run: apt-get install inotify-tools
+
     - name: Restore dependencies cache
       uses: actions/cache@v2
       with:
@@ -40,15 +43,6 @@ jobs:
     - name: Output PostgreSQL version
       run: psql --version
 
-    - name: Output Node.js version
-      run: node --version
-
-    - name: Output git version
-      run: |
-        git --version
-        git status
-        git branch -a
-        git branch
     - name: Install dependencies
       run: mix deps.get
 
