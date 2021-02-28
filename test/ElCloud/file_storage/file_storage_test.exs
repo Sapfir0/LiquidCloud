@@ -21,6 +21,9 @@ defmodule ElCloud.FileStorageTest do
 
     test "list_files/1 returns created file" do
       File.write(@file_attrs.filepath, "empty file", [:append])
+      IO.inspect @file_attrs.folder
+      IO.inspect File.ls("./")
+      IO.inspect File.ls("./data")
       files = FileStorage.list_files(@file_attrs.folder)
 
       assert list_files_by_path(files, @file_attrs.filepath) != nil
