@@ -50,4 +50,8 @@ jobs:
       run: mix ecto.setup
 
     - name: Run tests
-      run: mix test
+      run: |
+        mix ecto.create
+        mix ecto.migrate
+        mix test
+
