@@ -38,10 +38,13 @@ defmodule ElCloudWeb.FileStorageController do
 
   def index(conn, params) do
     directory = @data_dir <> Map.get(params, "directory", "")
-    {page, ""} = Integer.parse(Map.get(params, "page", 1))
-    {page_size, ""} = Integer.parse(Map.get(params, "page_size", 20))
+    {page, _} = Integer.parse(Map.get(params, "page",  "0"))
+    isRecursive = !!Map.get(params, "is_recursive", false)
+    page_size = Map.get(params, "page_size", nil)
+    real_page_size = if page_size === nil, do: length(File.ls!(directory)), else: String.to_integer(page_size)
 
-    files = FileStorage.list_files(directory, page, page_size)
+    IO.inspect isRecursive
+    files = FileStorage.list_files(directory, page, real_page_size, isRecursive)
     render(conn, "index.json", tb_files: files)
   end
 

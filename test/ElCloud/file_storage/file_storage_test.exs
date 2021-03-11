@@ -24,10 +24,8 @@ defmodule ElCloud.FileStorageTest do
 
     test "list_files/1 returns created file" do
       File.write(@file_attrs.filepath, "empty file", [:append])
-      IO.inspect(@file_attrs.folder)
-      IO.inspect(File.ls("./"))
-      IO.inspect(File.ls("./data"))
-      files = FileStorage.list_files(@file_attrs.folder)
+
+      files = FileStorage.list_files(@file_attrs.folder, 0, 100)
 
       assert list_files_by_path(files, @file_attrs.filepath) != nil
     end
@@ -35,7 +33,7 @@ defmodule ElCloud.FileStorageTest do
     test "list_files/1 returns created file with properly parameters" do
       File.write(@file_attrs.filepath, "empty file", [:append])
 
-      files = FileStorage.list_files(@file_attrs.folder)
+      files = FileStorage.list_files(@file_attrs.folder, 0, 100)
       file = find_by_path(files, @file_attrs.filepath)
 
       assert file !== nil
@@ -48,10 +46,11 @@ defmodule ElCloud.FileStorageTest do
       File.mkdir(@inner_file_attrs.folder)
       File.write(@inner_file_attrs.filepath, "Some File info", [:append])
 
-      files = FileStorage.list_files(@file_attrs.folder)
+      files = FileStorage.list_files(@inner_file_attrs.folder, 0, 100, true)
+      IO.inspect files
       assert list_files_by_path(files, @inner_file_attrs.filepath) != nil
 
-      parent_files = FileStorage.list_files(@inner_file_attrs.folder)
+      parent_files = FileStorage.list_files(@inner_file_attrs.folder,  0, 100, true)
       file = find_by_path(parent_files, @inner_file_attrs.filepath)
       assert list_files_by_path(files, @inner_file_attrs.filepath) != nil
 
