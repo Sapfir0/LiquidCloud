@@ -43,7 +43,6 @@ defmodule ElCloudWeb.FileStorageController do
     page_size = Map.get(params, "page_size", nil)
     real_page_size = if page_size === nil, do: length(File.ls!(directory)), else: String.to_integer(page_size)
 
-    IO.inspect isRecursive
     files = FileStorage.list_files(directory, page, real_page_size, isRecursive)
     render(conn, "index.json", tb_files: files)
   end

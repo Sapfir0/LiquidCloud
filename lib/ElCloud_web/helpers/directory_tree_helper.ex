@@ -12,22 +12,22 @@ defmodule DirectoryTreeHelper do
   def list_all(filepath, page, page_size, isRecursive) do
     files = File.ls!(filepath)
     paged_files = Enum.chunk_every(files, page_size)
-
-    Enum.map(Enum.at(paged_files, page), fn file ->
-      get_files_list(filepath, file, isRecursive)
+    current_page = Enum.at(paged_files, page) || []
+    
+    Enum.map(current_page, fn file ->
+      iterator(filepath, file, page, page_size, isRecursive)
     end)
+
+
   end
 
-  def get_files_list(filepath, filename, isRecursive \\ false) do
-    iterator(filepath, filename, isRecursive)
-  end
-
-  @spec iterator(String.t(), String.t()) :: file()
-  def iterator(filepath, filename, isRecursive \\ false) do
+  @spec iterator(String.t(), String.t(), integer(), integer(), boolean()) :: file()
+  def iterator(filepath, filename, page, page_size, isRecursive) do
     fullPath = "#{filepath}/#{filename}"
     isFolder = File.dir?(fullPath)
     fileStat = File.lstat!(fullPath)
-    children = if isRecursive and isFolder, do: get_files_list(filepath, filename), else: nil
+
+    children = if isRecursive and isFolder, do: list_all(fullPath, page, page_size, isRecursive), else: nil
 
     %{
       :isFolder => isFolder,

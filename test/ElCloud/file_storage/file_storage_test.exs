@@ -46,8 +46,10 @@ defmodule ElCloud.FileStorageTest do
       File.mkdir(@inner_file_attrs.folder)
       File.write(@inner_file_attrs.filepath, "Some File info", [:append])
 
-      files = FileStorage.list_files(@inner_file_attrs.folder, 0, 100, true)
-      IO.inspect files
+      files = FileStorage.list_files(@file_attrs.folder, 0, 10, true) # хаха может быть куча проблем тут:
+      # 1. если папка находится дальше, чем page_size от начала
+      # 2. если взять большой page_size, то тест может затянуться, если у нас есть папки с большой вложенностью(а в этом тесте мы как раз проверяем корректную вложенность)
+
       assert list_files_by_path(files, @inner_file_attrs.filepath) != nil
 
       parent_files = FileStorage.list_files(@inner_file_attrs.folder,  0, 100, true)
