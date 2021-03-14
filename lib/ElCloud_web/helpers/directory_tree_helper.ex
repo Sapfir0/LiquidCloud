@@ -11,16 +11,13 @@ defmodule DirectoryTreeHelper do
 
   def list_all(filepath, page, page_size, isRecursive) do
     files = File.ls!(filepath)
-    if (files == []) do
-      files
-    else
-      paged_files = Enum.chunk_every(files, page_size)
-      current_page = Enum.at(paged_files, page) || [] # если вернет нул, мы упадем на след этапе итерирования
+    paged_files = Enum.chunk_every(files, page_size)
+    current_page = Enum.at(paged_files, page) || []
+    
+    Enum.map(current_page, fn file ->
+      iterator(filepath, file, page, page_size, isRecursive)
+    end)
 
-      Enum.map(current_page, fn file ->
-        iterator(filepath, file, page, page_size, isRecursive)
-      end)
-    end
 
   end
 
