@@ -4,12 +4,12 @@ defmodule ElCloud.FileStorage do
   """
   import Ecto.Query, warn: false
 
-  @spec list_files(String.t(), integer(), integer(), boolean()) :: list()
-  def list_files(directory, page, page_size, isRecursive  \\ false) do
+  @spec listFiles(String.t(), integer(), integer(), boolean()) :: list()
+  def listFiles(directory, page, page_size, isRecursive  \\ false) do
     if !File.exists?(directory) do
       {:error, :folderNotFound}
     else
-      DirectoryTreeHelper.list_all(directory, page, page_size, isRecursive)
+      DirectoryTreeHelper.listAll(directory, page, page_size, isRecursive)
     end
   end
 end

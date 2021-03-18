@@ -36,14 +36,19 @@ defmodule ElCloudWeb.FileStorageController do
     response(200, "OK", Schema.ref(:FileResponse))
   end
 
+  def getSaveFileCount(directory) do
+    files = length(File.ls!(directory))
+    if files === 0, do: 1, else: files
+  end
+
   def index(conn, params) do
     directory = @data_dir <> Map.get(params, "directory", "")
     {page, _} = Integer.parse(Map.get(params, "page",  "0"))
     isRecursive = !!Map.get(params, "is_recursive", false)
     page_size = Map.get(params, "page_size", nil)
-    real_page_size = if page_size === nil, do: length(File.ls!(directory)), else: String.to_integer(page_size)
-
-    files = FileStorage.list_files(directory, page, real_page_size, isRecursive)
+    real_page_size = if page_size === nil, do: getSaveFileCount(directory), else: String.to_integer(page_size)
+    
+    files = FileStorage.listFiles(directory, page, real_page_size, isRecursive)
     render(conn, "index.json", tb_files: files)
   end
 

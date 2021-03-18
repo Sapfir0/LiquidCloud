@@ -1,5 +1,4 @@
 defmodule DirectoryTreeHelper do
-  require Calendar
 
   @type file :: %{
           :isFolder => boolean(),
@@ -9,17 +8,13 @@ defmodule DirectoryTreeHelper do
           :info => %{:size => non_neg_integer()}
         }
 
-  def list_all(filepath, page, page_size, isRecursive) do
-    files = File.ls!(filepath)
-    paged_files = Enum.chunk_every(files, page_size)
-    current_page = Enum.at(paged_files, page) || []
-    
-    Enum.map(current_page, fn file ->
-      iterator(filepath, file, page, page_size, isRecursive)
-    end)
-
-
+  def listAll(filepath, page, page_size, isRecursive) do
+      File.ls!(filepath)
+        |> Enum.chunk_every(page_size)
+        |> Enum.at(page, [])
+        |> Enum.map(fn file -> iterator(filepath, file, page, page_size, isRecursive) end)
   end
+
 
   @spec iterator(String.t(), String.t(), integer(), integer(), boolean()) :: file()
   def iterator(filepath, filename, page, page_size, isRecursive) do
@@ -27,7 +22,7 @@ defmodule DirectoryTreeHelper do
     isFolder = File.dir?(fullPath)
     fileStat = File.lstat!(fullPath)
 
-    children = if isRecursive and isFolder, do: list_all(fullPath, page, page_size, isRecursive), else: nil
+    children = if isRecursive and isFolder, do: listAll(fullPath, page, page_size, isRecursive), else: nil
 
     %{
       :isFolder => isFolder,
