@@ -21,7 +21,7 @@ export class FileInteractionService {
         }
     };
 
-    public updateFile = async (oldDirectory, newDirectory) => {
+    public updateFile = async (oldDirectory: string, newDirectory: string) => {
         const res = await this._apiService.put<{ data: FileViewDTO[] }>(ApiRoutes.FILE.GET_ALL_FILES, {
             oldPath: oldDirectory,
             newPath: newDirectory,

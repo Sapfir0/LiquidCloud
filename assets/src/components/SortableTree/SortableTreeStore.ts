@@ -11,8 +11,8 @@ import { FilesTree } from '../../shared/types/Files';
 import { FilesListFactoryStore } from '../FileListFactory/FilesListFactoryStore';
 
 export class SortableTreeStore extends FilesListFactoryStore {
-    public previousTree: FilesTree[];
-    public files: FilesTree[] | undefined = undefined;
+    public previousTree: FilesTree[] = [];
+    public files: FilesTree[] = [];
 
     constructor(
         @inject(SERVICE_IDENTIFIER.FileInteractionService) apiService: FileInteractionService,
@@ -36,7 +36,7 @@ export class SortableTreeStore extends FilesListFactoryStore {
 
     public moveFile = (data: NodeData & FullTree & OnMovePreviousAndNextLocation): void => {
         this.previousTree = this.files;
-        const rootDir = data.path[0].split(sep)[1];
+        const rootDir = data.path[0].toString().split(sep)[1];
 
         const outputDir = data.nextParentNode?.path ?? rootDir;
 

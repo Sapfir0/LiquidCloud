@@ -13,7 +13,9 @@ import { NetworkError } from './Errors/NetworkError';
 class ApiInteractionService implements IApiInteractionService {
     fetcher: BaseApiInteractionService;
 
-    constructor(@inject(SERVICE_IDENTIFIER.BaseApiInteractionService) baseInteractionService: BaseApiInteractionService) {
+    constructor(
+        @inject(SERVICE_IDENTIFIER.BaseApiInteractionService) baseInteractionService: BaseApiInteractionService,
+    ) {
         this.fetcher = baseInteractionService;
     }
 
@@ -36,7 +38,8 @@ class ApiInteractionService implements IApiInteractionService {
         const parsedData = settings?.stringify ? qs.stringify(data) : data;
         const parsedConfig = settings?.multipartData ? this.setMultipartDataHeader(config) : config;
 
-        return this.query<T>({ method: 'post', url: url, baseURL: host, data: parsedData, ...parsedConfig });    }
+        return this.query<T>({ method: 'post', url: url, baseURL: host, data: parsedData, ...parsedConfig });
+    }
 
     public put<T = any>(
         url: string,
