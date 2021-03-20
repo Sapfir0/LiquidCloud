@@ -4,6 +4,7 @@ import { action, makeObservable, observable } from 'mobx';
 export enum FileListViewDropdownEnum {
     List,
     Tree,
+    Table,
 }
 
 @injectable()

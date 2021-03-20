@@ -12,6 +12,8 @@ export const FileListViewDropdown = observer(() => {
         <Select value={store.currentItem} onChange={store.setCurrentItem}>
             <MenuItem value={FileListViewDropdownEnum.Tree}>SortableTree</MenuItem>
             <MenuItem value={FileListViewDropdownEnum.List}>List</MenuItem>
+            <MenuItem value={FileListViewDropdownEnum.Table}>Table</MenuItem>
+
         </Select>
     );
 });

@@ -12,6 +12,7 @@ import {
 import { FilesListStore } from '../../components/FilesList/FileListStore';
 import { FilesList } from '../../components/FilesList/FilesList';
 import { SortableFileTree } from '../../components/SortableTree/SortableTree';
+import { FileTable } from '../../components/Table/Table';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { ClientRoutes } from '../../services/clientRouteContants';
 import { useInject } from '../../shared/hooks/injectHook';
@@ -20,6 +21,7 @@ import './Index.css';
 const comp: Map<FileListViewDropdownEnum, JSX.Element> = new Map();
 comp.set(FileListViewDropdownEnum.Tree, <SortableFileTree />);
 comp.set(FileListViewDropdownEnum.List, <FilesList />);
+comp.set(FileListViewDropdownEnum.Table, <FileTable />);
 
 const Index: FC = observer((props) => {
     const store = useInject<FileListDropdownStore>(SERVICE_IDENTIFIER.FileListDropdownStore);
