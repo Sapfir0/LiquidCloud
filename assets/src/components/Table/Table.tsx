@@ -8,16 +8,12 @@ import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { ClientRoutes } from '../../services/clientRouteContants';
 import { useInject } from '../../shared/hooks/injectHook';
 import { FilesListFactoryStore } from '../FileListFactory/FilesListFactoryStore';
+import { TableFileStore } from './TableFileStore';
 
 export const FileTable = observer(() => {
-    const filesListStore = useInject<FilesListFactoryStore>(SERVICE_IDENTIFIER.FilesListStore);
+    const store = useInject<TableFileStore>(SERVICE_IDENTIFIER.TableFileStore);
     const rowGetter = ({ index }) => {
-        return filesListStore.files[index];
-    };
-
-    const handleRowsScroll = ({ stopIndex }) => {
-        //   const page = Math.ceil(stopIndex / prevState.perPage)
-        //   console.log(page);
+        return store.files[index];
     };
 
     const FileTypeCell = (props: TableCellProps) => (
@@ -25,7 +21,7 @@ export const FileTable = observer(() => {
     );
 
     const FilenameCell = (props: TableCellProps) => {
-        const newDir = `${filesListStore.currentDirectory}/${props.cellData}`;
+        const newDir = `${store.currentDirectory}/${props.cellData}`;
         return props.rowData.isFolder ? (
             <Link to={`${ClientRoutes.Index}${newDir}`}>{props.cellData} </Link>
         ) : (
@@ -33,15 +29,20 @@ export const FileTable = observer(() => {
         );
     };
 
+    const headerHeight = 50;
+    const rowHeight = 40;
+    const height = rowHeight * store.perPage + headerHeight;
+    const rowCount = store.files.length;
+
     return (
         <Table
-            height={600}
-            rowHeight={50}
-            headerHeight={70}
-            rowCount={filesListStore.files.length}
+            height={height}
+            rowHeight={rowHeight}
+            headerHeight={headerHeight}
+            rowCount={rowCount}
             width={600}
-            rows={filesListStore.files}
-            onRowsRendered={handleRowsScroll}
+            rows={store.files}
+            onRowsRendered={store.handleRowsScroll}
             rowGetter={rowGetter}
         >
             <Column label="" dataKey="isFolder" width={50} cellRenderer={FileTypeCell} />
