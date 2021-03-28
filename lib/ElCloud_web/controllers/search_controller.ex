@@ -9,7 +9,6 @@ defmodule ElCloudWeb.SearchController do
 
   def index(conn, %{"query" => query, "directory" => directory} = params) do
     files = ElCloud.Storage.search(@data_dir <> directory, query)
-    IO.inspect files
     render(conn, "index.json", searchResult: files)
   end
 

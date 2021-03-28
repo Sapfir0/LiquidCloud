@@ -28,7 +28,7 @@ export const FileView: FC<FileViewProps> = (props: FileViewProps) => {
                 </ListItemIcon>
                 {file.isFolder && <Link to={`${ClientRoutes.Index}${newDir}`}>{file.filename} </Link>}
                 {!file.isFolder && file.filename}
-            </ListItem>{' '}
+            </ListItem>
         </div>
     );
 };

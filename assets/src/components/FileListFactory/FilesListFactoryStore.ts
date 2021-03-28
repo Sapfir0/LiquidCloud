@@ -34,12 +34,8 @@ export class FilesListFactoryStore {
     };
 
     public getFiles = async (): Promise<void> => {
-        // TODO решить где нужно избавляться от either
-        this.files = (await this._apiService.getFiles(this.currentDirectory)) as any;
-        console.log('gettingFiles');
+        const promiseFiles = this._apiService.getFiles(this.currentDirectory);
 
-        // if (this._apiService.isLastRequestErrored) {
-        //   this.setError()
-        // }
+        this.files = await promiseFiles;
     };
 }
