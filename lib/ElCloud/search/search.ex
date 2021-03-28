@@ -12,16 +12,16 @@ defmodule ElCloud.Storage do
 
   def recursiveSearch(queryFilename, directory) do
      File.ls!(directory)
-     |> Enum.map(fn file -> iterator(directory, file, queryFilename) end)
-     |> List.flatten()
+      |> Enum.map(fn file -> iterator(directory, file, queryFilename) end)
+      |> List.flatten()
+      |> Enum.filter(fn file -> String.match?(file, ~r/#{queryFilename}/) end)
   end
 
 
   def iterator(directory, filename, queryFilename) do
     fullPath = Path.join(directory, filename)
-    isFolder = File.dir?(fullPath)
 
-    if isFolder, do: recursiveSearch(queryFilename, fullPath), else: filename
+    if File.dir?(fullPath), do: recursiveSearch(queryFilename, fullPath), else: filename
 
   end
 
