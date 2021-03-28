@@ -5,33 +5,24 @@ defmodule ElCloud.Storage do
   import Ecto.Query, warn: false
 
   @spec search(String.t(), String.t()) :: [String.t()]
-  def search(directory, filename) do
-    # recursiveSearch(directory, filename)
-      File.ls!(directory)
-        |> Enum.filter(fn file -> String.match?(file, ~r/#{filename}/) end)
+  def search(directory, queryFilename) do
+    recursiveSearch(queryFilename, directory)
   end
 
 
-  def recursiveSearch(directory, filename) do
-    File.ls!(directory)
-     |>  Enum.filter(fn file -> String.match?(file, ~r/#{filename}/) end)
-    #  Enum.map(fn file ->
-      #   IO.inspect(file)
-      #   iterator(Path.join(directory, file), filename)
-      # end)
-end
+  def recursiveSearch(queryFilename, directory) do
+     File.ls!(directory)
+     |> Enum.map(fn file -> iterator(directory, file, queryFilename) end)
+     |> List.flatten()
+  end
 
 
-def iterator(directory, filename) do
-  isFolder = File.dir?(directory)
+  def iterator(directory, filename, queryFilename) do
+    fullPath = Path.join(directory, filename)
+    isFolder = File.dir?(fullPath)
 
-  children = if isFolder, do: recursiveSearch(directory, filename), else: []
-  IO.inspect(directory)
+    if isFolder, do: recursiveSearch(queryFilename, fullPath), else: filename
 
-  # IO.inspect List.flatten(children)
-  files = Enum.filter(List.flatten(children), fn file -> String.match?(file, ~r/#{filename}/) end)
-  # IO.inspect files
-  files
-end
+  end
 
 end
