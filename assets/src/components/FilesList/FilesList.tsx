@@ -9,7 +9,7 @@ import { FilesListStore } from './FileListStore';
 export const FilesList: FC = observer((props) => {
     const filesListStore = useInject<FilesListStore>(SERVICE_IDENTIFIER.FilesListStore);
     const rowRenderer = (props: ListRowProps) => {
-        return <FileView key={props.key} file={filesListStore.files[props.index]} />;
+        return <FileView key={props.key} style={props.style} file={filesListStore.files[props.index]} />;
     };
 
     return (

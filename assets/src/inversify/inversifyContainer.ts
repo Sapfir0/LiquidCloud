@@ -3,6 +3,7 @@ import 'reflect-metadata';
 import { FileListDropdownStore } from '../components/FileListFactory/FileListFactoryDropdownStore';
 import { FilesListStore } from '../components/FilesList/FileListStore';
 import { SortableTreeStore } from '../components/SortableTree/SortableTreeStore';
+import { TableFileStore } from '../components/Table/TableFileStore';
 import ApiInteractionService from '../services/ApiInteractionService';
 import { FileInteractionService } from '../services/apiServices/FileInteractionService';
 import BaseApiInteractionService from '../services/BaseApiInteractionService';
@@ -17,5 +18,6 @@ container.bind(SERVICE_IDENTIFIER.FileInteractionService).to(FileInteractionServ
 container.bind(SERVICE_IDENTIFIER.FileSystemChecker).to(FileSystemChecker).inSingletonScope();
 container.bind(SERVICE_IDENTIFIER.FileListDropdownStore).to(FileListDropdownStore).inSingletonScope();
 container.bind(SERVICE_IDENTIFIER.SortableTreeStore).to(SortableTreeStore);
+container.bind(SERVICE_IDENTIFIER.TableFileStore).to(TableFileStore);
 
 export default container;

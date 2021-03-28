@@ -7,7 +7,6 @@ import { Column, Table, TableCellProps } from 'react-virtualized';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { ClientRoutes } from '../../services/clientRouteContants';
 import { useInject } from '../../shared/hooks/injectHook';
-import { FilesListFactoryStore } from '../FileListFactory/FilesListFactoryStore';
 import { TableFileStore } from './TableFileStore';
 
 export const FileTable = observer(() => {
@@ -15,6 +14,7 @@ export const FileTable = observer(() => {
     const rowGetter = ({ index }) => {
         return store.files[index];
     };
+    console.log('render table');
 
     const FileTypeCell = (props: TableCellProps) => (
         <div>{props.cellData ? <FolderIcon /> : <InsertDriveFileIcon />}</div>
@@ -41,6 +41,7 @@ export const FileTable = observer(() => {
             headerHeight={headerHeight}
             rowCount={rowCount}
             width={600}
+            scrollToIndex={store.scrollToIndex}
             rows={store.files}
             onRowsRendered={store.handleRowsScroll}
             rowGetter={rowGetter}
