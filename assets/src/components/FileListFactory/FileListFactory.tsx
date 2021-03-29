@@ -13,7 +13,6 @@ export const FileListViewDropdown = observer(() => {
             <MenuItem value={FileListViewDropdownEnum.Tree}>SortableTree</MenuItem>
             <MenuItem value={FileListViewDropdownEnum.List}>List</MenuItem>
             <MenuItem value={FileListViewDropdownEnum.Table}>Table</MenuItem>
-
         </Select>
     );
 });

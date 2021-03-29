@@ -5,5 +5,9 @@ const FILE = {
     GET_ALL_FILES: `${FILE_HIGH_LEVEL_DOMAIN}`,
 };
 
+const SEARCH_HIGH_LEVEL_DOMAIN = '/search';
+const SEARCH = {
+    GET_SEARCH: `${SEARCH_HIGH_LEVEL_DOMAIN}`,
+};
 
-export const ApiRoutes = { FILE } as const;
+export const ApiRoutes = { FILE, SEARCH } as const;

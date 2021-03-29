@@ -9,11 +9,17 @@ import { ApiRoutes } from '../serverRouteContants';
 @injectable()
 export class FileInteractionService {
     public isLastRequestErrored: BaseInteractionError | null = null;
+    public defaultElementsPerPage: undefined | number = undefined;
+    public defaultPage = 0;
 
     constructor(@inject(SERVICE_IDENTIFIER.ApiInteractionService) protected _apiService: IApiInteractionService) {}
 
-    public getFiles = async (directory = '.') => {
-        const res = await this._apiService.get<{ data: FileViewDTO[] }>(ApiRoutes.FILE.GET_ALL_FILES, { directory });
+    public getFiles = async (directory = '.', page = this.defaultPage, perPage = this.defaultElementsPerPage) => {
+        const res = await this._apiService.get<{ data: FileViewDTO[] }>(ApiRoutes.FILE.GET_ALL_FILES, {
+            directory,
+            page,
+            page_size: perPage,
+        });
         if (isRight(res)) {
             return res.right.data;
         } else {

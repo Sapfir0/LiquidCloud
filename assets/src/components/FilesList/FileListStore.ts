@@ -1,5 +1,4 @@
 import { inject, injectable } from 'inversify';
-import { action, makeObservable, observable } from 'mobx';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { FileInteractionService } from '../../services/apiServices/FileInteractionService';
 import { FileSystemChecker } from '../../services/socket';
