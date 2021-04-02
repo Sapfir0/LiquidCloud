@@ -5,12 +5,12 @@ defmodule ElCloud.FileStorageTest do
 
   @data_dir Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:data_dir]
 
-  def listFiles_by_path(list, path) do
-    ListHelper.recursive_find(list, :path, path)
+  def listFilesByPath(list, path) do
+    ListHelper.recursiveFind(list, :path, path)
   end
 
-  def find_by_path(list, path) do
-    ListHelper.find_by(list, :path, path)
+  def findByPath(list, path) do
+    ListHelper.findBy(list, :path, path)
   end
 
   describe "fileStorage" do
@@ -27,14 +27,14 @@ defmodule ElCloud.FileStorageTest do
 
       files = FileStorage.listFiles(@file_attrs.folder, 0, 100)
 
-      assert listFiles_by_path(files, @file_attrs.filepath) != nil
+      assert listFilesByPath(files, @file_attrs.filepath) != nil
     end
 
     test "listFiles/1 returns created file with properly parameters" do
       File.write(@file_attrs.filepath, "empty file", [:append])
 
       files = FileStorage.listFiles(@file_attrs.folder, 0, 100)
-      file = find_by_path(files, @file_attrs.filepath)
+      file = findByPath(files, @file_attrs.filepath)
 
       assert file !== nil
       assert file.info.size != 0
@@ -50,11 +50,11 @@ defmodule ElCloud.FileStorageTest do
       # 1. если папка находится дальше, чем page_size от начала
       # 2. если взять большой page_size, то тест может затянуться, если у нас есть папки с большой вложенностью(а в этом тесте мы как раз проверяем корректную вложенность)
 
-      assert listFiles_by_path(files, @inner_file_attrs.filepath) != nil
+      assert listFilesByPath(files, @inner_file_attrs.filepath) != nil
 
       parent_files = FileStorage.listFiles(@inner_file_attrs.folder,  0, 100, true)
-      file = find_by_path(parent_files, @inner_file_attrs.filepath)
-      assert listFiles_by_path(files, @inner_file_attrs.filepath) != nil
+      file = findByPath(parent_files, @inner_file_attrs.filepath)
+      assert listFilesByPath(files, @inner_file_attrs.filepath) != nil
 
       File.rm!(@inner_file_attrs.filepath)
       File.rmdir!(@inner_file_attrs.folder)

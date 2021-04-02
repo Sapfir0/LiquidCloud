@@ -2,7 +2,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
-const { CheckerPlugin } = require('awesome-typescript-loader');
 const fs = require('fs');
 const dotenv = require('dotenv');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -74,8 +73,7 @@ module.exports = (env) => {
             rules: [
                 {
                     test: /\.tsx?$/,
-                    exclude: /(node_modules)/,
-                    loader: 'awesome-typescript-loader',
+                    loader: 'ts-loader',
                     options: {
                         compilerOptions: {
                             sourceMap: !isProduction,
@@ -125,7 +123,6 @@ module.exports = (env) => {
             new CopyWebpackPlugin({
                 patterns: [{ from: 'static/', to: '../' }],
             }),
-            new CheckerPlugin(),
         ],
     };
 };
