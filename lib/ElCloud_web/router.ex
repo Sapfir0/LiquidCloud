@@ -18,6 +18,9 @@ defmodule ElCloudWeb.Router do
 
     resources "/files", FileStorageController, except: [:new, :edit]
     put "/files", FileStorageController, :move_file
+    delete "/files", FileStorageController, :delete
+    get "/file",  FileStorageController, :get_file
+
     resources "/search", SearchController, except: [:new, :edit]
     resources "/users", UserController, except: [:new, :edit]
   end

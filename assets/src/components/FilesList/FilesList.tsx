@@ -16,8 +16,7 @@ export const FilesList: FC = observer((props) => {
     };
 
     const searchStore = useInject<SearchStore>(SERVICE_IDENTIFIER.SearchStore);
-    console.log(searchStore.isActive);
-    
+
     return (
         <>
             <Search currentDirectory={filesListStore.currentDirectory} />
