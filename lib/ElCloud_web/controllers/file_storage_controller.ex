@@ -36,11 +36,11 @@ defmodule ElCloudWeb.FileStorageController do
     response(200, "OK", Schema.ref(:FileResponse))
   end
 
-  def get_file(conn, %{"path" => path}) do
-    file = FileStorage.get_file(path)
-    conn.send_file(file)
+  def get_file(conn, params) do
+    directory = Path.join(@data_dir, Map.get(params, "path", ""))
+    IO.inspect params
+    Plug.Conn.send_file(conn, 200, directory)
   end
-
 
 
   def getSaveFileCount(directory) do

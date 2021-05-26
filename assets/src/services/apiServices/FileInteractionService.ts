@@ -38,4 +38,26 @@ export class FileInteractionService {
             this.isLastRequestErrored = res.left;
         }
     };
+
+    public getFile = async (path: string) => {
+        const res = await this._apiService.get<{ data: FileViewDTO[] }>(ApiRoutes.FILE.GET_FILE(path), {
+            path: path,
+        });
+        if (isRight(res)) {
+            return res.right.data;
+        } else {
+            this.isLastRequestErrored = res.left;
+        }
+    };
+
+    public removeFile = async (path: string) => {
+        const res = await this._apiService.delete<{ data: FileViewDTO[] }>(ApiRoutes.FILE.GET_ALL_FILES, {
+            path: path,
+        });
+        if (isRight(res)) {
+            return res.right.data;
+        } else {
+            this.isLastRequestErrored = res.left;
+        }
+    };
 }

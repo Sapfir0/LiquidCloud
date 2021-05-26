@@ -38,4 +38,16 @@ export class FilesListFactoryStore {
 
         this.files = await promiseFiles;
     };
+
+    public removeFile = async (path: string): Promise<void> => {
+        const promiseFiles = this._apiService.removeFile(path);
+
+        await promiseFiles;
+    };
+
+    public getFile = async (path: string): Promise<void> => {
+        const promiseFiles = this._apiService.getFile(path);
+
+        await promiseFiles;
+    };
 }

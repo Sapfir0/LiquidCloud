@@ -6,6 +6,7 @@ import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { ClientRoutes } from '../../services/clientRouteContants';
+import { ApiRoutes, API_URL } from '../../services/serverRouteContants';
 import { useInject } from '../../shared/hooks/injectHook';
 import { FileViewDTO } from '../../shared/types/DTO';
 import { FilesListStore } from '../FilesList/FileListStore';
@@ -19,7 +20,7 @@ export type FileViewProps = {
 export const FileView: FC<FileViewProps> = (props: FileViewProps) => {
     const filesListStore = useInject<FilesListStore>(SERVICE_IDENTIFIER.FilesListStore);
     const { file } = props;
-    const newDir = `${filesListStore.currentDirectory}/${file.filename}`;
+    const filepath = `${filesListStore.currentDirectory}/${file.filename}`;
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -27,8 +28,11 @@ export const FileView: FC<FileViewProps> = (props: FileViewProps) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
+    const withClose = (func?: () => any) => {
         setAnchorEl(null);
+        if (func) {
+            func();
+        }
     };
 
     return (
@@ -39,14 +43,18 @@ export const FileView: FC<FileViewProps> = (props: FileViewProps) => {
                     {!file.isFolder && <InsertDriveFileIcon />}
                 </ListItemIcon>
                 {/* <Checkbox checked={false} onChange={handleClick} /> */}
-                {file.isFolder && <Link to={`${ClientRoutes.Index}${newDir}`}>{file.filename} </Link>}
+                {file.isFolder && <Link to={`${ClientRoutes.Index}${filepath}`}>{file.filename} </Link>}
                 {!file.isFolder && file.filename}
                 <IconButton onClick={handleClick}>
                     <MoreHorizIcon />
                 </IconButton>
-                <Menu anchorEl={anchorEl} onClose={handleClose} open={!!anchorEl}>
-                    <MenuItem>Download</MenuItem>
-                    <MenuItem>Remove</MenuItem>
+                <Menu anchorEl={anchorEl} onClose={() => withClose()} open={!!anchorEl}>
+                    <MenuItem>
+                        <a href={`${API_URL}${ApiRoutes.FILE.GET_FILE(filepath)}`} download={file.filename}>
+                            Download
+                        </a>
+                    </MenuItem>
+                    <MenuItem onClick={() => withClose(() => filesListStore.removeFile(filepath))}>Remove </MenuItem>
                     <MenuItem>Rename</MenuItem>
                 </Menu>
             </ListItem>
