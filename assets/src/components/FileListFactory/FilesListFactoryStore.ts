@@ -45,6 +45,12 @@ export class FilesListFactoryStore {
         await promiseFiles;
     };
 
+    public renameFile = async (oldPath: string, newPath: string): Promise<void> => {
+        const promiseFiles = this._apiService.updateFile(oldPath, newPath);
+
+        await promiseFiles;
+    };
+
     public getFile = async (path: string): Promise<void> => {
         const promiseFiles = this._apiService.getFile(path);
 

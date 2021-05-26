@@ -28,21 +28,6 @@ defmodule ElCloudWeb.FileStorageController do
     }
   end
 
-
-  swagger_path(:show) do
-    get("/api/file")
-    summary("files")
-    description("Download file in directory")
-    response(200, "OK", Schema.ref(:FileResponse))
-  end
-
-  def get_file(conn, params) do
-    directory = Path.join(@data_dir, Map.get(params, "path", ""))
-    IO.inspect params
-    Plug.Conn.send_file(conn, 200, directory)
-  end
-
-
   def getSaveFileCount(directory) do
     files = length(File.ls!(directory))
     if files === 0, do: 1, else: files
@@ -71,8 +56,8 @@ defmodule ElCloudWeb.FileStorageController do
     description("List all files in directory")
   end
   def move_file(conn, %{"oldPath" => oldPath, "newPath" => newPath}) do
-    res = DirectoryTreeHelper.move_file(oldPath, newPath)
-
+    res = DirectoryTreeHelper.move_file(Path.join(@data_dir, oldPath), Path.join(@data_dir, newPath))
+    IO.inspect res
     if res == :ok do
       render(conn, "show.json", file_storage: %{"operation" => res})
     else
