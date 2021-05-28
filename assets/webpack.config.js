@@ -2,7 +2,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
-const { CheckerPlugin } = require('awesome-typescript-loader');
 const fs = require('fs');
 const dotenv = require('dotenv');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -48,34 +47,11 @@ module.exports = (env) => {
         resolve: {
             extensions: ['.tsx', '.ts', '.js'],
         },
-        // optimization: {
-        //     runtimeChunk: 'single',
-        //     splitChunks: {
-        //         chunks: 'all',
-        //         maxInitialRequests: Infinity,
-        //         minSize: 0,
-        //         cacheGroups: {
-        //             vendor: {
-        //                 test: /[\\/]node_modules[\\/]/,
-        //                 name(module) {
-        //                     // получает имя, то есть node_modules/packageName/not/this/part.js
-        //                     // или node_modules/packageName
-        //                     const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
-
-        //                     // имена npm-пакетов можно, не опасаясь проблем, использовать
-        //                     // в URL, но некоторые серверы не любят символы наподобие @
-        //                     return `npm.${packageName.replace('@', '')}`;
-        //                 },
-        //             },
-        //         },
-        //     },
-        // },
         module: {
             rules: [
                 {
                     test: /\.tsx?$/,
-                    exclude: /(node_modules)/,
-                    loader: 'awesome-typescript-loader',
+                    loader: 'ts-loader',
                     options: {
                         compilerOptions: {
                             sourceMap: !isProduction,
@@ -125,7 +101,6 @@ module.exports = (env) => {
             new CopyWebpackPlugin({
                 patterns: [{ from: 'static/', to: '../' }],
             }),
-            new CheckerPlugin(),
         ],
     };
 };

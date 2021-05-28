@@ -4,7 +4,7 @@ import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { IApiInteractionService } from '../../shared/types/ApiTypes';
 import { FileViewDTO } from '../../shared/types/DTO';
 import { BaseInteractionError } from '../Errors/BaseInteractionError';
-import { ApiRoutes } from '../serverRouteContants';
+import { ApiRoutes, API_URL } from '../serverRouteContants';
 
 @injectable()
 export class FileInteractionService {
@@ -31,6 +31,47 @@ export class FileInteractionService {
         const res = await this._apiService.put<{ data: FileViewDTO[] }>(ApiRoutes.FILE.GET_ALL_FILES, {
             oldPath: oldDirectory,
             newPath: newDirectory,
+        });
+        if (isRight(res)) {
+            return res.right.data;
+        } else {
+            this.isLastRequestErrored = res.left;
+        }
+    };
+
+    public uploadFile = async (file: File, directory: string) => {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('directory', directory)
+
+        const res = await this._apiService.post<{ data: FileViewDTO[] }>(
+            ApiRoutes.FILE.GET_ALL_FILES,
+            formData,
+            API_URL,
+            { multipartData: true },
+        );
+        if (isRight(res)) {
+            return res.right.data;
+        } else {
+            this.isLastRequestErrored = res.left;
+        }
+    };
+
+    // deprecated
+    public getFile = async (path: string) => {
+        const res = await this._apiService.get<{ data: FileViewDTO[] }>(ApiRoutes.FILE.GET_FILE(path), {
+            path: path,
+        });
+        if (isRight(res)) {
+            return res.right.data;
+        } else {
+            this.isLastRequestErrored = res.left;
+        }
+    };
+
+    public removeFile = async (path: string) => {
+        const res = await this._apiService.delete<{ data: FileViewDTO[] }>(ApiRoutes.FILE.GET_ALL_FILES, {
+            path: path,
         });
         if (isRight(res)) {
             return res.right.data;

@@ -1,5 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { action, makeObservable, observable } from 'mobx';
+import { IndexRange } from 'react-virtualized';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { FileInteractionService } from '../../services/apiServices/FileInteractionService';
 import { FileSystemChecker } from '../../services/socket';
@@ -9,7 +10,7 @@ import { FilesListFactoryStore } from '../FileListFactory/FilesListFactoryStore'
 export class TableFileStore extends FilesListFactoryStore {
     public page = 0;
     public perPage = 20;
-    public scrollToIndex = undefined;
+    public scrollToIndex: number | undefined = undefined;
 
     constructor(
         @inject(SERVICE_IDENTIFIER.FileInteractionService) apiService: FileInteractionService,
@@ -28,7 +29,7 @@ export class TableFileStore extends FilesListFactoryStore {
         this.files = (await this._apiService.getFiles(this.currentDirectory, this.page, this.perPage)) as any;
     };
 
-    public handleRowsScroll = ({ stopIndex }): void => {
+    public handleRowsScroll = ({ stopIndex }: IndexRange): void => {
         this.page = Math.ceil(stopIndex / this.perPage);
         this.scrollToIndex = undefined;
     };

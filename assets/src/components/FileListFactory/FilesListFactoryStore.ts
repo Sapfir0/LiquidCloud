@@ -34,8 +34,28 @@ export class FilesListFactoryStore {
     };
 
     public getFiles = async (): Promise<void> => {
-        const promiseFiles = this._apiService.getFiles(this.currentDirectory);
+        const files = await this._apiService.getFiles(this.currentDirectory);
+        if (files) {
+            this.files = files;
+        }
+    };
 
-        this.files = await promiseFiles;
+    public removeFile = async (path: string): Promise<void> => {
+        const promiseFiles = this._apiService.removeFile(path);
+
+        await promiseFiles;
+    };
+
+    public renameFile = async (oldPath: string, newPath: string): Promise<void> => {
+        const promiseFiles = this._apiService.updateFile(oldPath, newPath);
+
+        await promiseFiles;
+    };
+
+    public getFile = async (path: string): Promise<void> => {
+        const promiseFiles = this._apiService.getFile(path);
+
+        await promiseFiles;
+
     };
 }

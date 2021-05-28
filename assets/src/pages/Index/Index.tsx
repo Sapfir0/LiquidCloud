@@ -11,6 +11,7 @@ import {
 } from '../../components/FileListFactory/FileListFactoryDropdownStore';
 import { FilesListStore } from '../../components/FilesList/FileListStore';
 import { FilesList } from '../../components/FilesList/FilesList';
+import { FileUpload } from '../../components/FileUpload/FileUpload';
 import { SortableFileTree } from '../../components/SortableTree/SortableTree';
 import { FileTable } from '../../components/Table/Table';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
@@ -41,6 +42,7 @@ const Index: FC = observer((props) => {
     return (
         <>
             <Card className="main">
+                <FileUpload />
                 <div className="main__container">
                     <Breadcrumbs />
                     <FileListViewDropdown />
