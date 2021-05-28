@@ -5,7 +5,7 @@ defmodule ElCloud.FileStorageTest do
 
   @data_dir Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:data_dir]
 
-  def listFilesByPath(list, path) do
+  def list_files_by_path(list, path) do
     ListHelper.recursiveFind(list, :path, path)
   end
 
@@ -25,15 +25,15 @@ defmodule ElCloud.FileStorageTest do
     test "listFiles/1 returns created file" do
       File.write(@file_attrs.filepath, "empty file", [:append])
 
-      files = FileStorage.listFiles(@file_attrs.folder, 0, 100)
+      files = FileStorage.list_files(@file_attrs.folder, 0, 100)
 
-      assert listFilesByPath(files, @file_attrs.filepath) != nil
+      assert list_files_by_path(files, @file_attrs.filepath) != nil
     end
 
     test "listFiles/1 returns created file with properly parameters" do
       File.write(@file_attrs.filepath, "empty file", [:append])
 
-      files = FileStorage.listFiles(@file_attrs.folder, 0, 100)
+      files = FileStorage.list_files(@file_attrs.folder, 0, 100)
       file = findByPath(files, @file_attrs.filepath)
 
       assert file !== nil
@@ -46,15 +46,15 @@ defmodule ElCloud.FileStorageTest do
       File.mkdir(@inner_file_attrs.folder)
       File.write(@inner_file_attrs.filepath, "Some File info", [:append])
 
-      files = FileStorage.listFiles(@file_attrs.folder, 0, 10, true) # хаха может быть куча проблем тут:
+      files = FileStorage.list_files(@file_attrs.folder, 0, 10, true) # хаха может быть куча проблем тут:
       # 1. если папка находится дальше, чем page_size от начала
       # 2. если взять большой page_size, то тест может затянуться, если у нас есть папки с большой вложенностью(а в этом тесте мы как раз проверяем корректную вложенность)
 
-      assert listFilesByPath(files, @inner_file_attrs.filepath) != nil
+      assert list_files_by_path(files, @inner_file_attrs.filepath) != nil
 
-      parent_files = FileStorage.listFiles(@inner_file_attrs.folder,  0, 100, true)
+      parent_files = FileStorage.list_files(@inner_file_attrs.folder,  0, 100, true)
       file = findByPath(parent_files, @inner_file_attrs.filepath)
-      assert listFilesByPath(files, @inner_file_attrs.filepath) != nil
+      assert list_files_by_path(files, @inner_file_attrs.filepath) != nil
 
       File.rm!(@inner_file_attrs.filepath)
       File.rmdir!(@inner_file_attrs.folder)
