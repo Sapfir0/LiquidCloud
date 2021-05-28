@@ -66,6 +66,20 @@ defmodule ElCloudWeb.FileStorageController do
   end
 
 
+
+  swagger_path(:post) do
+    PhoenixSwagger.Path.post("/api/files")
+    summary("Delete file")
+    description("Delete file")
+  end
+  def create(conn, %{"file" => file, "directory" => directory}) do
+    IO.inspect file
+    fullpath = Path.join([@data_dir, directory, file.filename])
+    IO.inspect fullpath
+    File.cp(file.path, Path.absname(fullpath))
+    render(conn, "show.json", file_storage: %{"operation" => "success"})
+  end
+
   swagger_path(:delete) do
     PhoenixSwagger.Path.delete("/api/files")
     summary("Delete file")

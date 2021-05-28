@@ -9,4 +9,6 @@ export const SERVICE_IDENTIFIER = {
     SortableTreeStore: Symbol.for('SortableTreeStore'),
     TableFileStore: Symbol.for('TableFileStore'),
     SearchStore: Symbol.for('SearchStore'),
+    FileUploadStore: Symbol.for('FileUploadStore'),
+    FilesListFactoryStore: Symbol.for('FilesListFactoryStore'),
 };

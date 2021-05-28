@@ -3,7 +3,7 @@ import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Column, Table, TableCellProps } from 'react-virtualized';
+import { Column, Index, Table, TableCellProps, TableRowProps } from 'react-virtualized';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { ClientRoutes } from '../../services/clientRouteContants';
 import { useInject } from '../../shared/hooks/injectHook';
@@ -11,7 +11,7 @@ import { TableFileStore } from './TableFileStore';
 
 export const FileTable = observer(() => {
     const store = useInject<TableFileStore>(SERVICE_IDENTIFIER.TableFileStore);
-    const rowGetter = ({ index }) => {
+    const rowGetter = ({ index }: Index) => {
         return store.files[index];
     };
     console.log('render table');

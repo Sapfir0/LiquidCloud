@@ -4,7 +4,7 @@ import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { IApiInteractionService } from '../../shared/types/ApiTypes';
 import { FileViewDTO } from '../../shared/types/DTO';
 import { BaseInteractionError } from '../Errors/BaseInteractionError';
-import { ApiRoutes } from '../serverRouteContants';
+import { ApiRoutes, API_URL } from '../serverRouteContants';
 
 @injectable()
 export class FileInteractionService {
@@ -39,6 +39,25 @@ export class FileInteractionService {
         }
     };
 
+    public uploadFile = async (file: File, directory: string) => {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('directory', directory)
+
+        const res = await this._apiService.post<{ data: FileViewDTO[] }>(
+            ApiRoutes.FILE.GET_ALL_FILES,
+            formData,
+            API_URL,
+            { multipartData: true },
+        );
+        if (isRight(res)) {
+            return res.right.data;
+        } else {
+            this.isLastRequestErrored = res.left;
+        }
+    };
+
+    // deprecated
     public getFile = async (path: string) => {
         const res = await this._apiService.get<{ data: FileViewDTO[] }>(ApiRoutes.FILE.GET_FILE(path), {
             path: path,

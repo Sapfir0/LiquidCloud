@@ -40,7 +40,7 @@ export const FileView: FC<FileViewProps> = (props: FileViewProps) => {
             filesListStore.renameFile(file.filename, newName);
             setRename(false);
         }
-        if (e.key == 'Esc') {
+        if (e.key == 'Esc') { // TODO сейчас не вызывается
             setRename(false);
         }
     };

@@ -7,7 +7,7 @@ dist
 .vscode
 data
 .elixir_ls
-
+*.lock
 # The directory Mix downloads your dependencies sources to.
 deps/
 
