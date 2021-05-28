@@ -28,4 +28,5 @@ container.bind(SERVICE_IDENTIFIER.SearchStore).to(SearchStore).inSingletonScope(
 container.bind(SERVICE_IDENTIFIER.FileUploadStore).to(FileUploadStore).inSingletonScope();
 container.bind(SERVICE_IDENTIFIER.FilesListFactoryStore).to(FilesListFactoryStore).inSingletonScope();
 
+
 export default container;

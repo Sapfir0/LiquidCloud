@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { ClientRoutes } from '../../services/clientRouteContants';
 import { ApiRoutes, API_URL } from '../../services/serverRouteContants';
+
 import { useInject } from '../../shared/hooks/injectHook';
 import { FileViewDTO } from '../../shared/types/DTO';
 import { FilesListStore } from '../FilesList/FileListStore';
@@ -47,6 +48,7 @@ export const FileView: FC<FileViewProps> = (props: FileViewProps) => {
 
     const [isRenaming, setRename] = useState(false);
     const [newName, setName] = useState(file.filename);
+
 
     return (
         <div style={props.style}>

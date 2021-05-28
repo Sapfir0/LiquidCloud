@@ -56,5 +56,6 @@ export class FilesListFactoryStore {
         const promiseFiles = this._apiService.getFile(path);
 
         await promiseFiles;
+
     };
 }

@@ -11,4 +11,5 @@ export const SERVICE_IDENTIFIER = {
     SearchStore: Symbol.for('SearchStore'),
     FileUploadStore: Symbol.for('FileUploadStore'),
     FilesListFactoryStore: Symbol.for('FilesListFactoryStore'),
+
 };

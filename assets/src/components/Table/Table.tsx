@@ -12,6 +12,7 @@ import { TableFileStore } from './TableFileStore';
 export const FileTable = observer(() => {
     const store = useInject<TableFileStore>(SERVICE_IDENTIFIER.TableFileStore);
     const rowGetter = ({ index }: Index) => {
+
         return store.files[index];
     };
     console.log('render table');
