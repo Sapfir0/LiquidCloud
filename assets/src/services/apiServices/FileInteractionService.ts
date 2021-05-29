@@ -2,9 +2,10 @@ import { isRight } from 'fp-ts/lib/Either';
 import { inject, injectable } from 'inversify';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { IApiInteractionService } from '../../shared/types/ApiTypes';
-import { FileViewDTO } from '../../shared/types/DTO';
 import { BaseInteractionError } from '../Errors/BaseInteractionError';
 import { ApiRoutes, API_URL } from '../serverRouteContants';
+import { definitions } from ['File'];
+ } from '../../shared/types/DTO';
 
 @injectable()
 export class FileInteractionService {
@@ -15,7 +16,7 @@ export class FileInteractionService {
     constructor(@inject(SERVICE_IDENTIFIER.ApiInteractionService) protected _apiService: IApiInteractionService) {}
 
     public getFiles = async (directory = '.', page = this.defaultPage, perPage = this.defaultElementsPerPage) => {
-        const res = await this._apiService.get<{ data: FileViewDTO[] }>(ApiRoutes.FILE.GET_ALL_FILES, {
+        const res = await this._apiService.get<{ data: definitions['File'][] }>(ApiRoutes.FILE.GET_ALL_FILES, {
             directory,
             page,
             page_size: perPage,
@@ -28,7 +29,7 @@ export class FileInteractionService {
     };
 
     public updateFile = async (oldDirectory: string, newDirectory: string) => {
-        const res = await this._apiService.put<{ data: FileViewDTO[] }>(ApiRoutes.FILE.GET_ALL_FILES, {
+        const res = await this._apiService.put<{ data: definitions['File'][] }>(ApiRoutes.FILE.GET_ALL_FILES, {
             oldPath: oldDirectory,
             newPath: newDirectory,
         });
@@ -44,7 +45,7 @@ export class FileInteractionService {
         formData.append('file', file);
         formData.append('directory', directory)
 
-        const res = await this._apiService.post<{ data: FileViewDTO[] }>(
+        const res = await this._apiService.post<{ data: definitions['File'][] }>(
             ApiRoutes.FILE.GET_ALL_FILES,
             formData,
             API_URL,
@@ -59,7 +60,7 @@ export class FileInteractionService {
 
     // deprecated
     public getFile = async (path: string) => {
-        const res = await this._apiService.get<{ data: FileViewDTO[] }>(ApiRoutes.FILE.GET_FILE(path), {
+        const res = await this._apiService.get<{ data: definitions['File'][] }>(ApiRoutes.FILE.GET_FILE(path), {
             path: path,
         });
         if (isRight(res)) {
@@ -70,7 +71,7 @@ export class FileInteractionService {
     };
 
     public removeFile = async (path: string) => {
-        const res = await this._apiService.delete<{ data: FileViewDTO[] }>(ApiRoutes.FILE.GET_ALL_FILES, {
+        const res = await this._apiService.delete<{ data: definitions['File'][] }>(ApiRoutes.FILE.GET_ALL_FILES, {
             path: path,
         });
         if (isRight(res)) {

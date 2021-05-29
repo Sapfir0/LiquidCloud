@@ -1,18 +1,19 @@
 import DescriptionIcon from '@material-ui/icons/Description';
 import FolderIcon from '@material-ui/icons/Folder';
 import React from 'react';
-import { FlatDataItem, getNodeAtPath, map, TreeItem } from 'react-sortable-tree';
-import { FileViewDTO } from '../shared/types/DTO';
+import { FlatDataItem, getNodeAtPath, map } from 'react-sortable-tree';
 import { FilesTree } from '../shared/types/Files';
+import { definitions } from ['File'];
+ } from '../shared/types/DTO';
 
-export const getTree = (treeData: FileViewDTO[], oldTreeData?: FileViewDTO[]): FilesTree[] =>
+export const getTree = (treeData: definitions['File'][], oldTreeData?: definitions['File'][]): FilesTree[] =>
     map({
         treeData: treeData as FilesTree[],
         ignoreCollapsed: false,
         getNodeKey: ({ node: TreeNode, treeIndex: number }) => {
             return number;
         },
-        callback: (data: FlatDataItem & { node: FileViewDTO }) => {
+        callback: (data: FlatDataItem & { node: definitions['File'] }) => {
             let isExpanded = data.node.expanded;
             if (oldTreeData !== undefined) {
                 const oldNode = getNodeAtPath({

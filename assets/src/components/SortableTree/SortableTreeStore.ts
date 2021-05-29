@@ -6,9 +6,10 @@ import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { FileInteractionService } from '../../services/apiServices/FileInteractionService';
 import { FileSystemChecker } from '../../services/socket';
 import { getTree } from '../../services/treeUtils';
-import { FileViewDTO } from '../../shared/types/DTO';
 import { FilesTree } from '../../shared/types/Files';
 import { FilesListFactoryStore } from '../FileListFactory/FilesListFactoryStore';
+import { definitions } from ['File'];
+ } from '../../shared/types/DTO';
 
 export class SortableTreeStore extends FilesListFactoryStore {
     public previousTree: FilesTree[] = [];
@@ -25,7 +26,7 @@ export class SortableTreeStore extends FilesListFactoryStore {
         });
     }
 
-    public get treeState(): FileViewDTO[] & TreeItem[] {
+    public get treeState(): definitions['File'][] & TreeItem[] {
         return getTree(this.files);
     }
 

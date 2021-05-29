@@ -5,8 +5,9 @@ import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
 import 'react-sortable-tree/style.css';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { useInject } from '../../shared/hooks/injectHook';
-import { FileViewDTO } from '../../shared/types/DTO';
 import { SortableTreeStore } from './SortableTreeStore';
+import { definitions } from ['File'];
+ } from '../../shared/types/DTO';
 
 export const SortableFileTree = observer(() => {
     const store = useInject<SortableTreeStore>(SERVICE_IDENTIFIER.SortableTreeStore);

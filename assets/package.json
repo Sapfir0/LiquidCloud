@@ -3,7 +3,8 @@
   "license": "MIT",
   "scripts": {
     "deploy": "webpack --mode production --env.NODE_ENV=prod",
-    "watch": "webpack --mode development --watch  --env.NODE_ENV=dev"
+    "watch": "buildSchema && webpack --mode development --watch  --env.NODE_ENV=dev",
+    "buildSchema": "curl http://localhost:4000/api/swagger/swagger.json > schema.json && openapi-typescript ./schema.json --output ./src/shared/types/EndpointDescription.ts"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.1",
@@ -55,7 +56,7 @@
     "eslint-plugin-react": "^7.22.0",
     "html-webpack-plugin": "^4.4.1",
     "mini-css-extract-plugin": "^0.9.0",
-    "openapi-typescript": "^2.4.2",
+    "openapi-typescript": "^3.3.1",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
     "prettier": "^2.2.1",

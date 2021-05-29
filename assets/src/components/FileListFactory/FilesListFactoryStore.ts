@@ -4,11 +4,10 @@ import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { FileInteractionService } from '../../services/apiServices/FileInteractionService';
 import { ClientRouteType } from '../../services/clientRouteContants';
 import { FileSystemChecker } from '../../services/socket';
-import { FileViewDTO } from '../../shared/types/DTO';
-
+import { definitions } from '../../shared/types/EndpointDescription';
 @injectable()
 export class FilesListFactoryStore {
-    public files: FileViewDTO[] = [];
+    public files: definitions['File'][] = [];
     protected _apiService: FileInteractionService;
     public currentDirectory = '';
 
@@ -56,6 +55,5 @@ export class FilesListFactoryStore {
         const promiseFiles = this._apiService.getFile(path);
 
         await promiseFiles;
-
     };
 }

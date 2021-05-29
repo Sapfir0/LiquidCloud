@@ -2,11 +2,12 @@ import { inject, injectable } from 'inversify';
 import { action, makeObservable, observable } from 'mobx';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { SearchInteractionService } from '../../services/apiServices/SearchInteractionService';
-import { FileViewDTO } from '../../shared/types/DTO';
+import { definitions } from ['File'];
+ } from '../../shared/types/DTO';
 
 @injectable()
 export class SearchStore {
-    public searchResult: FileViewDTO[] = [];
+    public searchResult: definitions['File'][] = [];
     protected _apiService: SearchInteractionService;
     public isActive = false;
 

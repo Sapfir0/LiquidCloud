@@ -1,4 +1,5 @@
 import { TreeItem } from 'react-sortable-tree';
-import { FileViewDTO } from './DTO';
+import { definitions } from ['File'];
+ } from './DTO';
 
-export type FilesTree = FileViewDTO & TreeItem;
+export type FilesTree = definitions['File'] & TreeItem;

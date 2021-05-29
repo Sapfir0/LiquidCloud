@@ -7,14 +7,15 @@ import { Link } from 'react-router-dom';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { ClientRoutes } from '../../services/clientRouteContants';
 import { ApiRoutes, API_URL } from '../../services/serverRouteContants';
-
 import { useInject } from '../../shared/hooks/injectHook';
-import { FileViewDTO } from '../../shared/types/DTO';
 import { FilesListStore } from '../FilesList/FileListStore';
 import './FileView.css';
+import { definitions } from ['File'];
+
+ } from '../../shared/types/DTO';
 
 export type FileViewProps = {
-    file: FileViewDTO;
+    file: definitions['File'];
     style?: React.CSSProperties;
 };
 
