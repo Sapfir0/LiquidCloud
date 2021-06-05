@@ -73,9 +73,7 @@ defmodule ElCloudWeb.FileStorageController do
     description("Delete file")
   end
   def create(conn, %{"file" => file, "directory" => directory}) do
-    IO.inspect file
     fullpath = Path.join([@data_dir, directory, file.filename])
-    IO.inspect fullpath
     File.cp(file.path, Path.absname(fullpath))
     render(conn, "show.json", file_storage: %{"operation" => "success"})
   end

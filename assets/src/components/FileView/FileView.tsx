@@ -8,11 +8,9 @@ import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { ClientRoutes } from '../../services/clientRouteContants';
 import { ApiRoutes, API_URL } from '../../services/serverRouteContants';
 import { useInject } from '../../shared/hooks/injectHook';
+import { definitions } from '../../shared/types/EndpointDescription';
 import { FilesListStore } from '../FilesList/FileListStore';
 import './FileView.css';
-import { definitions } from ['File'];
-
- } from '../../shared/types/DTO';
 
 export type FileViewProps = {
     file: definitions['File'];
@@ -42,7 +40,8 @@ export const FileView: FC<FileViewProps> = (props: FileViewProps) => {
             filesListStore.renameFile(file.filename, newName);
             setRename(false);
         }
-        if (e.key == 'Esc') { // TODO сейчас не вызывается
+        if (e.key == 'Esc') {
+            // TODO сейчас не вызывается
             setRename(false);
         }
     };
@@ -50,10 +49,9 @@ export const FileView: FC<FileViewProps> = (props: FileViewProps) => {
     const [isRenaming, setRename] = useState(false);
     const [newName, setName] = useState(file.filename);
 
-
     return (
         <div style={props.style}>
-            <ListItem key={file.filename} role="listitem" button={file.isFolder as true}>
+            <ListItem key={file.filename} role="listitem" button={(file.isFolder as unknown) as true}>
                 <ListItemIcon>
                     {file.isFolder && <FolderIcon />}
                     {!file.isFolder && <InsertDriveFileIcon />}

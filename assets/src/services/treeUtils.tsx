@@ -2,9 +2,9 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import FolderIcon from '@material-ui/icons/Folder';
 import React from 'react';
 import { FlatDataItem, getNodeAtPath, map } from 'react-sortable-tree';
+import { definitions } from '../shared/types/EndpointDescription';
 import { FilesTree } from '../shared/types/Files';
-import { definitions } from ['File'];
- } from '../shared/types/DTO';
+
 
 export const getTree = (treeData: definitions['File'][], oldTreeData?: definitions['File'][]): FilesTree[] =>
     map({

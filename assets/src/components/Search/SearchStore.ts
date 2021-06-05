@@ -2,8 +2,8 @@ import { inject, injectable } from 'inversify';
 import { action, makeObservable, observable } from 'mobx';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { SearchInteractionService } from '../../services/apiServices/SearchInteractionService';
-import { definitions } from ['File'];
- } from '../../shared/types/DTO';
+import { definitions } from '../../shared/types/EndpointDescription';
+
 
 @injectable()
 export class SearchStore {

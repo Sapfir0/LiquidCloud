@@ -2,10 +2,9 @@ import { isRight } from 'fp-ts/lib/Either';
 import { inject, injectable } from 'inversify';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { IApiInteractionService } from '../../shared/types/ApiTypes';
+import { definitions } from '../../shared/types/EndpointDescription';
 import { BaseInteractionError } from '../Errors/BaseInteractionError';
 import { ApiRoutes, API_URL } from '../serverRouteContants';
-import { definitions } from ['File'];
- } from '../../shared/types/DTO';
 
 @injectable()
 export class FileInteractionService {

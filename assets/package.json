@@ -3,7 +3,7 @@
   "license": "MIT",
   "scripts": {
     "deploy": "webpack --mode production --env.NODE_ENV=prod",
-    "watch": "buildSchema && webpack --mode development --watch  --env.NODE_ENV=dev",
+    "watch": "webpack --mode development --watch ",
     "buildSchema": "curl http://localhost:4000/api/swagger/swagger.json > schema.json && openapi-typescript ./schema.json --output ./src/shared/types/EndpointDescription.ts"
   },
   "dependencies": {
