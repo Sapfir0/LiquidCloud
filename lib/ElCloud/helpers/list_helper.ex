@@ -1,16 +1,16 @@
 defmodule ElCloud.ListHelper do
-  def findBy(list, field_name, fieldValue) do
-    Enum.find(list, fn x -> Map.get(x, field_name) == fieldValue end)
+  def find_by(list, field_name, field_value) do
+    Enum.find(list, fn x -> Map.get(x, field_name) == field_value end)
   end
 
-  def recursiveFind(list, field_name, fieldValue) do
+  def recursive_find(list, field_name, field_value) do
     Enum.find(
       list,
       fn x ->
         if x.children !== nil do
-          recursiveFind(x.children, field_name, fieldValue)
+          recursive_find(x.children, field_name, field_value)
         else
-          Map.get(x, field_name) === fieldValue
+          Map.get(x, field_name) === field_value
         end
       end
     )

@@ -1,33 +1,33 @@
 defmodule DirectoryTreeHelper do
 
   @type file :: %{
-          :isFolder => boolean(),
+          :is_folder => boolean(),
           :filename => String.t(),
           :path => String.t(),
           :children => nil | [file()],
           :info => %{:size => non_neg_integer()}
         }
 
-  def listAll(filepath, page, page_size, isRecursive) do
+  def listAll(filepath, page, page_size, is_recursive) do
       File.ls!(filepath)
         |> Enum.chunk_every(page_size)
         |> Enum.at(page, [])
-        |> Enum.map(fn file -> iterator(filepath, file, page, page_size, isRecursive) end)
+        |> Enum.map(fn file -> iterator(filepath, file, page, page_size, is_recursive) end)
   end
 
 
   @spec iterator(String.t(), String.t(), integer(), integer(), boolean()) :: file()
-  def iterator(filepath, filename, page, page_size, isRecursive) do
-    fullPath = "#{filepath}/#{filename}"
-    isFolder = File.dir?(fullPath)
-    fileStat = File.lstat!(fullPath)
+  def iterator(filepath, filename, page, page_size, is_recursive) do
+    full_path = "#{filepath}/#{filename}"
+    is_folder = File.dir?(full_path)
+    fileStat = File.lstat!(full_path)
 
-    children = if isRecursive and isFolder, do: listAll(fullPath, page, page_size, isRecursive), else: nil
+    children = if is_recursive and is_folder, do: listAll(full_path, page, page_size, is_recursive), else: nil
 
     %{
-      :isFolder => isFolder,
+      :is_folder => is_folder,
       :filename => filename,
-      :path => fullPath,
+      :path => full_path,
       :info => %{
         :size => fileStat.size
       },

@@ -5,7 +5,6 @@ import { FlatDataItem, getNodeAtPath, map } from 'react-sortable-tree';
 import { definitions } from '../shared/types/EndpointDescription';
 import { FilesTree } from '../shared/types/Files';
 
-
 export const getTree = (treeData: definitions['File'][], oldTreeData?: definitions['File'][]): FilesTree[] =>
     map({
         treeData: treeData as FilesTree[],
@@ -31,7 +30,7 @@ export const getTree = (treeData: definitions['File'][], oldTreeData?: definitio
                 // expanded: isExpanded,
                 title: (
                     <>
-                        {data.node.isFolder ? <FolderIcon /> : <DescriptionIcon />}
+                        {data.node.is_folder ? <FolderIcon /> : <DescriptionIcon />}
                         {data.node.filename}
                     </>
                 ),

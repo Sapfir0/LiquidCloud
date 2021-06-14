@@ -6,11 +6,11 @@ defmodule ElCloud.FileStorageTest do
   @data_dir Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:data_dir]
 
   def list_files_by_path(list, path) do
-    ListHelper.recursiveFind(list, :path, path)
+    ListHelper.recursive_find(list, :path, path)
   end
 
-  def findByPath(list, path) do
-    ListHelper.findBy(list, :path, path)
+  def find_byPath(list, path) do
+    ListHelper.find_by(list, :path, path)
   end
 
   describe "fileStorage" do
@@ -34,11 +34,11 @@ defmodule ElCloud.FileStorageTest do
       File.write(@file_attrs.filepath, "empty file", [:append])
 
       files = FileStorage.list_files(@file_attrs.folder, 0, 100)
-      file = findByPath(files, @file_attrs.filepath)
+      file = find_byPath(files, @file_attrs.filepath)
 
       assert file !== nil
       assert file.info.size != 0
-      assert file.isFolder == false
+      assert file.is_folder == false
       assert file.children == nil
     end
 
@@ -53,7 +53,7 @@ defmodule ElCloud.FileStorageTest do
       assert list_files_by_path(files, @inner_file_attrs.filepath) != nil
 
       parent_files = FileStorage.list_files(@inner_file_attrs.folder,  0, 100, true)
-      file = findByPath(parent_files, @inner_file_attrs.filepath)
+      file = find_byPath(parent_files, @inner_file_attrs.filepath)
       assert list_files_by_path(files, @inner_file_attrs.filepath) != nil
 
       File.rm!(@inner_file_attrs.filepath)

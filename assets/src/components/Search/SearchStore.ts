@@ -4,12 +4,15 @@ import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { SearchInteractionService } from '../../services/apiServices/SearchInteractionService';
 import { definitions } from '../../shared/types/EndpointDescription';
 
-
 @injectable()
 export class SearchStore {
     public searchResult: definitions['File'][] = [];
     protected _apiService: SearchInteractionService;
     public isActive = false;
+
+    public get hasResults(): boolean {
+        return this.isActive && this.searchResult.length !== 0;
+    }
 
     constructor(@inject(SERVICE_IDENTIFIER.SearchInteractionService) apiService: SearchInteractionService) {
         this._apiService = apiService;
@@ -17,21 +20,24 @@ export class SearchStore {
             searchResult: observable,
             search: action,
             setActive: action,
-            toggleActive: action,
+            setDisabled: action,
             isActive: observable,
         });
     }
 
-    public setActive = (state: boolean) => {
-        this.isActive = state;
+    public setActive = (): void => {
+        this.isActive = true;
     };
 
-    public toggleActive = () => {
-        this.isActive = !this.isActive;
+    public setDisabled = (): void => {
+        this.isActive = false;
+        this.searchResult = [];
     };
 
     public search = async (query: string, directory = '.'): Promise<void> => {
-        const promiseSearchRes = this._apiService.search(query, directory);
-        this.searchResult = await promiseSearchRes;
+        if (query !== '') {
+            const promiseSearchRes = this._apiService.search(query, directory);
+            this.searchResult = await promiseSearchRes;
+        }
     };
 }

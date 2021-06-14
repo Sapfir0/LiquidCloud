@@ -13,8 +13,10 @@ config :elCloud, ElCloudWeb.Endpoint,
   check_origin: false,
   watchers: [
     node: [
-      "yarn", "buildSchema",
-      "yarn", "watch",
+      "node_modules/webpack/bin/webpack.js",
+      "--mode",
+      "development",
+      "--watch",
       cd: Path.expand("../assets", __DIR__)
     ]
   ]

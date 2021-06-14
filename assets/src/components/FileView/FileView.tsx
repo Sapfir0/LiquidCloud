@@ -51,14 +51,14 @@ export const FileView: FC<FileViewProps> = (props: FileViewProps) => {
 
     return (
         <div style={props.style}>
-            <ListItem key={file.filename} role="listitem" button={(file.isFolder as unknown) as true}>
+            <ListItem key={file.filename} role="listitem" button={(file.is_folder as unknown) as true}>
                 <ListItemIcon>
-                    {file.isFolder && <FolderIcon />}
-                    {!file.isFolder && <InsertDriveFileIcon />}
+                    {file.is_folder && <FolderIcon />}
+                    {!file.is_folder && <InsertDriveFileIcon />}
                 </ListItemIcon>
                 {/* <Checkbox checked={false} onChange={handleClick} /> */}
-                {!isRenaming && file.isFolder && <Link to={`${ClientRoutes.Index}${filepath}`}>{file.filename} </Link>}
-                {!isRenaming && !file.isFolder && file.filename}
+                {!isRenaming && file.is_folder && <Link to={`${ClientRoutes.Index}${filepath}`}>{file.filename} </Link>}
+                {!isRenaming && !file.is_folder && file.filename}
                 {isRenaming && (
                     <Input onKeyPress={keyPress} onChange={(event) => setName(event.target.value)} value={newName} />
                 )}

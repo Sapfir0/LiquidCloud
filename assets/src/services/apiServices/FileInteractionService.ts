@@ -42,7 +42,7 @@ export class FileInteractionService {
     public uploadFile = async (file: File, directory: string) => {
         const formData = new FormData();
         formData.append('file', file);
-        formData.append('directory', directory)
+        formData.append('directory', directory);
 
         const res = await this._apiService.post<{ data: definitions['File'][] }>(
             ApiRoutes.FILE.GET_ALL_FILES,

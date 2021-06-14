@@ -7,11 +7,10 @@ import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { useInject } from '../../shared/hooks/injectHook';
 import { SortableTreeStore } from './SortableTreeStore';
 
-
 export const SortableFileTree = observer(() => {
     const store = useInject<SortableTreeStore>(SERVICE_IDENTIFIER.SortableTreeStore);
 
-    const canNodeHaveChildren = (node: TreeItem): boolean => node.isFolder;
+    const canNodeHaveChildren = (node: TreeItem): boolean => node.is_folder;
     const getNodeKey = (data: TreeNode & TreeIndex) => data.node.path;
 
     return (

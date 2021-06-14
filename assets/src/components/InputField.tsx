@@ -5,12 +5,13 @@ import React from 'react';
 export interface InputFieldProps {
     onChange: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
     onClose: () => void;
+    style?: React.CSSProperties;
 }
 
 export const InputField = (props: InputFieldProps) => {
     return (
         <>
-            <Input className="table-action" onChange={props.onChange} />
+            <Input style={props.style} className="table-action" onChange={props.onChange} />
             <IconButton onClick={props.onClose}>
                 <CloseIcon />
             </IconButton>

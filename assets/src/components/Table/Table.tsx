@@ -3,7 +3,7 @@ import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Column, Index, Table, TableCellProps, TableRowProps } from 'react-virtualized';
+import { Column, Index, Table, TableCellProps } from 'react-virtualized';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { ClientRoutes } from '../../services/clientRouteContants';
 import { useInject } from '../../shared/hooks/injectHook';
@@ -12,7 +12,6 @@ import { TableFileStore } from './TableFileStore';
 export const FileTable = observer(() => {
     const store = useInject<TableFileStore>(SERVICE_IDENTIFIER.TableFileStore);
     const rowGetter = ({ index }: Index) => {
-
         return store.files[index];
     };
     console.log('render table');
@@ -23,7 +22,7 @@ export const FileTable = observer(() => {
 
     const FilenameCell = (props: TableCellProps) => {
         const newDir = `${store.currentDirectory}/${props.cellData}`;
-        return props.rowData.isFolder ? (
+        return props.rowData.is_folder ? (
             <Link to={`${ClientRoutes.Index}${newDir}`}>{props.cellData} </Link>
         ) : (
             props.cellData
@@ -47,7 +46,7 @@ export const FileTable = observer(() => {
             onRowsRendered={store.handleRowsScroll}
             rowGetter={rowGetter}
         >
-            <Column label="" dataKey="isFolder" width={50} cellRenderer={FileTypeCell} />
+            <Column label="" dataKey="is_folder" width={50} cellRenderer={FileTypeCell} />
             <Column label="Filename" dataKey="filename" width={250} cellRenderer={FilenameCell} />
         </Table>
     );
