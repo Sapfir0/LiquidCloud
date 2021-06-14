@@ -9,7 +9,7 @@ defmodule ElCloud.FileStorage do
     if !File.exists?(directory) do
       {:error, :folderNotFound}
     else
-      DirectoryTreeHelper.listAll(directory, page, page_size, is_recursive)
+      DirectoryTreeHelper.list_all(directory, page, page_size, is_recursive)
     end
   end
 

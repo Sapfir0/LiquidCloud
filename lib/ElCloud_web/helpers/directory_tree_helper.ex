@@ -8,7 +8,7 @@ defmodule DirectoryTreeHelper do
           :info => %{:size => non_neg_integer()}
         }
 
-  def listAll(filepath, page, page_size, is_recursive) do
+  def list_all(filepath, page, page_size, is_recursive) do
       File.ls!(filepath)
         |> Enum.chunk_every(page_size)
         |> Enum.at(page, [])
@@ -22,7 +22,7 @@ defmodule DirectoryTreeHelper do
     is_folder = File.dir?(full_path)
     fileStat = File.lstat!(full_path)
 
-    children = if is_recursive and is_folder, do: listAll(full_path, page, page_size, is_recursive), else: nil
+    children = if is_recursive and is_folder, do: list_all(full_path, page, page_size, is_recursive), else: nil
 
     %{
       :is_folder => is_folder,

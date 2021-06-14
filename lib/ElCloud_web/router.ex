@@ -23,7 +23,7 @@ defmodule ElCloudWeb.Router do
 
     get "/file",  FileController, :show
 
-
+    resources "/indexed_search", IndexedSearchController, except: [:new, :edit]
     resources "/search", SearchController, except: [:new, :edit]
     resources "/users", UserController, except: [:new, :edit]
   end
