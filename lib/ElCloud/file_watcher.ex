@@ -16,10 +16,10 @@ defmodule ElCloud.Watcher do
 
   def handle_info({:file_event, watcher_pid, {path, events}}, state) do
     current_event = List.last(events)
-    # Logger.info path, current_event
-    ElCloudWeb.FileChannel.send_message("File #{:path} was #{:current_event}")
 
+    ElCloudWeb.FileChannel.send_message("File #{:path} was #{:current_event}")
     IO.inspect current_event
+    # dirs = DirectoryTreeHelper.list_all(directory, 0, 100, true)
 
     {:noreply, state}
   end

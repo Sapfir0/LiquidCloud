@@ -3,6 +3,7 @@ defmodule ElCloud.UserManager.User do
   import Ecto.Changeset
   alias ElCloud.UserManager.{User, Encryption}
 
+  @primary_key {:id, Ecto.UUID, autogenerate: true}
   schema "users" do
     field :password, :string
     field :username, :string
