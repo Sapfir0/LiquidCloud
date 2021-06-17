@@ -3,7 +3,7 @@ defmodule ElCloud.Search.Helper do
   The Store context.
   """
   import Ecto.Query, warn: false
-  @data_dir Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:data_dir]
+  @data_dir Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:indexes_file]
 
   @spec not_indexed_search(String.t(), String.t()) :: [String.t()]
   def not_indexed_search(directory, query_filename) do
@@ -14,8 +14,7 @@ defmodule ElCloud.Search.Helper do
   def indexed_search(directory, query_filename) do
     IO.inspect directory
     # todo вынести логику в отдельный процесс, запускаемый на каждое изменение файлов
-
-    # File.write(@data_dir <> "/hello.json", Poison.encode!(dirs), [:binary])
+    
   end
 
   def recursive_search(query_filename, directory) do

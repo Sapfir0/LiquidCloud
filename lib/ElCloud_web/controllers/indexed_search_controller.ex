@@ -8,7 +8,10 @@ defmodule ElCloudWeb.IndexedSearchController do
   @data_dir Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:data_dir]
 
   def index(conn, %{"query" => query, "directory" => directory} = params) do
-    files = ElCloud.Storage.indexed_search(@data_dir <> directory, query)
+    IO.inspect directory
+    IO.inspect query
+    # ElCloud.Search.Storage.create_file_index()
+    files = ElCloud.Search.Helper.indexed_search(@data_dir <> directory, query)
     render(conn, "index.json", searchResult: files)
   end
 

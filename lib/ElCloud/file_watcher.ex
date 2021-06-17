@@ -2,6 +2,8 @@ defmodule ElCloud.Watcher do
   use GenServer
   require Logger
   require ElCloudWeb.FileChannel
+  @indexes_file "./hello.json"
+  @data_dir Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:indexes_file]
 
   def start_link(dirs) do
     IO.puts(Path.absname(dirs))
@@ -11,6 +13,7 @@ defmodule ElCloud.Watcher do
   def init(args) do
     {:ok, watcher_pid} = FileSystem.start_link(args)
     FileSystem.subscribe(watcher_pid)
+
     {:ok, %{watcher_pid: watcher_pid}}
   end
 
@@ -18,11 +21,13 @@ defmodule ElCloud.Watcher do
     current_event = List.last(events)
 
     ElCloudWeb.FileChannel.send_message("File #{:path} was #{:current_event}")
+    IO.inspect path
     IO.inspect current_event
-    # dirs = DirectoryTreeHelper.list_all(directory, 0, 100, true)
-
+    # update_file_index(@indexes_file)
     {:noreply, state}
   end
+
+
 
   def handle_info({:file_event, watcher_pid, :stop}, %{watcher_pid: watcher_pid} = state) do
     # Your own logic when monitor stop
