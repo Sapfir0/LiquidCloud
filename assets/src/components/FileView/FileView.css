@@ -2,3 +2,7 @@
   height: 70px;
   width: 70px;
 }
+
+.menu__download-link {
+  text-decoration: none;
+}

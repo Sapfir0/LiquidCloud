@@ -11,6 +11,7 @@ import { useInject } from '../../shared/hooks/injectHook';
 import { definitions } from '../../shared/types/EndpointDescription';
 import { FilesListStore } from '../FilesList/FileListStore';
 import './FileView.css';
+import mainColor from '@material-ui/core/colors/grey';
 
 export type FileViewProps = {
     file: definitions['File'];
@@ -67,11 +68,16 @@ export const FileView: FC<FileViewProps> = (props: FileViewProps) => {
                 </IconButton>
                 <Menu anchorEl={anchorEl} onClose={() => withClose()} open={!!anchorEl}>
                     <MenuItem>
-                        <a href={`${API_URL}${ApiRoutes.FILE.GET_FILE(filepath)}`} download={file.filename}>
+                        <a
+                            style={{ color: mainColor[900] }}
+                            className="menu__download-link"
+                            href={`${API_URL}${ApiRoutes.FILE.GET_FILE(filepath)}`}
+                            download={file.filename}
+                        >
                             Download
                         </a>
                     </MenuItem>
-                    <MenuItem onClick={() => withClose(() => filesListStore.removeFile(filepath))}>Remove </MenuItem>
+                    <MenuItem onClick={() => withClose(() => filesListStore.removeFile(filepath))}>Remove</MenuItem>
                     <MenuItem onClick={() => withClose(() => setRename(true))}>Rename</MenuItem>
                 </Menu>
             </ListItem>

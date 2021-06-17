@@ -15,9 +15,7 @@ defmodule ElCloud.Search.Helper do
     IO.inspect directory
     # todo вынести логику в отдельный процесс, запускаемый на каждое изменение файлов
 
-
     # File.write(@data_dir <> "/hello.json", Poison.encode!(dirs), [:binary])
-    dirs
   end
 
   def recursive_search(query_filename, directory) do
