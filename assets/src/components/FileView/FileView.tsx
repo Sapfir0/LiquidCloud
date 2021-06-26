@@ -1,8 +1,9 @@
 import { IconButton, Input, ListItem, ListItemIcon, Menu, MenuItem } from '@material-ui/core';
+import mainColor from '@material-ui/core/colors/grey';
 import FolderIcon from '@material-ui/icons/Folder';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { ClientRoutes } from '../../services/clientRouteContants';
@@ -11,7 +12,7 @@ import { useInject } from '../../shared/hooks/injectHook';
 import { definitions } from '../../shared/types/EndpointDescription';
 import { FilesListStore } from '../FilesList/FileListStore';
 import './FileView.css';
-import mainColor from '@material-ui/core/colors/grey';
+import { FileViewStore } from './FIleViewStore';
 
 export type FileViewProps = {
     file: definitions['File'];
@@ -19,36 +20,10 @@ export type FileViewProps = {
 };
 
 export const FileView: FC<FileViewProps> = (props: FileViewProps) => {
-    const filesListStore = useInject<FilesListStore>(SERVICE_IDENTIFIER.FilesListStore);
     const { file } = props;
-    const filepath = `${filesListStore.currentDirectory}/${file.filename}`;
-
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const withClose = (func?: () => any) => {
-        setAnchorEl(null);
-        if (func) {
-            func();
-        }
-    };
-
-    const keyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
-        if (e.key == 'Enter') {
-            filesListStore.renameFile(file.filename, newName);
-            setRename(false);
-        }
-        if (e.key == 'Esc') {
-            // TODO сейчас не вызывается
-            setRename(false);
-        }
-    };
-
-    const [isRenaming, setRename] = useState(false);
-    const [newName, setName] = useState(file.filename);
+    const fileListStore = useInject<FilesListStore>(SERVICE_IDENTIFIER.FilesListStore);
+    const filepath = `${fileListStore.currentDirectory}/${file.filename}`;
+    const { isRenaming, keyPress } = useInject<FileViewStore>(SERVICE_IDENTIFIER.FileViewStore);
 
     return (
         <div style={props.style}>
@@ -57,11 +32,15 @@ export const FileView: FC<FileViewProps> = (props: FileViewProps) => {
                     {file.is_folder && <FolderIcon />}
                     {!file.is_folder && <InsertDriveFileIcon />}
                 </ListItemIcon>
-                {/* <Checkbox checked={false} onChange={handleClick} /> */}
+
                 {!isRenaming && file.is_folder && <Link to={`${ClientRoutes.Index}${filepath}`}>{file.filename} </Link>}
                 {!isRenaming && !file.is_folder && file.filename}
                 {isRenaming && (
-                    <Input onKeyPress={keyPress} onChange={(event) => setName(event.target.value)} value={newName} />
+                    <Input
+                        onKeyPress={keyPress(file)}
+                        onChange={(event) => setName(event.target.value)}
+                        value={newName}
+                    />
                 )}
                 <IconButton onClick={handleClick}>
                     <MoreHorizIcon />
