@@ -6,7 +6,7 @@ defmodule ElCloud.FileStorageTest do
   @data_dir Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:data_dir]
 
   def list_files_by_path(list, path) do
-    ListHelper.recursive_find(list, :path, path)
+    ListHelper.recursive_find(list, :path, path, false)
   end
 
   def find_byPath(list, path) do
