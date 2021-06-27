@@ -13,8 +13,10 @@ config :elCloud, ElCloudWeb.Endpoint,
   check_origin: false,
   watchers: [
     node: [
-      "yarn", "buildSchema",
-      "yarn", "watch",
+      "node_modules/webpack/bin/webpack.js",
+      "--mode",
+      "development",
+      "--watch",
       cd: Path.expand("../assets", __DIR__)
     ]
   ]
@@ -41,11 +43,14 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 config :elCloud, ElCloudWeb.FileStorageController, data_dir: "./data"
+# config :elCloud, ElCloud.Search.Helper, indexes_file: "./hello.json"
+
+
 
 # Configure your database
 config :elCloud, ElCloud.Repo,
   username: "postgres",
-  password: "f6445828e4ed4b36bc4b42f658b803aa",
+  password: "1234",
   database: "elCloud_dev",
   hostname: "localhost",
   pool_size: 10

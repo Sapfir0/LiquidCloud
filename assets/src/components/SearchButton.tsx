@@ -4,11 +4,12 @@ import React, { MouseEventHandler } from 'react';
 
 export interface SearchButtonProps {
     onClick: MouseEventHandler;
+    style?: React.CSSProperties;
 }
 
 export const SearchButton = (props: SearchButtonProps): React.ReactElement => {
     return (
-        <IconButton onClick={props.onClick}>
+        <IconButton style={props.style} onClick={props.onClick}>
             <SearchIcon />
         </IconButton>
     );

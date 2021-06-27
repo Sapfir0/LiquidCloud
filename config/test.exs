@@ -14,7 +14,7 @@ config :elCloud, ElCloudWeb.FileStorageController, data_dir: "./data"
 # Configure your database
 config :elCloud, ElCloud.Repo,
   username: "postgres",
-  password: "f6445828e4ed4b36bc4b42f658b803aa",
+  password: "1234",
   database: "elCloud_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

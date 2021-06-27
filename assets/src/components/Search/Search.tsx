@@ -8,6 +8,7 @@ import { SearchStore } from './SearchStore';
 
 export type SearchProps = {
     currentDirectory: string;
+    style?: React.CSSProperties;
 };
 
 export const Search = observer((props: SearchProps) => {
@@ -18,11 +19,11 @@ export const Search = observer((props: SearchProps) => {
     };
 
     const ActiveSearch = () => {
-        return <InputField onClose={() => searchStore.setActive(false)} onChange={onChange} />;
+        return <InputField style={props.style} onClose={() => searchStore.setDisabled()} onChange={onChange} />;
     };
 
     const DisabledSearch = () => {
-        return <SearchButton onClick={() => searchStore.setActive(true)} />;
+        return <SearchButton style={props.style} onClick={() => searchStore.setActive()} />;
     };
 
     if (searchStore.isActive) {

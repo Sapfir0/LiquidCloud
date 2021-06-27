@@ -17,6 +17,9 @@ config :elCloud, ElCloudWeb.Endpoint,
   render_errors: [view: ElCloudWeb.ErrorView, accepts: ~w(html json)],
   pubsub_server: ElCloud.PubSub
 
+
+config :elCloud, ElCloud.Repo, migration_primary_key: [type: :uuid]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

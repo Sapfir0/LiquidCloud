@@ -9,13 +9,13 @@ export enum FileListViewDropdownEnum {
 
 @injectable()
 export class FileListDropdownStore {
-    public currentItem: FileListViewDropdownEnum = FileListViewDropdownEnum.List;
+    public viewType: FileListViewDropdownEnum = FileListViewDropdownEnum.List;
 
     constructor() {
-        makeObservable(this, { currentItem: observable, setCurrentItem: action });
+        makeObservable(this, { viewType: observable, setCurrentItem: action });
     }
 
     setCurrentItem = (event: React.ChangeEvent<{ value: unknown }>): void => {
-        this.currentItem = event.target.value as FileListViewDropdownEnum;
+        this.viewType = event.target.value as FileListViewDropdownEnum;
     };
 }

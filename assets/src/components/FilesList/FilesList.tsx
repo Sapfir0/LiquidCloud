@@ -18,9 +18,7 @@ export const FilesList: FC = observer((props) => {
     const searchStore = useInject<SearchStore>(SERVICE_IDENTIFIER.SearchStore);
     return (
         <>
-            <Search currentDirectory={filesListStore.currentDirectory} />
-
-            {!searchStore.isActive && (
+            {!searchStore.hasResults && (
                 <List
                     height={600}
                     overscanRowCount={10}
@@ -31,7 +29,7 @@ export const FilesList: FC = observer((props) => {
                     width={600}
                 />
             )}
-            {searchStore.isActive && <SearchList />}
+            {searchStore.hasResults && <SearchList />}
         </>
     );
 });

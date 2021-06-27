@@ -63,7 +63,7 @@ export interface definitions {
   /** Get list of files in directory */
   File: {
     /** Is folder */
-    isFolder: { [key: string]: any };
+    is_folder: { [key: string]: any };
     /** Filename */
     filename: string;
     /** List of children files */

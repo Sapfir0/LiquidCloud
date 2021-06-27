@@ -14,7 +14,7 @@ defmodule ElCloudWeb.FileStorageController do
           description("Get list of files in directory")
 
           properties do
-            isFolder(:bool, "Is folder", required: true)
+            is_folder(:bool, "Is folder", required: true)
             children(:string, "List of children files", required: true)
             filename(:string, "Filename", required: true)
           end
@@ -42,11 +42,11 @@ defmodule ElCloudWeb.FileStorageController do
   def index(conn, params) do
     directory = @data_dir <> Map.get(params, "directory", "")
     {page, _} = Integer.parse(Map.get(params, "page",  "0"))
-    isRecursive = !!Map.get(params, "is_recursive", false)
+    is_recursive = !!Map.get(params, "is_recursive", false)
     page_size = Map.get(params, "page_size", nil)
     real_page_size = if page_size === nil, do: getSaveFileCount(directory), else: String.to_integer(page_size)
 
-    files = FileStorage.list_files(directory, page, real_page_size, isRecursive)
+    files = FileStorage.list_files(directory, page, real_page_size, is_recursive)
     render(conn, "index.json", tb_files: files)
   end
 
@@ -73,8 +73,8 @@ defmodule ElCloudWeb.FileStorageController do
     description("Delete file")
   end
   def create(conn, %{"file" => file, "directory" => directory}) do
-    fullpath = Path.join([@data_dir, directory, file.filename])
-    File.cp(file.path, Path.absname(fullpath))
+    full_path = Path.join([@data_dir, directory, file.filename])
+    File.cp(file.path, Path.absname(full_path))
     render(conn, "show.json", file_storage: %{"operation" => "success"})
   end
 

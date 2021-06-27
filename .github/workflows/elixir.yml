@@ -12,7 +12,7 @@ jobs:
         image: postgres
         ports: ['5432:5432']
         env:
-          POSTGRES_PASSWORD: f6445828e4ed4b36bc4b42f658b803aa
+          POSTGRES_PASSWORD: 1234
         options: >-
           --health-cmd pg_isready
           --health-interval 10s

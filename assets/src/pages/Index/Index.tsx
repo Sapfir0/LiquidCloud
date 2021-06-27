@@ -7,11 +7,12 @@ import Breadcrumbs from '../../components/Breadcrumbs';
 import { FileListViewDropdown } from '../../components/FileListFactory/FileListFactory';
 import {
     FileListDropdownStore,
-    FileListViewDropdownEnum,
+    FileListViewDropdownEnum
 } from '../../components/FileListFactory/FileListFactoryDropdownStore';
 import { FilesListStore } from '../../components/FilesList/FileListStore';
 import { FilesList } from '../../components/FilesList/FilesList';
 import { FileUpload } from '../../components/FileUpload/FileUpload';
+import { Search } from '../../components/Search/Search';
 import { SortableFileTree } from '../../components/SortableTree/SortableTree';
 import { FileTable } from '../../components/Table/Table';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
@@ -19,10 +20,10 @@ import { ClientRoutes } from '../../services/clientRouteContants';
 import { useInject } from '../../shared/hooks/injectHook';
 import './Index.css';
 
-const comp: Map<FileListViewDropdownEnum, JSX.Element> = new Map();
-comp.set(FileListViewDropdownEnum.Tree, <SortableFileTree />);
-comp.set(FileListViewDropdownEnum.List, <FilesList />);
-comp.set(FileListViewDropdownEnum.Table, <FileTable />);
+const fileListPresentations: Map<FileListViewDropdownEnum, JSX.Element> = new Map();
+fileListPresentations.set(FileListViewDropdownEnum.Tree, <SortableFileTree />);
+fileListPresentations.set(FileListViewDropdownEnum.List, <FilesList />);
+fileListPresentations.set(FileListViewDropdownEnum.Table, <FileTable />);
 
 const Index: FC = observer((props) => {
     const store = useInject<FileListDropdownStore>(SERVICE_IDENTIFIER.FileListDropdownStore);
@@ -43,10 +44,12 @@ const Index: FC = observer((props) => {
         <>
             <Card className="main">
                 <FileUpload />
+
                 <div className="main__container">
                     <Breadcrumbs />
                     <FileListViewDropdown />
-                    {comp.get(store.currentItem)}
+                    <Search style={{ marginLeft: 10 }} currentDirectory={filesListStore.currentDirectory} />
+                    {fileListPresentations.get(store.viewType)}
                 </div>
             </Card>
         </>
