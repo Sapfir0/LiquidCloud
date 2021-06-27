@@ -12,6 +12,7 @@ import { ApiRoutes, API_URL } from '../../services/serverRouteContants';
 import { useInject } from '../../shared/hooks/injectHook';
 import { definitions } from '../../shared/types/EndpointDescription';
 import { FilesListStore } from '../FilesList/FileListStore';
+import { AbstractFile } from './AbstractFile';
 import './FileView.css';
 import { FileViewStore } from './FIleViewStore';
 
@@ -20,47 +21,8 @@ export type FileViewProps = {
     style?: React.CSSProperties;
 };
 
-export const FileView: FC<FileViewProps> = observer((props: FileViewProps) => {
-    const { file } = props;
-    const fileListStore = useInject<FilesListStore>(SERVICE_IDENTIFIER.FilesListStore);
-    const filepath = `${fileListStore.currentDirectory}/${file.filename}`;
-    const { isRenaming, keyPress, anchorEl, newName, handleClick, withClose, setName, setRename } = useInject<FileViewStore>(SERVICE_IDENTIFIER.FileViewStore);
+export const FileView: FC<FileViewProps> = observer((props: FileViewProps) => (props.file.is_folder ? <Folder {...props} /> :  <File {...props} />))
 
-    return (
-        <div style={props.style}>
-            <ListItem key={file.filename} role="listitem" button={(file.is_folder as unknown) as true}>
-                <ListItemIcon>
-                    {file.is_folder && <FolderIcon />}
-                    {!file.is_folder && <InsertDriveFileIcon />}
-                </ListItemIcon>
+export const File = (props: FileViewProps) => <AbstractFile icon={<InsertDriveFileIcon />}  nameIsLink={false} {...props} />
 
-                {!isRenaming && file.is_folder && <Link to={`${ClientRoutes.Index}${filepath}`}>{file.filename} </Link>}
-                {!isRenaming && !file.is_folder && file.filename}
-                {isRenaming && (
-                    <Input
-                        onKeyPress={keyPress(file)}
-                        onChange={(event) => setName(event.target.value)}
-                        value={newName}
-                    />
-                )}
-                <IconButton onClick={handleClick}>
-                    <MoreHorizIcon />
-                </IconButton>
-                <Menu anchorEl={anchorEl} onClose={() => withClose()} open={!!anchorEl}>
-                    <MenuItem>
-                        <a
-                            style={{ color: mainColor[900] }}
-                            className="menu__download-link"
-                            href={`${API_URL}${ApiRoutes.FILE.GET_FILE(filepath)}`}
-                            download={file.filename}
-                        >
-                            Download
-                        </a>
-                    </MenuItem>
-                    <MenuItem onClick={() => withClose(() => fileListStore.removeFile(filepath))}>Remove</MenuItem>
-                    <MenuItem onClick={() => withClose(() => setRename(true))}>Rename</MenuItem>
-                </Menu>
-            </ListItem>
-        </div>
-    );
-});
+export const Folder = (props: FileViewProps) => <AbstractFile icon={<FolderIcon />} nameIsLink={true} {...props} />
