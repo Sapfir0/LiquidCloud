@@ -4,6 +4,7 @@ import { FileListDropdownStore } from '../components/FileListFactory/FileListFac
 import { FilesListFactoryStore } from '../components/FileListFactory/FilesListFactoryStore';
 import { FilesListStore } from '../components/FilesList/FileListStore';
 import { FileUploadStore } from '../components/FileUpload/FileUploadStore';
+import { FileViewStore } from '../components/FileView/FIleViewStore';
 import { SearchStore } from '../components/Search/SearchStore';
 import { SortableTreeStore } from '../components/SortableTree/SortableTreeStore';
 import { TableFileStore } from '../components/Table/TableFileStore';
@@ -27,6 +28,7 @@ container.bind(SERVICE_IDENTIFIER.SearchInteractionService).to(SearchInteraction
 container.bind(SERVICE_IDENTIFIER.SearchStore).to(SearchStore).inSingletonScope();
 container.bind(SERVICE_IDENTIFIER.FileUploadStore).to(FileUploadStore).inSingletonScope();
 container.bind(SERVICE_IDENTIFIER.FilesListFactoryStore).to(FilesListFactoryStore).inSingletonScope();
+container.bind(SERVICE_IDENTIFIER.FileViewStore).to(FileViewStore);
 
 
 export default container;

@@ -3,6 +3,7 @@ import mainColor from '@material-ui/core/colors/grey';
 import FolderIcon from '@material-ui/icons/Folder';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import { observer } from 'mobx-react';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
@@ -19,11 +20,11 @@ export type FileViewProps = {
     style?: React.CSSProperties;
 };
 
-export const FileView: FC<FileViewProps> = (props: FileViewProps) => {
+export const FileView: FC<FileViewProps> = observer((props: FileViewProps) => {
     const { file } = props;
     const fileListStore = useInject<FilesListStore>(SERVICE_IDENTIFIER.FilesListStore);
     const filepath = `${fileListStore.currentDirectory}/${file.filename}`;
-    const { isRenaming, keyPress } = useInject<FileViewStore>(SERVICE_IDENTIFIER.FileViewStore);
+    const { isRenaming, keyPress, anchorEl, newName, handleClick, withClose, setName, setRename } = useInject<FileViewStore>(SERVICE_IDENTIFIER.FileViewStore);
 
     return (
         <div style={props.style}>
@@ -56,10 +57,10 @@ export const FileView: FC<FileViewProps> = (props: FileViewProps) => {
                             Download
                         </a>
                     </MenuItem>
-                    <MenuItem onClick={() => withClose(() => filesListStore.removeFile(filepath))}>Remove</MenuItem>
+                    <MenuItem onClick={() => withClose(() => fileListStore.removeFile(filepath))}>Remove</MenuItem>
                     <MenuItem onClick={() => withClose(() => setRename(true))}>Rename</MenuItem>
                 </Menu>
             </ListItem>
         </div>
     );
-};
+});

@@ -21,7 +21,7 @@ config :logger, level: :info
 
 config :elCloud, ElCloud.Repo,
   username: "postgres",
-  password: "f6445828e4ed4b36bc4b42f658b803aa",
+  password: "1234",
   database: "elCloud_prod",
   hostname: "postgres",
   pool_size: 10
