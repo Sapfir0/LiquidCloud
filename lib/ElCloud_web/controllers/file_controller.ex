@@ -15,7 +15,6 @@ defmodule ElCloudWeb.FileController do
 
   def show(conn, params) do
     directory = Path.join(@data_dir, Map.get(params, "path", ""))
-    IO.inspect params
     Plug.Conn.send_file(conn, 200, directory)
   end
 
