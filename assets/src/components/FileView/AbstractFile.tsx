@@ -38,11 +38,7 @@ export const AbstractFile = observer((props: AbstractFileProps) => {
                 <ListItemIcon>{props.icon}</ListItemIcon>
 
                 {isRenaming ? (
-                    <Input
-                        onKeyPress={keyPress(file)}
-                        onChange={(event) => setName(event.target.value)}
-                        value={newName}
-                    />
+                    <Input onKeyUp={keyPress(file)} onChange={(event) => setName(event.target.value)} value={newName} />
                 ) : (
                     nameOfElement
                 )}

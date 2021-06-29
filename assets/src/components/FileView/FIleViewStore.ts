@@ -1,5 +1,6 @@
 import { injectable } from 'inversify';
 import { makeObservable, observable } from 'mobx';
+import { KeyboardEventHandler } from 'react';
 import container from '../../inversify/inversifyContainer';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { definitions } from '../../shared/types/EndpointDescription';
@@ -47,13 +48,12 @@ export class FileViewStore {
 
     public keyPress =
         (file: definitions['File']) =>
-        (e: React.KeyboardEvent<HTMLDivElement>): void => {
+        (e: any): void => {
             if (e.key == 'Enter') {
                 this.filesListStore.renameFile(file.filename, this.newName);
                 this.unsetRename();
             }
-            if (e.key == 'Esc') {
-                // TODO сейчас не вызывается
+            if (e.key == 'Escape') {
                 this.unsetRename();
             }
         };
