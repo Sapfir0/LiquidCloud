@@ -21,21 +21,21 @@ export class FileViewStore {
         });
     }
 
-    public setName = (name: string) => {
+    public setName = (name: string): void => {
         this.newName = name;
     };
 
-    public setRename = (file: definitions['File']) => {
+    public setRename = (file: definitions['File']): void => {
         this.isRenaming = true;
         this.newName = file.filename;
     };
 
-    public unsetRename = () => {
+    public unsetRename = (): void => {
         this.isRenaming = false;
         this.newName = '';
     };
 
-    public handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    public handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
         this.anchorEl = event.currentTarget;
     };
 

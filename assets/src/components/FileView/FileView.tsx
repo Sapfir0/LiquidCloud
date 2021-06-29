@@ -15,8 +15,10 @@ export const FileView: FC<FileViewProps> = observer((props: FileViewProps) =>
     props.file.is_folder ? <Folder {...props} /> : <File {...props} />,
 );
 
-export const File = (props: FileViewProps) => (
+export const File = (props: FileViewProps): JSX.Element => (
     <AbstractFile icon={<InsertDriveFileIcon />} nameIsLink={false} {...props} />
 );
 
-export const Folder = (props: FileViewProps) => <AbstractFile icon={<FolderIcon />} nameIsLink={true} {...props} />;
+export const Folder = (props: FileViewProps): JSX.Element => (
+    <AbstractFile icon={<FolderIcon />} nameIsLink={true} {...props} />
+);

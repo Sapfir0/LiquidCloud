@@ -28,11 +28,6 @@ defmodule ElCloudWeb.FileStorageController do
     }
   end
 
-  def getSaveFileCount(directory) do
-    files = length(File.ls!(directory))
-    if files === 0, do: 1, else: files
-  end
-
   swagger_path(:index) do
     get("/api/files")
     summary("List files")
@@ -44,10 +39,9 @@ defmodule ElCloudWeb.FileStorageController do
     {page, _} = Integer.parse(Map.get(params, "page",  "0"))
     is_recursive = !!Map.get(params, "is_recursive", false)
     page_size = Map.get(params, "page_size", nil)
-    real_page_size = if page_size === nil, do: getSaveFileCount(directory), else: String.to_integer(page_size)
+    real_page_size = if page_size === nil, do: ElCloud.FileStorage.get_save_file_count(directory), else: String.to_integer(page_size)
 
-    files = FileStorage.list_files(directory, page, real_page_size, is_recursive)
-    render(conn, "index.json", tb_files: files)
+    render(conn, "index.json", tb_files: FileStorage.list_files(directory, page, real_page_size, is_recursive))
   end
 
   swagger_path(:update) do

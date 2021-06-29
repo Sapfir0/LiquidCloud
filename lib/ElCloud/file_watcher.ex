@@ -2,8 +2,8 @@ defmodule ElCloud.Watcher do
   use GenServer
   require Logger
   require ElCloudWeb.FileChannel
-  @indexes_file "./hello.json"
-  @data_dir Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:indexes_file]
+  @indexes_file Application.get_env(:elCloud, ElCloud.Search.Helper)[:indexes_file]
+  @data_dir Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:data_dir]
 
   def start_link(dirs) do
     IO.puts(Path.absname(dirs))

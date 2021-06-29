@@ -10,5 +10,8 @@ defmodule ElCloudWeb.IndexedSearchView do
     search
   end
 
+  def render("show.json", %{show: show}) do
+    show
+  end
 
 end

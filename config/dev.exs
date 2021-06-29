@@ -43,7 +43,7 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 config :elCloud, ElCloudWeb.FileStorageController, data_dir: "./data"
-# config :elCloud, ElCloud.Search.Helper, indexes_file: "./hello.json"
+config :elCloud, ElCloud.Search.Helper, indexes_file: "./hello.json"
 
 
 

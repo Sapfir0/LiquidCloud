@@ -3,7 +3,8 @@ defmodule ElCloud.Search.Helper do
   The Store context.
   """
   import Ecto.Query, warn: false
-  @data_dir Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:indexes_file]
+  @data_dir Application.get_env(:elCloud, ElCloudWeb.FileStorageController)[:data_dir]
+  @indexes_file Application.get_env(:elCloud, ElCloud.Search.Helper)[:indexes_file]
 
   @spec not_indexed_search(String.t(), String.t()) :: [String.t()]
   def not_indexed_search(directory, query_filename) do
@@ -12,20 +13,29 @@ defmodule ElCloud.Search.Helper do
 
   @spec indexed_search(String.t(), String.t()) :: [String.t()]
   def indexed_search(directory, query_filename) do
-    IO.inspect directory
-    # todo вынести логику в отдельный процесс, запускаемый на каждое изменение файлов
-    
+    File.read!(@indexes_file) 
+    |> Poison.decode!()  
+    |> List.flatten()
+    |> Enum.filter(fn file -> 
+      String.match?(file["filename"], ~r/#{query_filename}/) 
+    end)
+
   end
+
+  def create_indexes() do
+    File.write(@indexes_file,  Poison.encode!(ElCloud.FileStorage.list_files_unsafe(@data_dir)), [:binary])
+  end
+
 
   def recursive_search(query_filename, directory) do
      File.ls!(directory)
-      |> Enum.map(fn file -> iterator(directory, file, query_filename) end)
+      |> Enum.map(fn file -> find_in_data_dir(directory, file, query_filename) end)
       |> List.flatten()
       |> Enum.filter(fn file -> String.match?(file.filename, ~r/#{query_filename}/) end)
   end
 
 
-  def iterator(directory, filename, query_filename) do
+  def find_in_data_dir(directory, filename, query_filename) do
     full_path = Path.join(directory, filename)
     is_folder = File.dir?(full_path)
 
@@ -34,7 +44,6 @@ defmodule ElCloud.Search.Helper do
       :filename => filename,
       :path => full_path
     } # создаем объект для всех элементов, а не только для тех, кто удовлетворяет условию, так что этот код не оч
-
   end
 
 
