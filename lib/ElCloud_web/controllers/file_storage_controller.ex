@@ -56,16 +56,12 @@ defmodule ElCloudWeb.FileStorageController do
     description("List all files in directory")
   end
   def move_file(conn, %{"oldPath" => oldPath, "newPath" => newPath}) do
-    res = DirectoryTreeHelper.move_file(Path.join(@data_dir, oldPath), Path.join(@data_dir, newPath))
-    IO.inspect res
-    if res == :ok do
-      render(conn, "show.json", file_storage: %{"operation" => res})
-    else
-      {:error, :folderNotFound}
-    end
+    res = File.rename(Path.join(@data_dir, oldPath), Path.join(@data_dir, newPath))
+    send_response(conn, res)
   end
 
-
+  def send_response(conn, {:error, :enoent}), do: {:error, :folderNotFound}
+  def send_response(conn, :ok), do: render(conn, "show.json", file_storage: %{"operation" => :ok})
 
   swagger_path(:post) do
     PhoenixSwagger.Path.post("/api/files")
