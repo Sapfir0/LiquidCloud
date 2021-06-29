@@ -8,7 +8,7 @@ import { FilesListStore } from '../FilesList/FileListStore';
 @injectable()
 export class FileViewStore {
     public isRenaming = false;
-    public newName = ''; // file.filename
+    public newName = '';
     public anchorEl: null | HTMLElement = null;
     private filesListStore = container.get<FilesListStore>(SERVICE_IDENTIFIER.FilesListStore);
 
@@ -24,8 +24,14 @@ export class FileViewStore {
         this.newName = name;
     };
 
-    public setRename = (renameStatus: boolean) => {
-        this.isRenaming = renameStatus;
+    public setRename = (file: definitions['File']) => {
+        this.isRenaming = true;
+        this.newName = file.filename;
+    };
+
+    public unsetRename = () => {
+        this.isRenaming = false;
+        this.newName = '';
     };
 
     public handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -39,14 +45,16 @@ export class FileViewStore {
         }
     };
 
-    public keyPress = (file: definitions['File']) => (e: React.KeyboardEvent<HTMLDivElement>): void => {
-        if (e.key == 'Enter') {
-            this.filesListStore.renameFile(file.filename, this.newName);
-            this.setRename(false);
-        }
-        if (e.key == 'Esc') {
-            // TODO сейчас не вызывается
-            this.setRename(false);
-        }
-    };
+    public keyPress =
+        (file: definitions['File']) =>
+        (e: React.KeyboardEvent<HTMLDivElement>): void => {
+            if (e.key == 'Enter') {
+                this.filesListStore.renameFile(file.filename, this.newName);
+                this.unsetRename();
+            }
+            if (e.key == 'Esc') {
+                // TODO сейчас не вызывается
+                this.unsetRename();
+            }
+        };
 }

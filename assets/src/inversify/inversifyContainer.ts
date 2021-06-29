@@ -4,7 +4,7 @@ import { FileListDropdownStore } from '../components/FileListFactory/FileListFac
 import { FilesListFactoryStore } from '../components/FileListFactory/FilesListFactoryStore';
 import { FilesListStore } from '../components/FilesList/FileListStore';
 import { FileUploadStore } from '../components/FileUpload/FileUploadStore';
-import { FileViewStore } from '../components/FileView/FIleViewStore';
+import { FileViewStore } from '../components/FileView/FileViewStore';
 import { SearchStore } from '../components/Search/SearchStore';
 import { SortableTreeStore } from '../components/SortableTree/SortableTreeStore';
 import { TableFileStore } from '../components/Table/TableFileStore';

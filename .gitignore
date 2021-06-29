@@ -4,7 +4,6 @@ _build/
 # If you run "mix test --cover", coverage assets end up here.
 cover/
 dist
-.vscode
 data
 .elixir_ls
 *.lock

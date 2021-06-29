@@ -56,12 +56,12 @@ defmodule ElCloudWeb.FileStorageController do
     description("List all files in directory")
   end
   def move_file(conn, %{"oldPath" => oldPath, "newPath" => newPath}) do
-    res = File.rename(Path.join(@data_dir, oldPath), Path.join(@data_dir, newPath))
-    send_response(conn, res)
+    File.rename(Path.join(@data_dir, oldPath), Path.join(@data_dir, newPath)) 
+      |> send_response(conn)
   end
 
-  def send_response(conn, {:error, :enoent}), do: {:error, :folderNotFound}
-  def send_response(conn, :ok), do: render(conn, "show.json", file_storage: %{"operation" => :ok})
+  def send_response({:error, :enoent}, conn), do: {:error, :folderNotFound}
+  def send_response(:ok, conn), do: render(conn, "show.json", file_storage: :ok)
 
   swagger_path(:post) do
     PhoenixSwagger.Path.post("/api/files")
@@ -80,14 +80,9 @@ defmodule ElCloudWeb.FileStorageController do
     description("Delete file")
   end
   def delete(conn, %{"path" => path}) do
-    data_path = Path.join(@data_dir, path)
-    res = DirectoryTreeHelper.remove_file(data_path)
-
-    if res == :ok do
-      render(conn, "show.json", file_storage: %{"operation" => res})
-    else
-      {:error, :folderNotFound}
-    end
+    Path.join(@data_dir, path) 
+      |> DirectoryTreeHelper.remove_file() 
+      |> send_response(conn)
   end
 
 

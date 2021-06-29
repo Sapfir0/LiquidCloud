@@ -27,8 +27,6 @@ export class FilesListFactoryStore {
 
     public setCurrentDirectory = (currentRoute: ClientRouteType) => (locationPathname: string) => {
         this.currentDirectory = locationPathname.replace(currentRoute, '');
-        console.log(this.currentDirectory);
-
         this.getFiles();
     };
 
