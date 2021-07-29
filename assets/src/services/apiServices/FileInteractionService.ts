@@ -4,7 +4,7 @@ import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { definitions } from '../../shared/types/EndpointDescription';
 import { BaseInteractionError } from '../errors/BaseInteractionError';
 import { ApiRoutes, API_URL } from '../serverRouteContants';
-import {ApiInteractionService} from 'api_interaction_services'
+import { ApiInteractionService } from 'api_interaction_services'
 
 @injectable()
 export class FileInteractionService {

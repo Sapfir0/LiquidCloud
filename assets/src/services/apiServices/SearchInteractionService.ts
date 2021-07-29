@@ -3,7 +3,7 @@ import { inject, injectable } from 'inversify';
 import { SERVICE_IDENTIFIER } from '../../inversify/inversifyTypes';
 import { BaseInteractionError } from '../errors/BaseInteractionError';
 import { ApiRoutes } from '../serverRouteContants';
-import {ApiInteractionService} from 'api_interaction_services'
+import { ApiInteractionService } from 'api_interaction_services'
 @injectable()
 export class SearchInteractionService {
     public isLastRequestErrored: BaseInteractionError | null = null;
