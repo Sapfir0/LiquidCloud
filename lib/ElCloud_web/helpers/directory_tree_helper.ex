@@ -9,7 +9,6 @@ defmodule DirectoryTreeHelper do
         }
 
   def list_all(filepath, page, page_size, is_recursive) do
-    IO.inspect filepath
       File.ls!(filepath)
         |> Enum.chunk_every(page_size)
         |> Enum.at(page, [])
