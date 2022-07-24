@@ -9,16 +9,15 @@ defmodule DirectoryTreeHelper do
         }
 
   def list_all(filepath, page, page_size, is_recursive) do
-    IO.inspect filepath
       File.ls!(filepath)
         |> Enum.chunk_every(page_size)
         |> Enum.at(page, [])
-        |> Enum.map(fn file -> iterator(filepath, file, page, page_size, is_recursive) end)
+        |> Enum.map(fn file -> get_file(filepath, file, page, page_size, is_recursive) end)
   end
 
 
-  @spec iterator(String.t(), String.t(), integer(), integer(), boolean()) :: file()
-  def iterator(filepath, filename, page, page_size, is_recursive) do
+  @spec get_file(String.t(), String.t(), integer(), integer(), boolean()) :: file()
+  def get_file(filepath, filename, page, page_size, is_recursive) do
     full_path = "#{filepath}/#{filename}"
     is_folder = File.dir?(full_path)
     fileStat = File.lstat!(full_path)
